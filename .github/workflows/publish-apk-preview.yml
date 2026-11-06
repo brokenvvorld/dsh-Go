@@ -45,7 +45,8 @@ jobs:
           with open(os.environ['GITHUB_ENV'], 'a') as env:
               env.write(f"SOURCE_SHA={run['head_sha']}\n")
           PY
-          gh run download "$RUN_ID" --pattern 'dsh-go-*-arm64' --dir dist
+          artifact_name=$(gh api "repos/$GH_REPO/actions/runs/$RUN_ID/artifacts" --jq '[.artifacts[] | select(.expired == false and (.name | test("^dsh-go-.*-arm64$")))] | if length == 1 then .[0].name else error("Expected exactly one APK artifact") end')
+          gh run download "$RUN_ID" --name "$artifact_name" --dir dist
       - name: Verify the downloaded package
         run: |
           python3 - <<'PY'
