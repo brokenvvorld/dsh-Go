@@ -89,6 +89,13 @@ List<Override> _withNewChatDefaults(List<Override> overrides) {
 }
 
 void main() {
+  goldenTall(
+    'provider_openai',
+    height: 1000,
+    () => const ProviderFormPage.openAi(),
+    overrides: () => providerOverrides(FakeProviderBackend()),
+  );
+
   // Everything at once: DeepSeek, both subscriptions (one signed in), three
   // custom providers in three states.
   goldenTall(

@@ -225,6 +225,39 @@ void main() {
       models: [ProviderModelSpec(id: 'qwen3-coder', name: 'Qwen3 Coder', contextWindow: 262144)],
     );
 
+    test('OpenAI catalog route refuses a duplicate without changing the existing profile or key', () async {
+      const existing = ProviderProfile(
+        route: 'openai',
+        api: 'openai-responses',
+        baseUrl: 'https://api.openai.com/v1',
+        apiKeyEnv: 'OPENAI_API_KEY',
+        models: [ProviderModelSpec(id: 'gpt-existing')],
+      );
+      container = start(
+        FakeProviderBackend(profiles: const [existing], credentials: {'OPENAI_API_KEY': 'sk-original'}),
+      );
+      await container.read(customProvidersProvider.future);
+      await expectLater(
+        container
+            .read(providerActionsProvider)
+            .save(
+              const ProviderDraft(
+                name: 'OpenAI',
+                catalogRoute: 'openai',
+                api: ProviderApi.openaiResponses,
+                baseUrl: 'https://api.openai.com/v1',
+                apiKey: 'sk-new',
+                models: [ProviderModelSpec(id: 'gpt-new')],
+              ),
+            ),
+        throwsA(isA<ProviderFailure>()),
+      );
+      expect(backend.callNames.where((c) => c != 'read'), isEmpty);
+      expect(backend.profiles.single.models.single.id, 'gpt-existing');
+      expect(backend.stored, {'OPENAI_API_KEY': 'sk-original'});
+      expect(vault.data, isEmpty);
+    });
+
     test('create on 本机: profile, then key; the key is also kept on the phone', () async {
       container = start(FakeProviderBackend(profiles: const [gateway]));
       await container.read(customProvidersProvider.future);

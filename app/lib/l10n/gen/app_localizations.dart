@@ -15350,6 +15350,48 @@ abstract class L10n {
   /// **'更换'**
   String get nearbyChange;
 
+  /// No description provided for @openAiConnect.
+  ///
+  /// In zh, this message translates to:
+  /// **'连接 OpenAI'**
+  String get openAiConnect;
+
+  /// No description provided for @openAiUseApiKey.
+  ///
+  /// In zh, this message translates to:
+  /// **'使用 OpenAI API Key'**
+  String get openAiUseApiKey;
+
+  /// No description provided for @openAiUseDeepSeekKey.
+  ///
+  /// In zh, this message translates to:
+  /// **'使用 DeepSeek API Key'**
+  String get openAiUseDeepSeekKey;
+
+  /// No description provided for @openAiSetupHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'填入 OpenAI API Key，再选择要用的模型。默认使用官方地址和 Responses API。'**
+  String get openAiSetupHint;
+
+  /// No description provided for @openAiModelHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'可从账号获取模型列表，也可手动填写模型 ID。保存后，在聊天页选择这个渠道的模型。'**
+  String get openAiModelHint;
+
+  /// No description provided for @openAiApiSummary.
+  ///
+  /// In zh, this message translates to:
+  /// **'官方 API · 填写 Key 并选择模型'**
+  String get openAiApiSummary;
+
+  /// No description provided for @openAiAlreadyConfigured.
+  ///
+  /// In zh, this message translates to:
+  /// **'OpenAI 渠道已存在，请返回模型渠道页面编辑已有配置。'**
+  String get openAiAlreadyConfigured;
+
   /// No description provided for @performanceTitle.
   ///
   /// In zh, this message translates to:

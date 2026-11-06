@@ -7,8 +7,8 @@ import 'onboarding_scaffold.dart';
 import 'runtime_setup_page.dart';
 import 'welcome_page.dart';
 
-/// First-run pages. [apiKey] is the "connect DeepSeek" step: account sign-in
-/// first, API key as the alternative.
+/// First-run pages. [apiKey] offers OpenAI API setup first, followed by
+/// DeepSeek and other providers.
 ///
 /// On this phone, first run sets up while the runtime unpacks
 /// (docs/design/onboarding-parallel-setup.md): [runtime] asks where DSH runs,

@@ -59,7 +59,7 @@ void main() {
         for (final row in tester.widgetList<ListPageRow>(find.byType(ListPageRow)))
           row.title ?? row.spot?.title(appL10n),
       ];
-      expect(titles, [appL10n.viewModelSelect, 'DeepSeek', 'My Gateway', 'Claude 中转', '家里的 vLLM', '添加渠道']);
+      expect(titles, [appL10n.viewModelSelect, '连接 OpenAI', 'DeepSeek', 'My Gateway', 'Claude 中转', '家里的 vLLM', '添加渠道']);
 
       await tester.tap(find.text('Claude 中转'));
       await settle(tester);
@@ -103,6 +103,7 @@ void main() {
 
       await _pump(tester, const ProvidersPage(), providerOverrides(FakeProviderBackend(writable: false)));
       expect(tester.widget<ListPageRow>(find.widgetWithText(ListPageRow, '添加渠道')).onTap, isNull);
+      expect(tester.widget<ListPageRow>(find.widgetWithText(ListPageRow, '连接 OpenAI')).onTap, isNull);
       expect(find.text('引擎设置是只读的，无法添加'), findsOneWidget);
     });
 
@@ -110,7 +111,7 @@ void main() {
       await _pump(tester, const ProvidersPage(), providerOverrides(sampleBackend()));
       final width = tester.view.physicalSize.width / tester.view.devicePixelRatio;
       final cards = [
-        for (final title in ['DeepSeek', 'My Gateway'])
+        for (final title in ['连接 OpenAI', 'DeepSeek', 'My Gateway'])
           tester.getRect(find.ancestor(of: find.text(title), matching: find.byType(GlassSurface)).first),
       ];
       for (final card in cards) {
@@ -136,7 +137,7 @@ void main() {
       // Every row leads with a 32 monogram tile 16 in; 「添加渠道」's glyph
       // shares the tiles' centre line.
       final tiles = [for (final e in find.byType(Monogram).evaluate()) tester.getRect(find.byWidget(e.widget))];
-      expect(tiles, hasLength(4));
+      expect(tiles, hasLength(5));
       for (final tile in tiles) {
         expect(tile.width, moreOrLessEquals(32, epsilon: 0.6));
         expect(tile.left - cards.first.left, moreOrLessEquals(16, epsilon: 0.6));
@@ -147,7 +148,7 @@ void main() {
       expect(add.center.dx, moreOrLessEquals(tiles.first.center.dx, epsilon: 0.6));
       expect(
         [for (final e in find.byType(Monogram).evaluate()) Monogram.letterOf((e.widget as Monogram).name)],
-        ['D', 'M', 'C', '家'],
+        ['O', 'D', 'M', 'C', '家'],
       );
     });
   });

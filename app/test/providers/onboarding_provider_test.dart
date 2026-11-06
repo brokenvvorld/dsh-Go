@@ -14,6 +14,44 @@ import '../shell/golden_harness.dart' show goldenApp, loadGoldenFonts;
 import 'support.dart';
 
 void main() {
+  testWidgets('OpenAI is the primary action and saving completes setup without a DeepSeek key', (tester) async {
+    await tester.runAsync(loadGoldenFonts);
+    tester.view.devicePixelRatio = 2;
+    tester.view.physicalSize = const Size(390 * 2, 1400 * 2);
+    addTearDown(tester.view.reset);
+    final backend = FakeProviderBackend();
+    final vault = MemoryProviderKeyVault();
+    var done = 0;
+    await tester.pumpWidget(
+      goldenApp(
+        home: ConnectPage(onDone: () => done++),
+        brightness: Brightness.light,
+        overrides: [
+          ...providerOverrides(backend, vault: vault, settings: const AppSettings(loaded: true)),
+          accountEngineStarterProvider.overrideWithValue(() async {}),
+        ],
+      ),
+    );
+    await settle(tester);
+    await tester.tap(find.widgetWithText(FilledButton, '使用 OpenAI API Key'));
+    await settle(tester);
+    expect(tester.widget<ProviderFormPage>(find.byType(ProviderFormPage)).openAi, isTrue);
+    await tester.enterText(find.byType(TextField).at(2), 'sk-test-openai');
+    await tester.tap(find.text('手动添加'));
+    await settle(tester);
+    await tester.enterText(find.descendant(of: find.byType(AlertDialog), matching: find.byType(TextField)), 'gpt-test');
+    await tester.tap(find.widgetWithText(FilledButton, '添加'));
+    await settle(tester);
+    await tester.tap(find.text('保存'));
+    await settle(tester);
+    expect(backend.profiles.single.api, 'openai-responses');
+    expect(vault.data, {'openai': 'sk-test-openai'});
+    expect(done, 1);
+    final container = ProviderScope.containerOf(tester.element(find.byType(ConnectPage)));
+    expect(container.read(onboardingPrefsProvider).keySkipped, isTrue);
+    expect(container.read(settingsProvider).hasApiKey, isFalse);
+  });
+
   testWidgets('其他模型渠道 → add form → save finishes the connect step', (tester) async {
     await tester.runAsync(loadGoldenFonts);
     tester.view.devicePixelRatio = 2;

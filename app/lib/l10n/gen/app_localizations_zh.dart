@@ -8364,6 +8364,27 @@ class L10nZh extends L10n {
   String get nearbyChange => '更换';
 
   @override
+  String get openAiConnect => '连接 OpenAI';
+
+  @override
+  String get openAiUseApiKey => '使用 OpenAI API Key';
+
+  @override
+  String get openAiUseDeepSeekKey => '使用 DeepSeek API Key';
+
+  @override
+  String get openAiSetupHint => '填入 OpenAI API Key，再选择要用的模型。默认使用官方地址和 Responses API。';
+
+  @override
+  String get openAiModelHint => '可从账号获取模型列表，也可手动填写模型 ID。保存后，在聊天页选择这个渠道的模型。';
+
+  @override
+  String get openAiApiSummary => '官方 API · 填写 Key 并选择模型';
+
+  @override
+  String get openAiAlreadyConfigured => 'OpenAI 渠道已存在，请返回模型渠道页面编辑已有配置。';
+
+  @override
   String get performanceTitle => '性能';
 
   @override

@@ -21,9 +21,10 @@ import 'support.dart';
 
 /// Opens the form from a plain page so the pop result can be read.
 class _Opener extends StatefulWidget {
-  const _Opener({this.existing});
+  const _Opener({this.existing, this.openAi = false});
 
   final CustomProvider? existing;
+  final bool openAi;
 
   @override
   State<_Opener> createState() => _OpenerState();
@@ -41,8 +42,12 @@ class _OpenerState extends State<_Opener> {
           Text('result: $result'),
           TextButton(
             onPressed: () async {
-              final r = await Navigator.of(context)
-                  .push(MaterialPageRoute<String>(builder: (_) => ProviderFormPage(existing: widget.existing)));
+              final r = await Navigator.of(context).push(
+                MaterialPageRoute<String>(
+                  builder: (_) =>
+                      widget.openAi ? const ProviderFormPage.openAi() : ProviderFormPage(existing: widget.existing),
+                ),
+              );
               setState(() => result = r);
             },
             child: const Text('open'),
@@ -57,6 +62,7 @@ Future<void> _open(
   WidgetTester tester,
   FakeProviderBackend? backend, {
   CustomProvider? existing,
+  bool openAi = false,
   MemoryProviderKeyVault? vault,
   double height = 1400,
   FakeProviderBackend? Function()? backendFor,
@@ -70,7 +76,7 @@ Future<void> _open(
   addTearDown(tester.view.reset);
   await tester.pumpWidget(
     goldenApp(
-      home: _Opener(existing: existing),
+      home: _Opener(existing: existing, openAi: openAi),
       brightness: Brightness.light,
       overrides: backendFor == null
           ? providerOverrides(backend, vault: vault)
@@ -106,6 +112,63 @@ class _DelayedDiscovery extends FakeProviderBackend {
 }
 
 void main() {
+  testWidgets('OpenAI preset discovers and saves a Responses route with its own credential', (tester) async {
+    final backend = FakeProviderBackend(
+      discoverResult: const [
+        DiscoveredModel(id: 'gpt-test', inputModalities: ['text', 'image'], contextWindow: 128000),
+      ],
+    );
+    final vault = MemoryProviderKeyVault();
+    await _open(tester, backend, openAi: true, vault: vault);
+    expect(tester.widget<TextField>(_field('名称')).controller!.text, 'OpenAI');
+    expect(tester.widget<TextField>(_field('Base URL')).controller!.text, 'https://api.openai.com/v1');
+    expect(
+      tester.widget<SegmentedPill<ProviderApi>>(find.byType(SegmentedPill<ProviderApi>)).selected,
+      ProviderApi.openaiResponses,
+    );
+    expect(tester.widget<TextField>(_field('API Key')).controller!.text, isEmpty);
+    await _type(tester, 'API Key', 'sk-test-openai');
+    await tester.tap(find.text('获取模型'));
+    await settle(tester);
+    await tester.tap(find.text('添加 1 个模型'));
+    await settle(tester);
+    await tester.tap(find.text('保存'));
+    await settle(tester);
+    expect(backend.calls.firstWhere((c) => c.$1 == 'discover').$2, {
+      'baseURL': 'https://api.openai.com/v1',
+      'api': 'openai-responses',
+      'apiKey': 'sk-test-openai',
+    });
+    final profile = backend.profiles.single;
+    expect(profile.api, 'openai-responses');
+    expect(profile.baseUrl, 'https://api.openai.com/v1');
+    expect(profile.models.single.id, 'gpt-test');
+    expect(profile.models.single.input, ['text', 'image']);
+    expect(profile.models.single.contextWindow, 128000);
+    expect(backend.stored, {'OPENAI_API_KEY': 'sk-test-openai'});
+    expect(vault.data, {'openai': 'sk-test-openai'});
+    expect(find.text('result: openai'), findsOneWidget);
+  });
+
+  testWidgets('OpenAI preset still allows a custom endpoint and explicit protocol', (tester) async {
+    final backend = FakeProviderBackend();
+    await _open(tester, backend, openAi: true);
+    await _type(tester, 'Base URL', 'https://gateway.example/v1');
+    final pill = tester.widget<SegmentedPill<ProviderApi>>(find.byType(SegmentedPill<ProviderApi>));
+    pill.onChanged!(ProviderApi.openaiCompletions);
+    await tester.pump();
+    await _type(tester, 'API Key', 'sk-test-gateway');
+    await tester.tap(find.text('手动添加'));
+    await settle(tester);
+    await tester.enterText(find.descendant(of: find.byType(AlertDialog), matching: find.byType(TextField)), 'gpt-test');
+    await tester.tap(find.widgetWithText(FilledButton, '添加'));
+    await settle(tester);
+    await tester.tap(find.text('保存'));
+    await settle(tester);
+    expect(backend.profiles.single.api, 'openai-completions');
+    expect(backend.profiles.single.baseUrl, 'https://gateway.example/v1');
+  });
+
   testWidgets('late discovery preserves an endpoint edited while loading', (tester) async {
     final backend = _DelayedDiscovery();
     await _open(tester, backend);

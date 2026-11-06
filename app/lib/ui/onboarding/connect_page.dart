@@ -16,9 +16,8 @@ import 'api_key_page.dart';
 import 'onboarding_scaffold.dart';
 import 'setup_progress.dart';
 
-/// First-run "connect DeepSeek" step: DeepSeek account sign-in first (no API
-/// key needed), the API key as the alternative, another provider (own Base URL
-/// and key), or skip for now.
+/// First-run connection: OpenAI API first, with DeepSeek and custom providers
+/// available as alternatives.
 ///
 /// The engine is started as soon as this page shows: the browser callback is
 /// served by the local engine, and both paths need it anyway.
@@ -117,6 +116,11 @@ class _ConnectPageState extends ConsumerState<ConnectPage> {
 
   /// The runtime the queued sign-in waits for came, or failed.
   void _onRuntime(SetupRuntime? _, SetupRuntime next) {
+    // The provider form can be opened while installation is still running.
+    // Start its engine when installation finishes, even without a sign-in.
+    if (!_awaitingRuntime && next == SetupRuntime.ready) {
+      unawaited(ref.read(accountEngineStarterProvider)().catchError((_) {}));
+    }
     if (!_awaitingRuntime) return;
     if (next == SetupRuntime.ready) {
       if (_away) {
@@ -158,9 +162,11 @@ class _ConnectPageState extends ConsumerState<ConnectPage> {
   }
 
   /// The add-provider form over this step; the engine is already starting.
-  Future<void> _otherProvider() async {
+  Future<void> _otherProvider({bool openAi = false}) async {
     ref.read(accountProvider.notifier).dismissFailure();
-    final id = await Navigator.of(context).push<String>(MaterialPageRoute(builder: (_) => const ProviderFormPage()));
+    final id = await Navigator.of(context).push<String>(
+      MaterialPageRoute(builder: (_) => openAi ? const ProviderFormPage.openAi() : const ProviderFormPage()),
+    );
     if (id == null || !mounted) return;
     await ref.read(onboardingPrefsProvider.notifier).setKeySkipped(true);
     widget.onDone();
@@ -171,7 +177,7 @@ class _ConnectPageState extends ConsumerState<ConnectPage> {
     ref.listen(accountProvider.select((s) => s.signedIn), (prev, signedIn) {
       if (signedIn && prev == false) _onSignedIn();
     });
-    if (_awaitingRuntime) ref.listen(setupRuntimeProvider, _onRuntime);
+    if (_awaitingRuntime || _besideUnpack) ref.listen(setupRuntimeProvider, _onRuntime);
     final state = ref.watch(accountProvider);
     final Widget page;
     if (_awaitingRuntime) {
@@ -188,12 +194,13 @@ class _ConnectPageState extends ConsumerState<ConnectPage> {
       page = _Choose(
         key: const ValueKey('choose'),
         state: state,
+        onOpenAi: () => _otherProvider(openAi: true),
         onSignIn: _signIn,
         onApiKey: () {
           ref.read(accountProvider.notifier).dismissFailure();
           setState(() => _keyEntry = true);
         },
-        onOther: _otherProvider,
+        onOther: () => _otherProvider(),
         onSkip: _skip,
       );
     }
@@ -223,6 +230,7 @@ class _Choose extends StatelessWidget {
   const _Choose({
     super.key,
     required this.state,
+    required this.onOpenAi,
     required this.onSignIn,
     required this.onApiKey,
     required this.onOther,
@@ -230,6 +238,7 @@ class _Choose extends StatelessWidget {
   });
 
   final AccountState state;
+  final VoidCallback onOpenAi;
   final VoidCallback onSignIn;
   final VoidCallback onApiKey;
   final VoidCallback onOther;
@@ -245,16 +254,14 @@ class _Choose extends StatelessWidget {
     return OnboardingScaffold(
       children: [
         const Spacer(),
-        OnboardingHeader(
-          icon: AppIcons.account,
-          title: l10n.shellConnectDeepSeek,
-          message: l10n.shellConnectDeepSeekMessage,
-        ),
+        OnboardingHeader(icon: AppIcons.account, title: l10n.openAiConnect, message: l10n.openAiSetupHint),
         const SizedBox(height: 28),
-        const AccountFacts(),
+        Text(l10n.openAiModelHint, textAlign: TextAlign.center, style: theme.textTheme.bodyMedium),
         if (state.failure case final failure?) ...[const SizedBox(height: 16), SignInFailureCard(failure: failure)],
         const Spacer(flex: 2),
         const SizedBox(height: 24),
+        FilledButton(onPressed: onOpenAi, child: Text(l10n.openAiUseApiKey)),
+        const SizedBox(height: 10),
         if (unsupported)
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
@@ -265,10 +272,10 @@ class _Choose extends StatelessWidget {
             ),
           )
         else ...[
-          FilledButton(onPressed: onSignIn, child: Text(l10n.shellSignInDeepSeek)),
+          FilledButton.tonal(onPressed: onSignIn, child: Text(l10n.shellSignInDeepSeek)),
           const SizedBox(height: 10),
         ],
-        OutlinedButton(onPressed: onApiKey, child: Text(l10n.shellUseApiKey)),
+        OutlinedButton(onPressed: onApiKey, child: Text(l10n.openAiUseDeepSeekKey)),
         const SizedBox(height: 6),
         // Two equal halves: the quieter ways on.
         Row(

@@ -48,10 +48,10 @@ void main() {
       done = 0;
     });
 
-    testWidgets('account sign-in is the primary choice; cancel returns to it', (tester) async {
+    testWidgets('DeepSeek sign-in remains available; cancel returns to the OpenAI setup', (tester) async {
       await pumpConnect(tester);
       expect(find.widgetWithText(FilledButton, '用 DeepSeek 账号登录'), findsOneWidget);
-      expect(find.widgetWithText(OutlinedButton, '使用 API Key'), findsOneWidget);
+      expect(find.widgetWithText(OutlinedButton, '使用 DeepSeek API Key'), findsOneWidget);
       expect(find.text('稍后设置'), findsOneWidget);
 
       await tester.tap(find.text('用 DeepSeek 账号登录'));
@@ -68,7 +68,7 @@ void main() {
       await tester.tap(find.text('取消登录'));
       await _settle(tester);
       expect(api.calls, contains('cancelSignIn:att-1'));
-      expect(find.text('连接 DeepSeek'), findsOneWidget);
+      expect(find.text('连接 OpenAI'), findsOneWidget);
       expect(find.text('登录没有完成'), findsNothing, reason: 'cancelling is not an error');
       expect(done, 0);
     });
@@ -124,7 +124,7 @@ void main() {
 
     testWidgets('"使用 API Key" keeps the key path, with a way back', (tester) async {
       await pumpConnect(tester);
-      await tester.tap(find.text('使用 API Key'));
+      await tester.tap(find.text('使用 DeepSeek API Key'));
       await _settle(tester);
       expect(find.byType(ApiKeyPage), findsOneWidget);
       expect(find.text('保存并继续'), findsOneWidget);
@@ -134,7 +134,7 @@ void main() {
       expect(find.byType(ApiKeyPage), findsNothing);
       expect(find.text('用 DeepSeek 账号登录'), findsOneWidget);
 
-      await tester.tap(find.text('使用 API Key'));
+      await tester.tap(find.text('使用 DeepSeek API Key'));
       await _settle(tester);
       await tester.enterText(find.byType(TextField), 'sk-0123456789abcdef0123456789');
       await tester.pump();
@@ -146,12 +146,12 @@ void main() {
     testWidgets('system back returns from key entry without finishing', (tester) async {
       await pumpConnect(tester);
       expect(tester.widget<PopScope<void>>(find.byType(PopScope<void>)).canPop, isTrue);
-      await tester.tap(find.text('使用 API Key'));
+      await tester.tap(find.text('使用 DeepSeek API Key'));
       await _settle(tester);
       await tester.binding.handlePopRoute();
       await _settle(tester);
       expect(find.byType(ApiKeyPage), findsNothing);
-      expect(find.text('连接 DeepSeek'), findsOneWidget);
+      expect(find.text('连接 OpenAI'), findsOneWidget);
       expect(done, 0);
     });
 
@@ -164,7 +164,7 @@ void main() {
       await tester.binding.handlePopRoute();
       await _settle(tester);
       expect(api.calls, contains('cancelSignIn:att-1'));
-      expect(find.text('连接 DeepSeek'), findsOneWidget);
+      expect(find.text('连接 OpenAI'), findsOneWidget);
       expect(done, 0);
     });
 

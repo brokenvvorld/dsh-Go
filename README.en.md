@@ -1,3 +1,5 @@
+> **OpenAI API adaptation** of [ccch1mneyyy/dsh-Go](https://github.com/ccch1mneyyy/dsh-Go), originally authored by ccch1mneyyy. Initial setup now offers OpenAI first, with the official endpoint and Responses API preselected. DeepSeek and remote hosts remain available. See [OpenAI setup and validation](docs/openai.en.md). The original description follows; download links still point to upstream builds.
+
 <p align="center">
   <a href="README.md">简体中文</a> · <b>English</b>
 </p>

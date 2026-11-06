@@ -57,6 +57,33 @@ class ProvidersPage extends ConsumerWidget {
           : Text(summary),
       children: [
         const NewChatDefaultsCard(),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 24),
+          child: ListPageCard(
+            title: 'OpenAI API',
+            children: [
+              ListPageRow(
+                leading: const Monogram('OpenAI'),
+                title: l10n.openAiConnect,
+                subtitle: l10n.openAiApiSummary,
+                chevron: true,
+                onTap: snapshot == null || !snapshot.supported || !snapshot.writable || view.readOnly
+                    ? null
+                    : () {
+                        if (!ref.read(providerListViewProvider).readOnly &&
+                            identical(ref.read(customProvidersProvider).value, snapshot)) {
+                          _push(
+                            context,
+                            snapshot.byId('openai') == null
+                                ? const ProviderFormPage.openAi()
+                                : const ProviderDetailPage(providerId: 'openai'),
+                          );
+                        }
+                      },
+              ),
+            ],
+          ),
+        ),
         const _DeepSeekCard(),
         const _SubscriptionAccounts(),
         if (view.value?.supported == false)

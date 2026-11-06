@@ -33,10 +33,14 @@ const _protocols = [
 
 /// Pops with the provider id once saved.
 class ProviderFormPage extends ConsumerStatefulWidget {
-  const ProviderFormPage({super.key, this.existing});
+  const ProviderFormPage({super.key, this.existing}) : openAi = false;
+
+  /// OpenAI API setup uses the existing credential and model adapter.
+  const ProviderFormPage.openAi({super.key}) : existing = null, openAi = true;
 
   /// Null to add a new provider.
   final CustomProvider? existing;
+  final bool openAi;
 
   @override
   ConsumerState<ProviderFormPage> createState() => _ProviderFormPageState();
@@ -46,10 +50,13 @@ class ProviderFormPage extends ConsumerStatefulWidget {
 enum _F { baseUrl, key, models }
 
 class _ProviderFormPageState extends ConsumerState<ProviderFormPage> {
-  late final _name = TextEditingController(text: widget.existing?.displayName ?? '');
-  late final _baseUrl = TextEditingController(text: widget.existing?.baseUrl ?? '');
+  late final _name = TextEditingController(text: widget.existing?.displayName ?? (widget.openAi ? 'OpenAI' : ''));
+  late final _baseUrl = TextEditingController(
+    text: widget.existing?.baseUrl ?? (widget.openAi ? 'https://api.openai.com/v1' : ''),
+  );
   final _key = TextEditingController();
-  late ProviderApi _api = widget.existing?.api ?? ProviderApi.openaiCompletions;
+  late ProviderApi _api =
+      widget.existing?.api ?? (widget.openAi ? ProviderApi.openaiResponses : ProviderApi.openaiCompletions);
   late List<ProviderModelSpec> _models = [...?widget.existing?.models];
 
   /// The provider being edited; set after a create whose key failed, so the
@@ -244,6 +251,7 @@ class _ProviderFormPageState extends ConsumerState<ProviderFormPage> {
       baseUrl: normalizeBaseUrl(_baseUrl.text, _api),
       apiKey: key,
       models: _models,
+      catalogRoute: widget.openAi ? 'openai' : null,
     );
     setState(() => _saving = true);
     try {
@@ -289,7 +297,12 @@ class _ProviderFormPageState extends ConsumerState<ProviderFormPage> {
     final modelsMessage = _errors[_F.models] ?? _modelsError;
 
     final page = AppPage.list(
-      title: _isEdit ? l10n.engineProviderEdit : l10n.engineProviderAdd,
+      title: _isEdit
+          ? l10n.engineProviderEdit
+          : widget.openAi
+          ? l10n.openAiConnect
+          : l10n.engineProviderAdd,
+      subtitle: widget.openAi ? Text(l10n.openAiSetupHint) : null,
       // One column, not a lazy list: every field stays built so the first one
       // with a problem can be scrolled into view.
       children: [

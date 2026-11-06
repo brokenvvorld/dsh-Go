@@ -17,6 +17,7 @@ import 'package:dsh_app/ui/onboarding/connect_page.dart';
 import 'package:dsh_app/ui/onboarding/onboarding_flow.dart';
 import 'package:dsh_app/ui/onboarding/runtime_setup_page.dart';
 import 'package:dsh_app/ui/onboarding/setup_progress.dart';
+import 'package:dsh_app/ui/providers/provider_form_page.dart';
 import 'package:dsh_app/ui/remote/remote_screen.dart';
 import 'package:dsh_app/ui/shell/root_gate.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ const _seen = OnboardingPrefs(loaded: true, welcomeSeen: true);
 Finder _capsuleText(String text) => find.descendant(of: find.byKey(_capsule), matching: find.text(text));
 
 Future<void> _saveKey(WidgetTester tester) async {
-  await tester.tap(find.widgetWithText(OutlinedButton, '使用 API Key'));
+  await tester.tap(find.widgetWithText(OutlinedButton, '使用 DeepSeek API Key'));
   await frames(tester);
   await tester.enterText(find.byType(TextField), 'sk-4c1f0e7b9a2d4e6f8a1b3c5d7e9fa3f9');
   await tester.pump();
@@ -142,9 +143,7 @@ void main() {
       expect(rig.runtime.calls, ['install']);
     });
 
-    testWidgets('after 外观, what DSH Go should do: step 3 of 4, beside the unpack, kept on a relaunch', (
-      tester,
-    ) async {
+    testWidgets('after 外观, what DSH Go should do: step 3 of 4, beside the unpack, kept on a relaunch', (tester) async {
       final rig = await pumpGate(tester);
       await chooseThisPhone(tester);
       rig.runtime.unpack(0.3);
@@ -242,6 +241,22 @@ void main() {
   });
 
   group('signing in while it unpacks', () {
+    testWidgets('OpenAI form opened during installation starts the engine when ready', (tester) async {
+      final rig = await pumpGate(tester);
+      await chooseThisPhone(tester);
+      rig.runtime.unpack(0.5);
+      await pastAppearance(tester);
+      await tester.tap(find.widgetWithText(FilledButton, '使用 OpenAI API Key'));
+      await frames(tester);
+      expect(find.byType(ProviderFormPage), findsOneWidget);
+      expect(rig.engineStarts, isEmpty);
+      rig.runtime.finish();
+      await frames(tester, 3);
+      expect(rig.engineStarts, [1]);
+      expect(rig.runtime.calls, contains('start'));
+      expect(rig.account.signIns, isEmpty);
+    });
+
     testWidgets('waits for the runtime, then signs in by itself', (tester) async {
       final rig = await pumpGate(tester);
       await chooseThisPhone(tester);
@@ -301,7 +316,7 @@ void main() {
       await tester.tap(find.widgetWithText(OutlinedButton, '取消'));
       await frames(tester);
       expect(find.text('就绪后自动打开 DeepSeek 登录'), findsNothing);
-      expect(find.widgetWithText(OutlinedButton, '使用 API Key'), findsOneWidget);
+      expect(find.widgetWithText(OutlinedButton, '使用 DeepSeek API Key'), findsOneWidget);
 
       await tester.tap(find.widgetWithText(FilledButton, '用 DeepSeek 账号登录'));
       await frames(tester);
@@ -492,9 +507,7 @@ void main() {
     Future<GateRig> pumpLow(WidgetTester tester, DeviceTier tier) async {
       final rig = await pumpGate(
         tester,
-        overrides: [
-          performanceChannelProvider.overrideWithValue(FakePerformanceChannel(Future.value(snapshot(tier)))),
-        ],
+        overrides: [performanceChannelProvider.overrideWithValue(FakePerformanceChannel(Future.value(snapshot(tier))))],
       );
       // A low-end phone suggests the remote host: pick this phone.
       await tester.tap(find.byKey(const ValueKey('runtime-option-local')));

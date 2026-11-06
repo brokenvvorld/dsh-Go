@@ -1,5 +1,5 @@
 // Goldens for first run set up while the runtime unpacks: 外观 and 连接
-// DeepSeek with the unpack capsule, the sign-in waiting for the runtime, the
+// OpenAI with the unpack capsule, DeepSeek sign-in waiting for the runtime, the
 // waiting page, a failed unpack's capsule, and the status sheet.
 //
 //   flutter test --update-goldens test/onboarding/parallel_setup_golden_test.dart
@@ -51,7 +51,7 @@ Future<void> _openSheet(WidgetTester tester) async {
 }
 
 Future<void> _signIn(WidgetTester tester) async {
-  await tester.tap(find.byType(FilledButton).first);
+  await tester.tap(find.widgetWithText(FilledButton, '用 DeepSeek 账号登录'));
   await tester.pump();
   await tester.pump(const Duration(milliseconds: 600));
 }

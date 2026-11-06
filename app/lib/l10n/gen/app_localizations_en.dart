@@ -8819,6 +8819,29 @@ class L10nEn extends L10n {
   String get nearbyChange => 'Change';
 
   @override
+  String get openAiConnect => 'Connect OpenAI';
+
+  @override
+  String get openAiUseApiKey => 'Use OpenAI API key';
+
+  @override
+  String get openAiUseDeepSeekKey => 'Use DeepSeek API key';
+
+  @override
+  String get openAiSetupHint =>
+      'Enter your OpenAI API key and select a model. The official endpoint and Responses API are selected by default.';
+
+  @override
+  String get openAiModelHint =>
+      'Fetch your account\'s model list or enter a model ID. After saving, select a model from this provider in chat.';
+
+  @override
+  String get openAiApiSummary => 'Official API · Enter a key and select models';
+
+  @override
+  String get openAiAlreadyConfigured => 'An OpenAI provider already exists. Return to Model providers to edit it.';
+
+  @override
   String get performanceTitle => 'Performance';
 
   @override

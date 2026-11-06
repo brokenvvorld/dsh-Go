@@ -1,3 +1,5 @@
+> **OpenAI API 适配分支**：基于 [ccch1mneyyy/dsh-Go](https://github.com/ccch1mneyyy/dsh-Go)，原作者 ccch1mneyyy。首次配置现在优先接入 OpenAI，预填官方地址并使用 Responses API；原有 DeepSeek 和远程主机入口保留。见 [OpenAI 使用说明](docs/openai.md)。下方是原项目说明，下载链接仍指向上游版本。
+
 <p align="center">
   <b>简体中文</b> · <a href="README.en.md">English</a>
 </p>

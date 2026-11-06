@@ -73,8 +73,8 @@ class CustomProvider {
     defaults: ModelDefaults.of(profile),
   );
 
-  /// Route id: `custom-<slug>` for the ones this app creates; any id for a
-  /// route declared elsewhere (the web Models page, a settings file).
+  /// Route id: `openai` for the OpenAI preset, `custom-<slug>` for other app
+  /// profiles; any id for a route declared in the web page or a settings file.
   final String id;
   final String displayName;
   final ProviderApi? api;
@@ -205,6 +205,7 @@ class ProviderDraft {
     required this.baseUrl,
     this.apiKey = '',
     this.models = const [],
+    this.catalogRoute,
   });
 
   /// Empty: the Base URL's host is used.
@@ -217,6 +218,10 @@ class ProviderDraft {
   /// Empty when editing: keep the stored key.
   final String apiKey;
   final List<ProviderModelSpec> models;
+
+  /// A built-in catalog route keeps model capabilities from the engine.
+  /// Ordinary custom providers leave this null and get a unique route id.
+  final String? catalogRoute;
 
   String get effectiveName {
     final trimmed = name.trim();
@@ -545,11 +550,12 @@ class ProviderActions {
     if (existing == null) {
       // Read back first: the id must not land on a route someone just added.
       final current = await backend.read();
-      id = newProviderId(
-        name: draft.name,
-        baseUrl: draft.baseUrl,
-        taken: {...?current?.profiles.map((p) => p.route), ...?before?.takenIds},
-      );
+      final taken = {...?current?.profiles.map((p) => p.route), ...?before?.takenIds};
+      if (draft.catalogRoute case final route?) {
+        if (!providerRoutePattern.hasMatch(route)) throw ProviderFailure(appL10n.stateProviderConfigRejected);
+        if (taken.contains(route)) throw ProviderFailure(appL10n.openAiAlreadyConfigured);
+      }
+      id = draft.catalogRoute ?? newProviderId(name: draft.name, baseUrl: draft.baseUrl, taken: taken);
       keyRef = deriveProviderKeyRef(id);
       await backend.create(
         ProviderProfile(
