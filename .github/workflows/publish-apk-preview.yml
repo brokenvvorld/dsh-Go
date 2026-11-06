@@ -1,0 +1,96 @@
+name: Publish APK preview
+
+on:
+  # Bootstrap the first verified APK. Later publications use Run workflow.
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publish-apk-preview.yml']
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: '已成功的 Android APK 构建运行 ID'
+        type: string
+        required: true
+        default: '42211881318'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: publish-apk-preview
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      RUN_ID: ${{ inputs.run_id || '42211881318' }}
+    steps:
+      - name: Download the successful APK build
+        run: |
+          [[ "$RUN_ID" =~ ^[0-9]+$ ]]
+          gh api "repos/$GH_REPO/actions/runs/$RUN_ID" > run.json
+          python3 - <<'PY'
+          import json, os, re
+          run = json.load(open('run.json'))
+          assert run['conclusion'] == 'success', '构建尚未成功'
+          assert run['path'] == '.github/workflows/android-release.yml', '不是 Android APK 工作流'
+          assert run['head_repository']['full_name'] == os.environ['GH_REPO'], '不是本仓库构建'
+          assert run['head_branch'] == 'main' and run['event'] == 'push', '只接受 main 的测试构建'
+          assert re.fullmatch(r'[0-9a-f]{40}', run['head_sha'])
+          with open(os.environ['GITHUB_ENV'], 'a') as env:
+              env.write(f"SOURCE_SHA={run['head_sha']}\n")
+          PY
+          gh run download "$RUN_ID" --pattern 'dsh-go-*-arm64' --dir dist
+      - name: Verify the downloaded package
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os, pathlib, re
+          root = pathlib.Path('dist')
+          manifest = json.loads((root / 'update.json').read_text())
+          tag = manifest['tag']
+          assert re.fullmatch(r'v\d+\.\d+\.\d+-[0-9A-Za-z.-]+', tag), '只发布预发布版本'
+          filename = f"dsh-go-{tag[1:]}-arm64.apk"
+          asset = manifest['assets']['arm64']
+          assert asset['name'] == filename
+          assert list(root.glob('*.apk')) == [root / filename], '安装包数量或名称不符'
+          apk = root / filename
+          digest = hashlib.sha256(apk.read_bytes()).hexdigest()
+          assert digest == asset['sha256'] and apk.stat().st_size == asset['size']
+          assert (root / 'SHA256SUMS').read_text().strip() == f"{digest}  {filename}"
+          assert manifest['page'] == f"https://github.com/{os.environ['GH_REPO']}/releases/tag/{tag}"
+          with open(os.environ['GITHUB_ENV'], 'a') as env:
+              env.write(f"TAG={tag}\nAPK={filename}\n")
+          PY
+          (cd dist && sha256sum --check SHA256SUMS)
+      - name: Publish a downloadable preview
+        run: |
+          # Never attach a newly published binary to an unrelated existing tag.
+          git init source
+          git -C source remote add origin "https://github.com/$GH_REPO.git"
+          if [[ -n "$(git -C source ls-remote --tags origin "refs/tags/$TAG")" ]]; then
+            git -C source fetch --depth=1 origin "refs/tags/$TAG"
+            [[ "$(git -C source rev-parse 'FETCH_HEAD^{commit}')" == "$SOURCE_SHA" ]]
+          fi
+          cat > notes.md <<EOF
+          Android 8.0+，arm64，约 194 MB。下载 Assets 中的 APK 即可安装。
+
+          这是已通过构建、签名与文件完整性校验的测试包，尚未完成真机验证，完整 CI 的界面测试仍在修复。
+          未配置固定签名时使用临时测试签名，不能保证覆盖现有安装；请先备份数据。
+
+          构建：https://github.com/$GH_REPO/actions/runs/$RUN_ID
+          源码：$SOURCE_SHA
+          EOF
+          gh release create "$TAG" "dist/$APK" dist/SHA256SUMS dist/update.json \
+            --target "$SOURCE_SHA" --title "DSH Go OpenAI $TAG 测试版" \
+            --notes-file notes.md --draft --prerelease --latest=false
+          gh release download "$TAG" --pattern '*.apk' --pattern SHA256SUMS --pattern update.json --dir verify
+          cmp dist/SHA256SUMS verify/SHA256SUMS
+          cmp dist/update.json verify/update.json
+          (cd verify && sha256sum --check SHA256SUMS)
+          gh release edit "$TAG" --draft=false --prerelease --latest=false
+          echo "APK：https://github.com/$GH_REPO/releases/download/$TAG/$APK" >> "$GITHUB_STEP_SUMMARY"
