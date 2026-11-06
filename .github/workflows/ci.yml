@@ -15,7 +15,8 @@ permissions:
 
 concurrency:
   group: ci-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  # Only the newest revision of a branch/PR needs the full check suite.
+  cancel-in-progress: true
 
 env:
   FLUTTER_VERSION: 3.47.7
