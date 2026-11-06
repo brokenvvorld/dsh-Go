@@ -1,4 +1,4 @@
-> **OpenAI API adaptation** of [ccch1mneyyy/dsh-Go](https://github.com/ccch1mneyyy/dsh-Go), originally authored by ccch1mneyyy. Initial setup now offers OpenAI first, with the official endpoint and Responses API preselected. DeepSeek and remote hosts remain available. See [OpenAI setup and validation](docs/openai.en.md). The original description follows; download links still point to upstream builds.
+> **OpenAI API adaptation** of [ccch1mneyyy/dsh-Go](https://github.com/ccch1mneyyy/dsh-Go), originally authored by ccch1mneyyy. Initial setup now offers OpenAI first, with the official endpoint and Responses API preselected. DeepSeek and remote hosts remain available. See [OpenAI setup and validation](docs/openai.en.md). Download this fork from [Releases](https://github.com/brokenvvorld/dsh-Go/releases); see [APK builds and releases](docs/android-release.en.md). The original project introduction follows.
 
 <p align="center">
   <a href="README.md">简体中文</a> · <b>English</b>
@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ccch1mneyyy/dsh-go/releases/latest"><img alt="Android 8+" src="https://img.shields.io/badge/Android-8%2B-4B67B4?style=flat-square&logo=android&logoColor=white&labelColor=2B3245"></a>
+  <a href="https://github.com/brokenvvorld/dsh-Go/releases"><img alt="Android 8+" src="https://img.shields.io/badge/Android-8%2B-4B67B4?style=flat-square&logo=android&logoColor=white&labelColor=2B3245"></a>
   <a href="LICENSE"><img alt="License AGPL-3.0" src="https://img.shields.io/badge/license-AGPL--3.0-4B67B4?style=flat-square&labelColor=2B3245"></a>
   <a href="https://forum.dshtui.com"><img alt="Forum" src="https://img.shields.io/badge/forum-forum.dshtui.com-4B67B4?style=flat-square&labelColor=2B3245"></a>
   <a href="https://qm.qq.com/q/OEy2RqZnqY"><img alt="QQ group 1132118290" src="https://img.shields.io/badge/QQ%20group-1132118290-4B67B4?style=flat-square&logo=tencentqq&logoColor=white&labelColor=2B3245"></a>
@@ -46,10 +46,10 @@
 <a id="download"></a>
 <h3 align="center">Download DSH Go</h3>
 
-<p align="center">Get the latest APK from GitHub Releases or the download page at go.dshtui.com. Most phones need the arm64 package.</p>
+<p align="center">Download this OpenAI fork from this repository’s GitHub Releases. Most phones need arm64. Test builds are under Actions → Android APK → Artifacts.</p>
 
 <p align="center">
-  <a href="https://github.com/ccch1mneyyy/dsh-go/releases/latest"><img alt="Download from GitHub Releases" src="https://img.shields.io/badge/GitHub%20Releases-Download%20APK-4B67B4?style=for-the-badge&logo=github&logoColor=white&labelColor=2B3245"></a>&emsp;<a href="https://go.dshtui.com/download"><img alt="Download from go.dshtui.com" src="https://img.shields.io/badge/go.dshtui.com-Download%20page-4B67B4?style=for-the-badge&labelColor=2B3245"></a>
+  <a href="https://github.com/brokenvvorld/dsh-Go/releases"><img alt="Download from GitHub Releases" src="https://img.shields.io/badge/GitHub%20Releases-Download%20APK-4B67B4?style=for-the-badge&logo=github&logoColor=white&labelColor=2B3245"></a>
 </p>
 
 <p align="center">
@@ -188,7 +188,7 @@ Capabilities depend on the host and connection. DSHarness Remote currently accep
 
 Installation requires Android 8.0 (API 26) or later. The **arm64** package on the Releases page is for typical 64-bit Android phones; the x64 package for x86_64 devices and emulators is under “Other builds” at the end of the release notes. This repository has no 32-bit ARM build.
 
-1. Download the APK for your device architecture from [GitHub Releases](https://github.com/ccch1mneyyy/dsh-go/releases/latest) or the [download page](https://go.dshtui.com/download), and follow Android's prompt to allow that installation source.
+1. Download the APK for your device architecture from [GitHub Releases](https://github.com/brokenvvorld/dsh-Go/releases) or the [download page](https://go.dshtui.com/download), and follow Android's prompt to allow that installation source.
 2. On first launch, choose an on-device runtime or a remote host.
 3. Configure a model and its credentials for the selected host, then start a conversation. Some remote providers must be configured on the host itself.
 

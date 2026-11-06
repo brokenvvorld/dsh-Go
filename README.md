@@ -1,4 +1,4 @@
-> **OpenAI API 适配分支**：基于 [ccch1mneyyy/dsh-Go](https://github.com/ccch1mneyyy/dsh-Go)，原作者 ccch1mneyyy。首次配置现在优先接入 OpenAI，预填官方地址并使用 Responses API；原有 DeepSeek 和远程主机入口保留。见 [OpenAI 使用说明](docs/openai.md)。下方是原项目说明，下载链接仍指向上游版本。
+> **OpenAI API 适配分支**：基于 [ccch1mneyyy/dsh-Go](https://github.com/ccch1mneyyy/dsh-Go)，原作者 ccch1mneyyy。首次配置现在优先接入 OpenAI，预填官方地址并使用 Responses API；原有 DeepSeek 和远程主机入口保留。见 [OpenAI 使用说明](docs/openai.md)。本分支的 APK 从 [Releases](https://github.com/brokenvvorld/dsh-Go/releases) 下载；[打包与发布说明](docs/android-release.md)。下方保留原项目介绍。
 
 <p align="center">
   <b>简体中文</b> · <a href="README.en.md">English</a>
@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ccch1mneyyy/dsh-go/releases/latest"><img alt="Android 8+" src="https://img.shields.io/badge/Android-8%2B-4B67B4?style=flat-square&logo=android&logoColor=white&labelColor=2B3245"></a>
+  <a href="https://github.com/brokenvvorld/dsh-Go/releases"><img alt="Android 8+" src="https://img.shields.io/badge/Android-8%2B-4B67B4?style=flat-square&logo=android&logoColor=white&labelColor=2B3245"></a>
   <a href="LICENSE"><img alt="许可证 AGPL-3.0" src="https://img.shields.io/badge/%E8%AE%B8%E5%8F%AF%E8%AF%81-AGPL--3.0-4B67B4?style=flat-square&labelColor=2B3245"></a>
   <a href="https://forum.dshtui.com"><img alt="论坛" src="https://img.shields.io/badge/%E8%AE%BA%E5%9D%9B-forum.dshtui.com-4B67B4?style=flat-square&labelColor=2B3245"></a>
   <a href="https://qm.qq.com/q/OEy2RqZnqY"><img alt="QQ 群 1132118290" src="https://img.shields.io/badge/QQ%20%E7%BE%A4-1132118290-4B67B4?style=flat-square&logo=tencentqq&logoColor=white&labelColor=2B3245"></a>
@@ -46,10 +46,10 @@
 <a id="download"></a>
 <h3 align="center">下载 DSH Go</h3>
 
-<p align="center">从 GitHub Releases 或官网下载页获取最新版 APK，常见手机选 arm64 包。</p>
+<p align="center">从本仓库 GitHub Releases 下载 OpenAI 分支 APK，常见手机选 arm64 包。测试构建在 Actions → Android APK → Artifacts。</p>
 
 <p align="center">
-  <a href="https://github.com/ccch1mneyyy/dsh-go/releases/latest"><img alt="从 GitHub Releases 下载" src="https://img.shields.io/badge/GitHub%20Releases-%E4%B8%8B%E8%BD%BD%20APK-4B67B4?style=for-the-badge&logo=github&logoColor=white&labelColor=2B3245"></a>&emsp;<a href="https://go.dshtui.com/download"><img alt="从官网下载页下载" src="https://img.shields.io/badge/go.dshtui.com-%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BD-4B67B4?style=for-the-badge&labelColor=2B3245"></a>
+  <a href="https://github.com/brokenvvorld/dsh-Go/releases"><img alt="从 GitHub Releases 下载" src="https://img.shields.io/badge/GitHub%20Releases-%E4%B8%8B%E8%BD%BD%20APK-4B67B4?style=for-the-badge&logo=github&logoColor=white&labelColor=2B3245"></a>
 </p>
 
 <p align="center">
@@ -188,7 +188,7 @@ DSH Go 提供聊天界面、本机运行环境和远程连接，是基于 [DeepS
 
 安装要求为 Android 8.0（API 26）及以上。Release 页面上的 **arm64** 安装包适用于常见的 64 位 Android 手机；x86_64 设备和模拟器用的 x64 包在发布说明末尾的「其他版本下载」里。仓库没有 32 位 ARM 构建。
 
-1. 从 [GitHub Releases](https://github.com/ccch1mneyyy/dsh-go/releases/latest) 或[官网下载页](https://go.dshtui.com/download)下载对应架构的 APK，并按系统提示允许该安装来源。
+1. 从 [GitHub Releases](https://github.com/brokenvvorld/dsh-Go/releases) 或[官网下载页](https://go.dshtui.com/download)下载对应架构的 APK，并按系统提示允许该安装来源。
 2. 首次启动时，选择在本机安装运行环境，或连接远程主机。
 3. 为所选主机配置模型和所需凭据，再开始对话；部分远程渠道需要在主机侧配置。
 

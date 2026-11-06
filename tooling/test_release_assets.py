@@ -19,6 +19,7 @@ import zipfile
 from unittest import mock
 
 import apk_delta
+import release_assets
 from build_number import MAX_VERSION_CODE
 from release_assets import BADGING_RE, ReleaseError, check_abis, patch_from, previous_releases, published_apk, release_build
 
@@ -62,6 +63,23 @@ def sha(path):
 
 
 class ReleaseBuildTest(unittest.TestCase):
+    def test_fork_manifest_links_to_the_fork_release(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = pathlib.Path(folder)
+            source = apk(root / "source.apk", 1)
+            args = ["release_assets.py", "--version", "1.0.12", "--delta-from", "0",
+                    "--out", str(root / "dist"), f"arm64={source}"]
+            with (mock.patch.object(sys, "argv", args),
+                  mock.patch.object(release_assets, "REPO", "brokenvvorld/dsh-Go"),
+                  mock.patch.object(release_assets, "find_aapt2", return_value="aapt2"),
+                  mock.patch.object(release_assets, "apk_version", return_value=("1.0.12", 11061930)),
+                  contextlib.redirect_stdout(io.StringIO())):
+                release_assets.main()
+            manifest = json.loads((root / "dist/update.json").read_text())
+            self.assertEqual(manifest["page"], "https://github.com/brokenvvorld/dsh-Go/releases/tag/v1.0.12")
+            self.assertEqual(manifest["assets"]["arm64"]["sha256"], sha(source))
+            self.assertEqual(manifest["version"], "1.0.12+11061930")
+
     def test_both_flavors_agree(self):
         apks = {"arm64": ("1.2.0", 10251234), "x64": ("1.2.0", 10251234)}
         self.assertEqual(release_build("1.2.0", None, apks), 10251234)

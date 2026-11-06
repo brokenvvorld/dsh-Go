@@ -10,6 +10,8 @@
 /// docs/design/share-links.md) and download from it with the token.
 ///
 /// Build-time overrides (no code change needed):
+/// - `--dart-define=DSH_UPDATE_REPO=owner/repo` selects a fork's releases;
+///   also set `DSH_UPDATE_MIRROR=` to stop asking the upstream download bucket;
 /// - `--dart-define=DSH_BETA_CHANNEL_ORIGIN=https://example.com` moves the beta
 ///   channel;
 /// - `--dart-define=DSH_UPDATE_MIRROR=https://example.com` moves the copy of
@@ -21,7 +23,7 @@
 library;
 
 /// GitHub repository the releases live in.
-const updateRepo = 'ccch1mneyyy/dsh-go';
+const updateRepo = String.fromEnvironment('DSH_UPDATE_REPO', defaultValue: 'ccch1mneyyy/dsh-go');
 
 /// `releases/latest` of the REST API: tag, notes, assets with sizes and
 /// SHA-256 digests. Unauthenticated: 60 requests per hour per IP.

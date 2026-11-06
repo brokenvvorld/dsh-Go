@@ -1,0 +1,225 @@
+name: Android APK
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+    paths:
+      - 'app/**'
+      - 'packages/**'
+      - 'runtime/**'
+      - 'tooling/**'
+      - '.github/workflows/android-release.yml'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '版本号（如 1.0.12）；留空使用 app/pubspec.yaml'
+        type: string
+        default: ''
+      publish:
+        description: '发布到 Releases（需要先配置固定签名）'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-apk-${{ github.event_name }}-${{ github.ref }}-${{ inputs.version }}
+  cancel-in-progress: false
+
+env:
+  FLUTTER_VERSION: 3.47.7
+  NODE_VERSION: 24.22.1
+  GRADLE_VERSION: 9.3.1
+  DSH_MAVEN_MIRRORS: '0'
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    name: Build arm64 APK
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      tag: ${{ steps.version.outputs.tag }}
+      publish: ${{ steps.version.outputs.publish }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Resolve version
+        id: version
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+          INPUT_PUBLISH: ${{ inputs.publish }}
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, re
+          env = os.environ
+          tagged = env['GITHUB_REF'].startswith('refs/tags/')
+          publish = tagged or env.get('INPUT_PUBLISH') == 'true'
+          version = env['GITHUB_REF_NAME'][1:] if tagged else env.get('INPUT_VERSION', '').strip()
+          if not version:
+              version = re.search(r'^version:\s*([^+\s]+)', pathlib.Path('app/pubspec.yaml').read_text(), re.M)[1]
+          if not re.fullmatch(r'\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?', version):
+              raise SystemExit('版本必须是 X.Y.Z 或 X.Y.Z-beta.1')
+          if not publish:
+              version += ('.' if '-' in version else '-') + f"ci.{env['GITHUB_RUN_NUMBER']}.{env['GITHUB_RUN_ATTEMPT']}"
+          with open(env['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f"version={version}\ntag=v{version}\npublish={str(publish).lower()}\n")
+          PY
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Prepare signing
+        id: signing
+        env:
+          PUBLISH_RELEASE: ${{ steps.version.outputs.publish }}
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: python3 tooling/ci_android_signing.py
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
+        with:
+          gradle-version: ${{ env.GRADLE_VERSION }}
+      - name: Install Android tools and resolve Flutter packages
+        run: |
+          sdkmanager 'platforms;android-36' 'build-tools;36.0.0' 'ndk;28.2.13676358'
+          echo "$ANDROID_HOME/build-tools/36.0.0" >> "$GITHUB_PATH"
+          (cd app && flutter pub get --enforce-lockfile)
+          printf 'sdk.dir=%s\nflutter.sdk=%s\n' "$ANDROID_HOME" "$FLUTTER_ROOT" > app/android/local.properties
+          # gradlew is not tracked. Use the official distribution on hosted runners.
+          (cd app/android && gradle wrapper --gradle-version "$GRADLE_VERSION" --distribution-type bin)
+      - name: Check release tooling and fork update URLs
+        run: |
+          python3 -m unittest discover -s tooling -p 'test_*.py'
+          (cd app && dart -DDSH_UPDATE_REPO="$GITHUB_REPOSITORY" -DDSH_UPDATE_MIRROR= run tool/check_fork_updates.dart)
+      - name: Restore runtime downloads
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: runtime/.cache
+          key: android-runtime-inputs-${{ runner.os }}-${{ hashFiles('runtime/build-runtime.sh', 'runtime/locks/**') }}
+          restore-keys: android-runtime-inputs-${{ runner.os }}-
+      - name: Build bundled Linux runtime
+        run: |
+          runtime/build-runtime.sh arm64-v8a
+          test -s runtime/out/arm64-v8a/assets/runtime/manifest.json
+          test -s runtime/out/arm64-v8a/assets/runtime/rootfs-arm64-v8a.tar.xz
+      - name: Save runtime downloads
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: runtime/.cache
+          key: android-runtime-inputs-${{ runner.os }}-${{ hashFiles('runtime/build-runtime.sh', 'runtime/locks/**') }}
+      - name: Build APK
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          tooling/build-apk.sh --release --build-name "$VERSION" -- \
+            --dart-define=DSH_UPDATE_REPO="$GITHUB_REPOSITORY" \
+            --dart-define=DSH_UPDATE_MIRROR=
+      - name: Verify signature and runtime inside APK
+        env:
+          SIGNING_MODE: ${{ steps.signing.outputs.mode }}
+        run: |
+          apk=app/build/app/outputs/flutter-apk/app-arm64-release.apk
+          apksigner verify --verbose --min-sdk-version 21 --print-certs "$apk" > "$RUNNER_TEMP/apk-signature.txt"
+          python3 - <<'PY'
+          import os, pathlib, re, zipfile
+          temp = pathlib.Path(os.environ['RUNNER_TEMP'])
+          report = (temp / 'apk-signature.txt').read_text()
+          if os.environ['SIGNING_MODE'] == 'release':
+              assert 'CN=Android Debug' not in report, '拒绝发布 debug 签名'
+              for scheme in (1, 2, 3):
+                  assert re.search(rf'Verified using v{scheme} scheme .*: true', report), f'缺少 v{scheme} 签名'
+              expected = (temp / 'android-signing/certificate.sha256').read_text().strip()
+              assert f'certificate SHA-256 digest: {expected}' in report, '签名证书不匹配'
+          with zipfile.ZipFile('app/build/app/outputs/flutter-apk/app-arm64-release.apk') as apk:
+              for name in ('assets/runtime/manifest.json', 'assets/runtime/rootfs-arm64-v8a.tar.xz', 'lib/arm64-v8a/libproot.so'):
+                  assert apk.getinfo(name).file_size > 0, f'缺少运行时：{name}'
+          print(report)
+          PY
+      - name: Prepare downloadable assets
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          DSH_RELEASE_REPO: ${{ github.repository }}
+        run: |
+          printf 'DSH Go OpenAI %s\n\nAndroid 8.0+，arm64。\n\n源码提交：%s\n' "$VERSION" "$GITHUB_SHA" > "$RUNNER_TEMP/release-notes.md"
+          python3 tooling/release_assets.py --version "$VERSION" --delta-from 0 --notes "$RUNNER_TEMP/release-notes.md"
+          cp "$RUNNER_TEMP/release-notes.md" dist/release-notes.md
+          (cd dist && sha256sum --check SHA256SUMS)
+      - name: Upload APK and checksums
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: dsh-go-${{ steps.version.outputs.version }}-arm64
+          path: dist/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+      - name: Build summary
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          SIGNING_MODE: ${{ steps.signing.outputs.mode }}
+        run: |
+          echo "APK：dsh-go-$VERSION-arm64.apk（Android 8.0+）" >> "$GITHUB_STEP_SUMMARY"
+          echo "在本次运行页面底部的 Artifacts 下载 ZIP，解压后安装 APK。签名：$SIGNING_MODE。" >> "$GITHUB_STEP_SUMMARY"
+          if [[ "$SIGNING_MODE" == debug ]]; then
+            echo '此包使用临时 debug 签名，仅供测试；不同运行之间不保证能覆盖安装。正式发布请先配置固定签名。' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Remove signing material
+        if: always()
+        run: |
+          rm -f app/android/key.properties
+          rm -rf "$RUNNER_TEMP/android-signing"
+
+  release:
+    name: Publish GitHub Release
+    needs: build
+    if: needs.build.outputs.publish == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    concurrency:
+      group: android-release-${{ needs.build.outputs.tag }}
+      cancel-in-progress: false
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      TAG: ${{ needs.build.outputs.tag }}
+      VERSION: ${{ needs.build.outputs.version }}
+    steps:
+      - name: Download this run's verified assets
+        run: gh run download "$GITHUB_RUN_ID" --name "dsh-go-$VERSION-arm64" --dir dist
+      - name: Publish once without replacing existing APKs
+        run: |
+          # A pre-existing tag must resolve to the exact commit that was built.
+          git init source
+          git -C source remote add origin "https://github.com/$GH_REPO.git"
+          if [[ -n "$(git -C source ls-remote --tags origin "refs/tags/$TAG")" ]]; then
+            git -C source fetch --depth=1 origin "refs/tags/$TAG"
+            [[ "$(git -C source rev-parse 'FETCH_HEAD^{commit}')" == "$GITHUB_SHA" ]] || { echo 'Tag 指向其他提交，请使用新版本号'; exit 1; }
+          fi
+          (cd dist && sha256sum --check SHA256SUMS)
+          flags=()
+          [[ "$VERSION" != *-* ]] || flags+=(--prerelease)
+          # Create as draft; a failed upload/readback never becomes the latest release.
+          gh release create "$TAG" "dist/dsh-go-$VERSION-arm64.apk" dist/SHA256SUMS dist/update.json \
+            --target "$GITHUB_SHA" --title "DSH Go OpenAI $VERSION" \
+            --notes-file dist/release-notes.md --draft "${flags[@]}"
+          gh release download "$TAG" --pattern '*.apk' --pattern SHA256SUMS --dir verify
+          cmp dist/SHA256SUMS verify/SHA256SUMS
+          (cd verify && sha256sum --check SHA256SUMS)
+          gh release edit "$TAG" --draft=false "${flags[@]}"
+          echo "下载 APK：https://github.com/$GH_REPO/releases/tag/$TAG" >> "$GITHUB_STEP_SUMMARY"
