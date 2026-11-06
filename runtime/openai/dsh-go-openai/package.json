@@ -1,0 +1,15 @@
+{
+  "name": "dsh-go-openai",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "lib/index.js",
+  "files": ["lib", "data", "cordis.patch.yml"],
+  "engines": {"node": ">=22.19"},
+  "license": "MIT",
+  "peerDependencies": {
+    "@deepseek-ai/schemastery": "^3.19.0",
+    "@deepseek-ai/dsh-tools": "0.2.2-rc.1",
+    "@deepseek-ai/dsh-credentials": "0.2.2-rc.1"
+  },
+  "dsh": {"bundle": {"patch": "./cordis.patch.yml"}}
+}

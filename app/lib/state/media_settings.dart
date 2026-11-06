@@ -187,6 +187,7 @@ MediaServiceConfig? mediaServiceFromPreset({
   required MediaCatalog catalog,
   required Iterable<MediaServiceConfig> existing,
   bool reuseKey = true,
+  bool openaiChatKeyConfigured = false,
 }) {
   // Only the preset's own models: `openai-compatible` is shared by several
   // providers, so filling in "every model on this protocol" could point a
@@ -205,14 +206,22 @@ MediaServiceConfig? mediaServiceFromPreset({
     profile: preset.profile,
     responseFormat: preset.responseFormat,
     models: List.unmodifiable([for (final model in models.take(16)) model.id]),
-    keyRef: donor?.keyRef ?? nextMediaCredentialRef(preset, existing.map((service) => service.keyRef)),
+    keyRef:
+        donor?.keyRef ??
+        (reuseKey && openaiChatKeyConfigured && isOfficialOpenAIMedia(preset.provider, preset.baseUrl)
+            ? 'OPENAI_API_KEY'
+            : nextMediaCredentialRef(preset, existing.map((service) => service.keyRef))),
   );
 }
+
+bool isOfficialOpenAIMedia(String provider, String baseUrl) =>
+    provider == 'openai' && baseUrl.replaceFirst(RegExp(r'/+$'), '') == 'https://api.openai.com/v1';
 
 /// The service whose key a new service of [preset]'s provider can share
 /// (pictures and video of one provider usually bill one account).
 MediaServiceConfig? mediaKeyDonor(Iterable<MediaServiceConfig> services, MediaPreset preset) {
   for (final service in services) {
+    if (service.keyRef == 'OPENAI_API_KEY' && !isOfficialOpenAIMedia(preset.provider, preset.baseUrl)) continue;
     if (service.provider == preset.provider && service.keyRef.isNotEmpty) return service;
   }
   return null;

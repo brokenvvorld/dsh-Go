@@ -15,13 +15,14 @@ MediaPreset _preset({
   List<String> models = const ['seedream'],
   GenerateKind kind = GenerateKind.image,
   String keyGroup = 'ark',
+  String baseUrl = 'https://ark.cn-beijing.volces.com',
 }) => MediaPreset(
   id: id,
   label: label,
   labelEn: labelEn,
   provider: provider,
   profile: profile,
-  baseUrl: 'https://ark.cn-beijing.volces.com',
+  baseUrl: baseUrl,
   models: models,
   kind: kind,
   keyGroup: keyGroup,
@@ -142,6 +143,33 @@ void main() {
       expect(video.keyRef, image.keyRef);
       expect(video.id, 'ark_video');
       expect(video.models, ['seedance']);
+    });
+
+    test('only official OpenAI media inherits the shared chat credential', () {
+      final official = _preset(provider: 'openai', baseUrl: 'https://api.openai.com/v1/');
+      final image = mediaServiceFromPreset(
+        preset: official,
+        catalog: _catalog(),
+        existing: const [],
+        openaiChatKeyConfigured: true,
+      )!;
+      expect(image.keyRef, 'OPENAI_API_KEY');
+      final gateway = _preset(provider: 'openai', baseUrl: 'https://gateway.example/v1');
+      final other = mediaServiceFromPreset(
+        preset: gateway,
+        catalog: _catalog(),
+        existing: [image],
+        openaiChatKeyConfigured: true,
+      )!;
+      expect(other.keyRef, isNot('OPENAI_API_KEY'));
+      final separate = mediaServiceFromPreset(
+        preset: official,
+        catalog: _catalog(),
+        existing: [image],
+        reuseKey: false,
+        openaiChatKeyConfigured: true,
+      )!;
+      expect(separate.keyRef, isNot('OPENAI_API_KEY'));
     });
 
     test('asking for a separate account gets a distinct reference', () {

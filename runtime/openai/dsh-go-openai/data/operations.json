@@ -1,0 +1,3879 @@
+{
+  "checkedAt": "2026-11-06",
+  "operations": [
+    {
+      "method": "DELETE",
+      "path": "/agents/automations/{automation_id}",
+      "title": "Delete an automation",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "automation_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /agents/automations/{automation_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "DELETE",
+      "path": "/agents/environments/templates/{environment_template_id}",
+      "title": "Delete an agent environment template",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "environment_template_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /agents/environments/templates/{environment_template_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "DELETE",
+      "path": "/agents/sessions/{session_id}",
+      "title": "Delete an agent session",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /agents/sessions/{session_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "DELETE",
+      "path": "/agents/sessions/{session_id}/artifacts/{artifact_id}",
+      "title": "Delete an agent session artifact",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string",
+          "artifact_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /agents/sessions/{session_id}/artifacts/{artifact_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "DELETE",
+      "path": "/agents/{agent_id}",
+      "title": "Delete an agent",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "agent_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /agents/{agent_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "DELETE",
+      "path": "/audio/voice_consents/{consent_id}",
+      "title": "Delete voice consent",
+      "source": "https://developers.openai.com/api/reference/resources/audio/subresources/voice_consents/methods/delete.md",
+      "fields": {
+        "Path Parameters": [
+          "consent_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /audio/voice_consents/{consent_id}",
+      "family": "audio",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/audio/voices/{voice_id}",
+      "title": "Delete voice",
+      "source": "https://developers.openai.com/api/reference/resources/audio/subresources/voices/methods/delete.md",
+      "fields": {
+        "Path Parameters": [
+          "voice_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /audio/voices/{voice_id}",
+      "family": "audio",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/chat/completions/{completion_id}",
+      "title": "Delete chat completion",
+      "source": "https://developers.openai.com/api/reference/resources/chat.md",
+      "fields": {
+        "Path Parameters": [
+          "completion_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /chat/completions/{completion_id}",
+      "family": "chat",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/containers/{container_id}",
+      "title": "Delete a container",
+      "source": "https://developers.openai.com/api/reference/resources/containers.md",
+      "fields": {
+        "Path Parameters": [
+          "container_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /containers/{container_id}",
+      "family": "containers",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/containers/{container_id}/files/{file_id}",
+      "title": "Delete a container file",
+      "source": "https://developers.openai.com/api/reference/resources/containers/subresources/files.md",
+      "fields": {
+        "Path Parameters": [
+          "container_id: string",
+          "file_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /containers/{container_id}/files/{file_id}",
+      "family": "containers",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/conversations/{conversation_id}",
+      "title": "Delete a conversation",
+      "source": "https://developers.openai.com/api/reference/resources/conversations.md",
+      "fields": {
+        "Path Parameters": [
+          "conversation_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /conversations/{conversation_id}",
+      "family": "conversations",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/conversations/{conversation_id}/items/{item_id}",
+      "title": "Delete an item",
+      "source": "https://developers.openai.com/api/reference/resources/conversations.md",
+      "fields": {
+        "Path Parameters": [
+          "conversation_id: string",
+          "item_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /conversations/{conversation_id}/items/{item_id}",
+      "family": "conversations",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/files/{file_id}",
+      "title": "Delete file",
+      "source": "https://developers.openai.com/api/reference/resources/files.md",
+      "fields": {
+        "Path Parameters": [
+          "file_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /files/{file_id}",
+      "family": "files",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/fine_tuning/checkpoints/{fine_tuned_model_checkpoint}/permissions/{permission_id}",
+      "title": "Delete checkpoint permission",
+      "source": "https://developers.openai.com/api/reference/resources/fine_tuning.md",
+      "fields": {
+        "Path Parameters": [
+          "fine_tuned_model_checkpoint: string",
+          "permission_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /fine_tuning/checkpoints/{fine_tuned_model_checkpoint}/permissions/{permission_id}",
+      "family": "fine_tuning",
+      "status": "existing_customers_until_2027-01-06",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/models/{model}",
+      "title": "Delete a fine-tuned model",
+      "source": "https://developers.openai.com/api/reference/resources/models.md",
+      "fields": {
+        "Path Parameters": [
+          "model: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /models/{model}",
+      "family": "models",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/responses/{response_id}",
+      "title": "Delete a model response",
+      "source": "https://developers.openai.com/api/reference/resources/responses.md",
+      "fields": {
+        "Path Parameters": [
+          "response_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /responses/{response_id}",
+      "family": "responses",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/skills/{skill_id}",
+      "title": "Delete Skill",
+      "source": "https://developers.openai.com/api/reference/resources/skills.md",
+      "fields": {
+        "Path Parameters": [
+          "skill_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /skills/{skill_id}",
+      "family": "skills",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/skills/{skill_id}/versions/{version}",
+      "title": "Delete Skill Version",
+      "source": "https://developers.openai.com/api/reference/resources/skills.md",
+      "fields": {
+        "Path Parameters": [
+          "skill_id: string",
+          "version: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /skills/{skill_id}/versions/{version}",
+      "family": "skills",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/vaults/{vault_id}",
+      "title": "Delete a vault",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "vault_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /vaults/{vault_id}",
+      "family": "vaults",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "DELETE",
+      "path": "/vaults/{vault_id}/credentials/{credential_id}",
+      "title": "Delete a vault credential",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "vault_id: string",
+          "credential_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /vaults/{vault_id}/credentials/{credential_id}",
+      "family": "vaults",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "DELETE",
+      "path": "/vector_stores/{vector_store_id}",
+      "title": "Delete vector store",
+      "source": "https://developers.openai.com/api/reference/resources/vector_stores.md",
+      "fields": {
+        "Path Parameters": [
+          "vector_store_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /vector_stores/{vector_store_id}",
+      "family": "vector_stores",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/vector_stores/{vector_store_id}/files/{file_id}",
+      "title": "Delete vector store file",
+      "source": "https://developers.openai.com/api/reference/resources/vector_stores/subresources/files.md",
+      "fields": {
+        "Path Parameters": [
+          "vector_store_id: string",
+          "file_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "DELETE /vector_stores/{vector_store_id}/files/{file_id}",
+      "family": "vector_stores",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "id": "DELETE /webhook_endpoints/{webhook_endpoint_id}",
+      "method": "DELETE",
+      "path": "/webhook_endpoints/{webhook_endpoint_id}",
+      "title": "delete",
+      "family": "webhooks",
+      "status": "available",
+      "source": "https://developers.openai.com/api/docs/guides/webhooks",
+      "fields": {},
+      "multipart": false,
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "GET",
+      "path": "/agents",
+      "title": "List agents",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/automations",
+      "title": "List automations",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")",
+          "session_id: optional string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/automations",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/automations/{automation_id}",
+      "title": "Get an automation",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "automation_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/automations/{automation_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/automations/{automation_id}/invocations",
+      "title": "List automation invocations",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "automation_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/automations/{automation_id}/invocations",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/automations/{automation_id}/invocations/{invocation_id}",
+      "title": "Get an automation invocation",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "automation_id: string",
+          "invocation_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/automations/{automation_id}/invocations/{invocation_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/environments",
+      "title": "List agent environments",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")",
+          "type: optional \"openai_hosted\""
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/environments",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/environments/templates",
+      "title": "List agent environment templates",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/environments/templates",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/environments/templates/{environment_template_id}",
+      "title": "Retrieve an agent environment template",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "environment_template_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/environments/templates/{environment_template_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/environments/{environment_id}",
+      "title": "Retrieve an agent environment",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "environment_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/environments/{environment_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/environments/{environment_id}/files",
+      "title": "List agent environment files",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "environment_id: string"
+        ],
+        "Query Parameters": [
+          "limit: optional integer or null",
+          "order: optional \"asc\" or \"desc\"",
+          "page: optional string",
+          "path: optional string or null"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/environments/{environment_id}/files",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions",
+      "title": "List agent sessions",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Query Parameters": [
+          "after: optional string",
+          "agent_id: optional string",
+          "limit: optional integer (default: 20)",
+          "metadata: optional map[string]",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions/{session_id}",
+      "title": "Retrieve an agent session",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions/{session_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions/{session_id}/artifacts",
+      "title": "List agent session artifacts",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "environment_id: optional string or null",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions/{session_id}/artifacts",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions/{session_id}/artifacts/{artifact_id}",
+      "title": "Retrieve an agent session artifact",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string",
+          "artifact_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions/{session_id}/artifacts/{artifact_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions/{session_id}/artifacts/{artifact_id}/content",
+      "title": "Retrieve agent session artifact content",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string",
+          "artifact_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions/{session_id}/artifacts/{artifact_id}/content",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions/{session_id}/events",
+      "title": "Stream agent session events",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string"
+        ],
+        "Query Parameters": [
+          "include_obfuscation: optional boolean (default: true)"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions/{session_id}/events",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions/{session_id}/items",
+      "title": "List agent session items",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions/{session_id}/items",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions/{session_id}/subagents",
+      "title": "List session subagents",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions/{session_id}/subagents",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions/{session_id}/subagents/{subagent_id}",
+      "title": "Retrieve a session subagent",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string",
+          "subagent_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions/{session_id}/subagents/{subagent_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions/{session_id}/subagents/{subagent_id}/items",
+      "title": "List subagent items",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string",
+          "subagent_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions/{session_id}/subagents/{subagent_id}/items",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions/{session_id}/subagents/{subagent_id}/turns",
+      "title": "List subagent turns",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string",
+          "subagent_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions/{session_id}/subagents/{subagent_id}/turns",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions/{session_id}/subagents/{subagent_id}/turns/{turn_id}",
+      "title": "Retrieve a subagent turn",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string",
+          "subagent_id: string",
+          "turn_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions/{session_id}/subagents/{subagent_id}/turns/{turn_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions/{session_id}/subagents/{subagent_id}/turns/{turn_id}/items",
+      "title": "List subagent turn items",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string",
+          "subagent_id: string",
+          "turn_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions/{session_id}/subagents/{subagent_id}/turns/{turn_id}/items",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions/{session_id}/traces",
+      "title": "List agent session traces",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions/{session_id}/traces",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions/{session_id}/turns",
+      "title": "List agent session turns",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions/{session_id}/turns",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions/{session_id}/turns/{turn_id}",
+      "title": "Retrieve an agent session turn",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string",
+          "turn_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions/{session_id}/turns/{turn_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/sessions/{session_id}/turns/{turn_id}/items",
+      "title": "List agent session turn items",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string",
+          "turn_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/sessions/{session_id}/turns/{turn_id}/items",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/{agent_id}",
+      "title": "Retrieve an agent",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "agent_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /agents/{agent_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/audio/voice_consents",
+      "title": "List voice consents",
+      "source": "https://developers.openai.com/api/reference/resources/audio/subresources/voice_consents/methods/list.md",
+      "fields": {
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /audio/voice_consents",
+      "family": "audio",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/audio/voice_consents/{consent_id}",
+      "title": "Retrieve voice consent",
+      "source": "https://developers.openai.com/api/reference/resources/audio/subresources/voice_consents/methods/retrieve.md",
+      "fields": {
+        "Path Parameters": [
+          "consent_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /audio/voice_consents/{consent_id}",
+      "family": "audio",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/batches",
+      "title": "List batches",
+      "source": "https://developers.openai.com/api/reference/resources/batches.md",
+      "fields": {
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /batches",
+      "family": "batches",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/batches/{batch_id}",
+      "title": "Retrieve batch",
+      "source": "https://developers.openai.com/api/reference/resources/batches.md",
+      "fields": {
+        "Path Parameters": [
+          "batch_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /batches/{batch_id}",
+      "family": "batches",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/chat/completions",
+      "title": "List Chat Completions",
+      "source": "https://developers.openai.com/api/reference/resources/chat.md",
+      "fields": {
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "metadata: optional Metadata or null",
+          "model: optional string",
+          "order: optional \"asc\" or \"desc\" (default: \"asc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /chat/completions",
+      "family": "chat",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/chat/completions/{completion_id}",
+      "title": "Get chat completion",
+      "source": "https://developers.openai.com/api/reference/resources/chat.md",
+      "fields": {
+        "Path Parameters": [
+          "completion_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /chat/completions/{completion_id}",
+      "family": "chat",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/chat/completions/{completion_id}/messages",
+      "title": "Get chat messages",
+      "source": "https://developers.openai.com/api/reference/resources/chat.md",
+      "fields": {
+        "Path Parameters": [
+          "completion_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"asc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /chat/completions/{completion_id}/messages",
+      "family": "chat",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/containers",
+      "title": "List containers",
+      "source": "https://developers.openai.com/api/reference/resources/containers.md",
+      "fields": {
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "name: optional string",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /containers",
+      "family": "containers",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/containers/{container_id}",
+      "title": "Retrieve container",
+      "source": "https://developers.openai.com/api/reference/resources/containers.md",
+      "fields": {
+        "Path Parameters": [
+          "container_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /containers/{container_id}",
+      "family": "containers",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/containers/{container_id}/files",
+      "title": "List container files",
+      "source": "https://developers.openai.com/api/reference/resources/containers/subresources/files.md",
+      "fields": {
+        "Path Parameters": [
+          "container_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /containers/{container_id}/files",
+      "family": "containers",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/containers/{container_id}/files/{file_id}",
+      "title": "Retrieve container file",
+      "source": "https://developers.openai.com/api/reference/resources/containers/subresources/files.md",
+      "fields": {
+        "Path Parameters": [
+          "container_id: string",
+          "file_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /containers/{container_id}/files/{file_id}",
+      "family": "containers",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/containers/{container_id}/files/{file_id}/content",
+      "title": "Retrieve container file content",
+      "source": "https://developers.openai.com/api/reference/resources/containers/subresources/files.md",
+      "fields": {
+        "Path Parameters": [
+          "container_id: string",
+          "file_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /containers/{container_id}/files/{file_id}/content",
+      "family": "containers",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/conversations/{conversation_id}",
+      "title": "Retrieve a conversation",
+      "source": "https://developers.openai.com/api/reference/resources/conversations.md",
+      "fields": {
+        "Path Parameters": [
+          "conversation_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /conversations/{conversation_id}",
+      "family": "conversations",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/conversations/{conversation_id}/items",
+      "title": "List items",
+      "source": "https://developers.openai.com/api/reference/resources/conversations.md",
+      "fields": {
+        "Path Parameters": [
+          "conversation_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "include: optional array of ResponseIncludable",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\""
+        ]
+      },
+      "multipart": false,
+      "id": "GET /conversations/{conversation_id}/items",
+      "family": "conversations",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/conversations/{conversation_id}/items/{item_id}",
+      "title": "Retrieve an item",
+      "source": "https://developers.openai.com/api/reference/resources/conversations.md",
+      "fields": {
+        "Path Parameters": [
+          "conversation_id: string",
+          "item_id: string"
+        ],
+        "Query Parameters": [
+          "include: optional array of ResponseIncludable"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /conversations/{conversation_id}/items/{item_id}",
+      "family": "conversations",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/evals",
+      "title": "List evals",
+      "source": "https://developers.openai.com/api/reference/resources/evals.md",
+      "fields": {
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"asc\")",
+          "order_by: optional \"created_at\" or \"updated_at\" (default: \"created_at\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /evals",
+      "family": "evals",
+      "status": "read_only_until_2026-11-30",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/evals/{eval_id}",
+      "title": "Get an eval",
+      "source": "https://developers.openai.com/api/reference/resources/evals.md",
+      "fields": {
+        "Path Parameters": [
+          "eval_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /evals/{eval_id}",
+      "family": "evals",
+      "status": "read_only_until_2026-11-30",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/evals/{eval_id}/runs",
+      "title": "Get eval runs",
+      "source": "https://developers.openai.com/api/reference/resources/evals.md",
+      "fields": {
+        "Path Parameters": [
+          "eval_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"asc\")",
+          "status: optional \"queued\" or \"in_progress\" or \"completed\" or 2 more"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /evals/{eval_id}/runs",
+      "family": "evals",
+      "status": "read_only_until_2026-11-30",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/evals/{eval_id}/runs/{run_id}",
+      "title": "Get an eval run",
+      "source": "https://developers.openai.com/api/reference/resources/evals.md",
+      "fields": {
+        "Path Parameters": [
+          "eval_id: string",
+          "run_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /evals/{eval_id}/runs/{run_id}",
+      "family": "evals",
+      "status": "read_only_until_2026-11-30",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/evals/{eval_id}/runs/{run_id}/output_items",
+      "title": "Get eval run output items",
+      "source": "https://developers.openai.com/api/reference/resources/evals.md",
+      "fields": {
+        "Path Parameters": [
+          "eval_id: string",
+          "run_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"asc\")",
+          "status: optional \"fail\" or \"pass\""
+        ]
+      },
+      "multipart": false,
+      "id": "GET /evals/{eval_id}/runs/{run_id}/output_items",
+      "family": "evals",
+      "status": "read_only_until_2026-11-30",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/evals/{eval_id}/runs/{run_id}/output_items/{output_item_id}",
+      "title": "Get an output item of an eval run",
+      "source": "https://developers.openai.com/api/reference/resources/evals.md",
+      "fields": {
+        "Path Parameters": [
+          "eval_id: string",
+          "run_id: string",
+          "output_item_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /evals/{eval_id}/runs/{run_id}/output_items/{output_item_id}",
+      "family": "evals",
+      "status": "read_only_until_2026-11-30",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/files",
+      "title": "List files",
+      "source": "https://developers.openai.com/api/reference/resources/files.md",
+      "fields": {
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 10000)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")",
+          "purpose: optional string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /files",
+      "family": "files",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/files/{file_id}",
+      "title": "Retrieve file",
+      "source": "https://developers.openai.com/api/reference/resources/files.md",
+      "fields": {
+        "Path Parameters": [
+          "file_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /files/{file_id}",
+      "family": "files",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/files/{file_id}/content",
+      "title": "Retrieve file content",
+      "source": "https://developers.openai.com/api/reference/resources/files.md",
+      "fields": {
+        "Path Parameters": [
+          "file_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /files/{file_id}/content",
+      "family": "files",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/fine_tuning/checkpoints/{fine_tuned_model_checkpoint}/permissions",
+      "title": "List checkpoint permissions",
+      "source": "https://developers.openai.com/api/reference/resources/fine_tuning.md",
+      "fields": {
+        "Path Parameters": [
+          "fine_tuned_model_checkpoint: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 10)",
+          "order: optional \"ascending\" or \"descending\" (default: \"descending\")",
+          "project_id: optional string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /fine_tuning/checkpoints/{fine_tuned_model_checkpoint}/permissions",
+      "family": "fine_tuning",
+      "status": "existing_customers_until_2027-01-06",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/fine_tuning/jobs",
+      "title": "List fine-tuning jobs",
+      "source": "https://developers.openai.com/api/reference/resources/fine_tuning.md",
+      "fields": {
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "metadata: optional map[string] or null"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /fine_tuning/jobs",
+      "family": "fine_tuning",
+      "status": "existing_customers_until_2027-01-06",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/fine_tuning/jobs/{fine_tuning_job_id}",
+      "title": "Retrieve fine-tuning job",
+      "source": "https://developers.openai.com/api/reference/resources/fine_tuning.md",
+      "fields": {
+        "Path Parameters": [
+          "fine_tuning_job_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /fine_tuning/jobs/{fine_tuning_job_id}",
+      "family": "fine_tuning",
+      "status": "existing_customers_until_2027-01-06",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/fine_tuning/jobs/{fine_tuning_job_id}/checkpoints",
+      "title": "List fine-tuning checkpoints",
+      "source": "https://developers.openai.com/api/reference/resources/fine_tuning.md",
+      "fields": {
+        "Path Parameters": [
+          "fine_tuning_job_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 10)"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /fine_tuning/jobs/{fine_tuning_job_id}/checkpoints",
+      "family": "fine_tuning",
+      "status": "existing_customers_until_2027-01-06",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/fine_tuning/jobs/{fine_tuning_job_id}/events",
+      "title": "List fine-tuning events",
+      "source": "https://developers.openai.com/api/reference/resources/fine_tuning.md",
+      "fields": {
+        "Path Parameters": [
+          "fine_tuning_job_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /fine_tuning/jobs/{fine_tuning_job_id}/events",
+      "family": "fine_tuning",
+      "status": "existing_customers_until_2027-01-06",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/live/sessions/{session_id}/content",
+      "title": "Download recording",
+      "source": "https://developers.openai.com/api/reference/resources/live.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /live/sessions/{session_id}/content",
+      "family": "live",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/models",
+      "title": "List models",
+      "source": "https://developers.openai.com/api/reference/resources/models.md",
+      "fields": {},
+      "multipart": false,
+      "id": "GET /models",
+      "family": "models",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/models/{model}",
+      "title": "Retrieve model",
+      "source": "https://developers.openai.com/api/reference/resources/models.md",
+      "fields": {
+        "Path Parameters": [
+          "model: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /models/{model}",
+      "family": "models",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/responses/{response_id}",
+      "title": "Get a model response",
+      "source": "https://developers.openai.com/api/reference/resources/responses.md",
+      "fields": {
+        "Path Parameters": [
+          "response_id: string"
+        ],
+        "Query Parameters": [
+          "include: optional array of ResponseIncludable",
+          "include_obfuscation: optional boolean",
+          "starting_after: optional integer",
+          "stream: optional false"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /responses/{response_id}",
+      "family": "responses",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/responses/{response_id}/input_items",
+      "title": "List input items",
+      "source": "https://developers.openai.com/api/reference/resources/responses.md",
+      "fields": {
+        "Path Parameters": [
+          "response_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "include: optional array of ResponseIncludable",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\""
+        ]
+      },
+      "multipart": false,
+      "id": "GET /responses/{response_id}/input_items",
+      "family": "responses",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "id": "GET /safety/alerts/{id}",
+      "method": "GET",
+      "path": "/safety/alerts/{id}",
+      "title": "Retrieve safety alert",
+      "source": "https://developers.openai.com/api/reference/resources/safety/subresources/alerts/methods/retrieve",
+      "fields": {
+        "Path Parameters": [
+          "id: string"
+        ]
+      },
+      "multipart": false,
+      "family": "safety",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "id": "GET /safety/cases/{id}",
+      "method": "GET",
+      "path": "/safety/cases/{id}",
+      "title": "Retrieve safety case",
+      "source": "https://developers.openai.com/api/reference/resources/safety/subresources/cases/methods/retrieve",
+      "fields": {
+        "Path Parameters": [
+          "id: string"
+        ]
+      },
+      "multipart": false,
+      "family": "safety",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/skills",
+      "title": "List Skills",
+      "source": "https://developers.openai.com/api/reference/resources/skills.md",
+      "fields": {
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer",
+          "order: optional \"asc\" or \"desc\""
+        ]
+      },
+      "multipart": false,
+      "id": "GET /skills",
+      "family": "skills",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/skills/{skill_id}",
+      "title": "Get Skill",
+      "source": "https://developers.openai.com/api/reference/resources/skills.md",
+      "fields": {
+        "Path Parameters": [
+          "skill_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /skills/{skill_id}",
+      "family": "skills",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/skills/{skill_id}/content",
+      "title": "Get Skill Content",
+      "source": "https://developers.openai.com/api/reference/resources/skills.md",
+      "fields": {
+        "Path Parameters": [
+          "skill_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /skills/{skill_id}/content",
+      "family": "skills",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/skills/{skill_id}/versions",
+      "title": "List Skill Versions",
+      "source": "https://developers.openai.com/api/reference/resources/skills.md",
+      "fields": {
+        "Path Parameters": [
+          "skill_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer",
+          "order: optional \"asc\" or \"desc\""
+        ]
+      },
+      "multipart": false,
+      "id": "GET /skills/{skill_id}/versions",
+      "family": "skills",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/skills/{skill_id}/versions/{version}",
+      "title": "Get Skill Version",
+      "source": "https://developers.openai.com/api/reference/resources/skills.md",
+      "fields": {
+        "Path Parameters": [
+          "skill_id: string",
+          "version: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /skills/{skill_id}/versions/{version}",
+      "family": "skills",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/skills/{skill_id}/versions/{version}/content",
+      "title": "Get Skill Version Content",
+      "source": "https://developers.openai.com/api/reference/resources/skills.md",
+      "fields": {
+        "Path Parameters": [
+          "skill_id: string",
+          "version: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /skills/{skill_id}/versions/{version}/content",
+      "family": "skills",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/vaults",
+      "title": "List vaults",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "metadata: optional map[string]",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")",
+          "status: optional VaultStatusFilter"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /vaults",
+      "family": "vaults",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/vaults/{vault_id}",
+      "title": "Retrieve a vault",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "vault_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /vaults/{vault_id}",
+      "family": "vaults",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/vaults/{vault_id}/credentials",
+      "title": "List vault credentials",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "vault_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "limit: optional integer (default: 20)",
+          "metadata: optional map[string]",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")",
+          "status: optional VaultStatusFilter"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /vaults/{vault_id}/credentials",
+      "family": "vaults",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/vaults/{vault_id}/credentials/{credential_id}",
+      "title": "Retrieve a vault credential",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "vault_id: string",
+          "credential_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /vaults/{vault_id}/credentials/{credential_id}",
+      "family": "vaults",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "GET",
+      "path": "/vector_stores",
+      "title": "List vector stores",
+      "source": "https://developers.openai.com/api/reference/resources/vector_stores.md",
+      "fields": {
+        "Query Parameters": [
+          "after: optional string",
+          "before: optional string",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /vector_stores",
+      "family": "vector_stores",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/vector_stores/{vector_store_id}",
+      "title": "Retrieve vector store",
+      "source": "https://developers.openai.com/api/reference/resources/vector_stores.md",
+      "fields": {
+        "Path Parameters": [
+          "vector_store_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /vector_stores/{vector_store_id}",
+      "family": "vector_stores",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/vector_stores/{vector_store_id}/file_batches/{batch_id}",
+      "title": "Retrieve vector store file batch",
+      "source": "https://developers.openai.com/api/reference/resources/vector_stores/subresources/file_batches.md",
+      "fields": {
+        "Path Parameters": [
+          "vector_store_id: string",
+          "batch_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /vector_stores/{vector_store_id}/file_batches/{batch_id}",
+      "family": "vector_stores",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/vector_stores/{vector_store_id}/file_batches/{batch_id}/files",
+      "title": "List vector store files in a batch",
+      "source": "https://developers.openai.com/api/reference/resources/vector_stores/subresources/file_batches.md",
+      "fields": {
+        "Path Parameters": [
+          "vector_store_id: string",
+          "batch_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "before: optional string",
+          "filter: optional \"in_progress\" or \"completed\" or \"failed\" or \"cancelled\"",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /vector_stores/{vector_store_id}/file_batches/{batch_id}/files",
+      "family": "vector_stores",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/vector_stores/{vector_store_id}/files",
+      "title": "List vector store files",
+      "source": "https://developers.openai.com/api/reference/resources/vector_stores/subresources/files.md",
+      "fields": {
+        "Path Parameters": [
+          "vector_store_id: string"
+        ],
+        "Query Parameters": [
+          "after: optional string",
+          "before: optional string",
+          "filter: optional \"in_progress\" or \"completed\" or \"failed\" or \"cancelled\"",
+          "limit: optional integer (default: 20)",
+          "order: optional \"asc\" or \"desc\" (default: \"desc\")"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /vector_stores/{vector_store_id}/files",
+      "family": "vector_stores",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/vector_stores/{vector_store_id}/files/{file_id}",
+      "title": "Retrieve vector store file",
+      "source": "https://developers.openai.com/api/reference/resources/vector_stores/subresources/files.md",
+      "fields": {
+        "Path Parameters": [
+          "vector_store_id: string",
+          "file_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /vector_stores/{vector_store_id}/files/{file_id}",
+      "family": "vector_stores",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "GET",
+      "path": "/vector_stores/{vector_store_id}/files/{file_id}/content",
+      "title": "Retrieve vector store file content",
+      "source": "https://developers.openai.com/api/reference/resources/vector_stores/subresources/files.md",
+      "fields": {
+        "Path Parameters": [
+          "vector_store_id: string",
+          "file_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "GET /vector_stores/{vector_store_id}/files/{file_id}/content",
+      "family": "vector_stores",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "id": "GET /webhook_endpoints",
+      "method": "GET",
+      "path": "/webhook_endpoints",
+      "title": "list",
+      "family": "webhooks",
+      "status": "available",
+      "source": "https://developers.openai.com/api/docs/guides/webhooks",
+      "fields": {},
+      "multipart": false,
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "id": "GET /webhook_endpoints/{webhook_endpoint_id}",
+      "method": "GET",
+      "path": "/webhook_endpoints/{webhook_endpoint_id}",
+      "title": "retrieve",
+      "family": "webhooks",
+      "status": "available",
+      "source": "https://developers.openai.com/api/docs/guides/webhooks",
+      "fields": {},
+      "multipart": false,
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "id": "GET /webhook_event_types",
+      "method": "GET",
+      "path": "/webhook_event_types",
+      "title": "list",
+      "family": "webhooks",
+      "status": "available",
+      "source": "https://developers.openai.com/api/docs/guides/webhooks",
+      "fields": {},
+      "multipart": false,
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/agents",
+      "title": "Create an agent",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Body Parameters": [
+          "model: string",
+          "compaction: optional object { async }  or null",
+          "experimental: optional object { time_awareness }  (default: {\"time_awareness\":false})",
+          "instructions: optional string or null",
+          "metadata: optional map[string] or null",
+          "multi_agent: optional MultiAgentConfigParam or null",
+          "name: optional string or null",
+          "reasoning: optional AgentReasoningParam or null",
+          "service_tier: optional \"auto\" or \"default\" or \"flex\" or 3 more or null",
+          "text: optional AgentTextParam or null",
+          "tools: optional array of PersistedAgentToolParam or null"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /agents",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/agents/automations",
+      "title": "Create an automation",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Body Parameters": [
+          "create_automation_params: AutomationScheduleParam"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /agents/automations",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/agents/automations/{automation_id}",
+      "title": "Update an automation",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "automation_id: string"
+        ],
+        "Body Parameters": [
+          "expression: optional string",
+          "metadata: optional map[string]",
+          "name: optional string",
+          "run_at: optional integer",
+          "target: optional AutomationTargetParam",
+          "timezone: optional string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /agents/automations/{automation_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/agents/automations/{automation_id}/invocations",
+      "title": "Invoke an automation",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "automation_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /agents/automations/{automation_id}/invocations",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/agents/automations/{automation_id}/pause",
+      "title": "Pause an automation",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "automation_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /agents/automations/{automation_id}/pause",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/agents/automations/{automation_id}/resume",
+      "title": "Resume an automation",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "automation_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /agents/automations/{automation_id}/resume",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/agents/environments",
+      "title": "Create an agent environment",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Body Parameters": [
+          "environment: object { type, capability_directories, desktop, 8 more }",
+          "vault_ids: optional array of string or null"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /agents/environments",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/agents/environments/templates",
+      "title": "Create an agent environment template",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Body Parameters": [
+          "capability_directories: optional array of string or null",
+          "desktop: optional object { enabled }  or null",
+          "env: optional map[string] or null",
+          "files: optional array of HostedEnvironmentFileParam or null",
+          "name: optional string or null",
+          "network: optional object { access, allowed_domains, blocked_domains }  or null",
+          "packages: optional object { npm, python, system }  or null",
+          "plugins: optional array of HostedPluginParam or null",
+          "setup_commands: optional array of SetupCommandParam or null",
+          "skills: optional array of HostedSkillParam or null"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /agents/environments/templates",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/agents/environments/templates/{environment_template_id}",
+      "title": "Update an agent environment template",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "environment_template_id: string"
+        ],
+        "Body Parameters": [
+          "capability_directories: optional array of string or null",
+          "desktop: optional object { enabled }  or null",
+          "env: optional map[string] or null",
+          "files: optional array of HostedEnvironmentFileParam or null",
+          "name: optional string or null",
+          "network: optional object { access, allowed_domains, blocked_domains }  or null",
+          "packages: optional object { npm, python, system }  or null",
+          "plugins: optional array of HostedPluginParam or null",
+          "setup_commands: optional array of SetupCommandParam or null",
+          "skills: optional array of HostedSkillParam or null"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /agents/environments/templates/{environment_template_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/agents/environments/{environment_id}/files",
+      "title": "Write an agent environment file",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "environment_id: string"
+        ],
+        "Body Parameters": [
+          "hosted_environment_file_param: HostedEnvironmentFileParam"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /agents/environments/{environment_id}/files",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/agents/sessions",
+      "title": "Create an agent session",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Body Parameters": [
+          "environment: EnvironmentParam",
+          "agent: optional object { compaction, experimental, instructions, 6 more }",
+          "agent_id: optional string",
+          "input: optional string or array of AgentSessionInputMessageParam or null",
+          "metadata: optional map[string] or null",
+          "review: optional \"none\" or \"auto_review\"",
+          "stream: optional boolean (default: false)",
+          "stream_options: optional object { include_obfuscation }",
+          "vault_ids: optional array of string or null"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /agents/sessions",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/agents/sessions/{session_id}",
+      "title": "Update an agent session",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string"
+        ],
+        "Body Parameters": [
+          "agent: optional object { model, reasoning, service_tier, tools }",
+          "metadata: optional map[string] or null",
+          "review: optional \"none\" or \"auto_review\""
+        ]
+      },
+      "multipart": false,
+      "id": "POST /agents/sessions/{session_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/agents/sessions/{session_id}/events",
+      "title": "Create agent session input events",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string"
+        ],
+        "Body Parameters": [
+          "events: array of AgentSessionInputParam"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /agents/sessions/{session_id}/events",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/agents/{agent_id}",
+      "title": "Update an agent",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "agent_id: string"
+        ],
+        "Body Parameters": [
+          "compaction: optional object { async }  or null",
+          "experimental: optional object { time_awareness }  (default: {})",
+          "instructions: optional string or null",
+          "metadata: optional map[string] or null",
+          "model: optional string",
+          "multi_agent: optional MultiAgentConfigParam or null",
+          "name: optional string or null",
+          "reasoning: optional AgentReasoningParam or null",
+          "service_tier: optional \"auto\" or \"default\" or \"flex\" or 3 more or null",
+          "text: optional AgentTextParam or null",
+          "tools: optional array of PersistedAgentToolParam or null"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /agents/{agent_id}",
+      "family": "agents",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/audio/speech",
+      "title": "Create speech",
+      "source": "https://developers.openai.com/api/reference/resources/audio.md",
+      "fields": {
+        "Body Parameters": [
+          "input: string",
+          "model: string or SpeechModel",
+          "voice: string or \"alloy\" or \"ash\" or \"ballad\" or 10 more or ID { id }",
+          "instructions: optional string",
+          "response_format: optional \"mp3\" or \"opus\" or \"aac\" or 3 more (default: \"mp3\")",
+          "speed: optional number (default: 1)",
+          "stream_format: optional \"sse\" or \"audio\" (default: \"audio\")"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /audio/speech",
+      "family": "audio",
+      "status": "deprecated_until_2027-01-06",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/audio/transcriptions",
+      "title": "Create transcription",
+      "source": "https://developers.openai.com/api/reference/resources/audio.md",
+      "fields": {
+        "Body Parameters": [
+          "file: string",
+          "model: string or AudioModel",
+          "chunking_strategy: optional \"auto\" or VadConfig { type, prefix_padding_ms, silence_duration_ms, threshold }  or null",
+          "include: optional array of TranscriptionInclude",
+          "keywords: optional array of string",
+          "known_speaker_names: optional array of string",
+          "known_speaker_references: optional array of string",
+          "language: optional string",
+          "languages: optional array of string",
+          "prompt: optional string",
+          "response_format: optional AudioResponseFormat (default: \"json\")",
+          "stream: optional boolean or null (default: false)",
+          "temperature: optional number (default: 0)",
+          "timestamp_granularities: optional array of \"word\" or \"segment\" (default: [\"segment\"])"
+        ]
+      },
+      "multipart": true,
+      "id": "POST /audio/transcriptions",
+      "family": "audio",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/audio/translations",
+      "title": "Create translation",
+      "source": "https://developers.openai.com/api/reference/resources/audio.md",
+      "fields": {
+        "Body Parameters": [
+          "file: string",
+          "model: string or AudioModel",
+          "prompt: optional string",
+          "response_format: optional \"json\" or \"text\" or \"srt\" or 2 more (default: \"json\")",
+          "temperature: optional number (default: 0)"
+        ]
+      },
+      "multipart": true,
+      "id": "POST /audio/translations",
+      "family": "audio",
+      "status": "deprecated_until_2027-02-26",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/audio/voice_consents",
+      "title": "Create voice consent",
+      "source": "https://developers.openai.com/api/reference/resources/audio/subresources/voice_consents/methods/create.md",
+      "fields": {
+        "Body Parameters": [
+          "language: string",
+          "name: string",
+          "recording: string"
+        ]
+      },
+      "multipart": true,
+      "id": "POST /audio/voice_consents",
+      "family": "audio",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "POST",
+      "path": "/audio/voice_consents/{consent_id}",
+      "title": "Update voice consent",
+      "source": "https://developers.openai.com/api/reference/resources/audio/subresources/voice_consents/methods/update.md",
+      "fields": {
+        "Path Parameters": [
+          "consent_id: string"
+        ],
+        "Body Parameters": [
+          "name: string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /audio/voice_consents/{consent_id}",
+      "family": "audio",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "POST",
+      "path": "/audio/voices",
+      "title": "Create voice",
+      "source": "https://developers.openai.com/api/reference/resources/audio/subresources/voices/methods/create.md",
+      "fields": {
+        "Body Parameters": [
+          "name: string",
+          "prompt: string",
+          "type: \"prompt\"",
+          "model: optional string or \"auto\" or \"2026-10-08\" (default: \"auto\")",
+          "script_hint: optional string",
+          "audio_sample: optional file (type=audio_sample, with consent recording id)"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /audio/voices",
+      "family": "audio",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "optionalMultipart": true
+    },
+    {
+      "method": "POST",
+      "path": "/batches",
+      "title": "Create batch",
+      "source": "https://developers.openai.com/api/reference/resources/batches.md",
+      "fields": {
+        "Body Parameters": [
+          "completion_window: \"24h\"",
+          "endpoint: \"/v1/responses\" or \"/v1/chat/completions\" or \"/v1/embeddings\" or 5 more",
+          "input_file_id: string",
+          "metadata: optional Metadata or null",
+          "output_expires_after: optional object { anchor, seconds }"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /batches",
+      "family": "batches",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/batches/{batch_id}/cancel",
+      "title": "Cancel batch",
+      "source": "https://developers.openai.com/api/reference/resources/batches.md",
+      "fields": {
+        "Path Parameters": [
+          "batch_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /batches/{batch_id}/cancel",
+      "family": "batches",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/chat/completions",
+      "title": "Create chat completion",
+      "source": "https://developers.openai.com/api/reference/resources/chat.md",
+      "fields": {
+        "Body Parameters": [
+          "messages: array of ChatCompletionMessageParam",
+          "model: string or \"gpt-6-astra\" or \"gpt-6.1-sol\" or \"gpt-6.1-terra\" or 87 more",
+          "audio: optional ChatCompletionAudioParam or null",
+          "frequency_penalty: optional number or null (default: 0)",
+          "function_call: optional \"none\" or \"auto\" or ChatCompletionFunctionCallOption",
+          "functions: optional array of object { name, description, parameters }",
+          "logit_bias: optional map[number] or null (default: null)",
+          "logprobs: optional boolean or null (default: false)",
+          "max_completion_tokens: optional integer or null",
+          "max_tokens: optional integer or null",
+          "metadata: optional Metadata or null",
+          "modalities: optional array of \"text\" or \"audio\" or null",
+          "moderation: optional object { model, policy }  or null",
+          "n: optional integer or null (default: 1)",
+          "parallel_tool_calls: optional boolean (default: true)",
+          "prediction: optional ChatCompletionPredictionContent or null",
+          "presence_penalty: optional number or null (default: 0)",
+          "prompt_cache_key: optional string or null",
+          "prompt_cache_options: optional object { mode, ttl }",
+          "prompt_cache_retention: optional \"in_memory\" or \"24h\" or null",
+          "reasoning_effort: optional ReasoningEffort or null (default: \"medium\")",
+          "response_format: optional ResponseFormatText or ResponseFormatJSONSchema or ResponseFormatJSONObject",
+          "safety_identifier: optional string or null",
+          "seed: optional integer or null",
+          "service_tier: optional \"auto\" or \"default\" or \"flex\" or 3 more or null (default: \"auto\")",
+          "stop: optional string or array of string or null",
+          "store: optional boolean or null (default: false)",
+          "stream: optional boolean or null (default: false)",
+          "stream_options: optional ChatCompletionStreamOptions or null",
+          "temperature: optional number or null (default: 1)",
+          "tool_choice: optional ChatCompletionToolChoiceOption",
+          "tools: optional array of ChatCompletionTool",
+          "top_logprobs: optional integer or null",
+          "top_p: optional number or null (default: 1)",
+          "user: optional string or null",
+          "verbosity: optional \"low\" or \"medium\" or \"high\" or null (default: \"medium\")",
+          "web_search_options: optional object { search_context_size, user_location }"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /chat/completions",
+      "family": "chat",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/chat/completions/{completion_id}",
+      "title": "Update chat completion",
+      "source": "https://developers.openai.com/api/reference/resources/chat.md",
+      "fields": {
+        "Path Parameters": [
+          "completion_id: string"
+        ],
+        "Body Parameters": [
+          "metadata: Metadata or null"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /chat/completions/{completion_id}",
+      "family": "chat",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/completions",
+      "title": "Create completion",
+      "source": "https://developers.openai.com/api/reference/resources/completions.md",
+      "fields": {
+        "Body Parameters": [
+          "model: string or \"gpt-3.5-turbo-instruct\" or \"davinci-002\" or \"babbage-002\"",
+          "prompt: string or array of string or array of number or array of array of number or null (default: \"<|endoftext|>\")",
+          "best_of: optional integer or null (default: 1)",
+          "echo: optional boolean or null (default: false)",
+          "frequency_penalty: optional number or null (default: 0)",
+          "logit_bias: optional map[number] or null (default: null)",
+          "logprobs: optional integer or null (default: null)",
+          "max_tokens: optional integer or null (default: 16)",
+          "n: optional integer or null (default: 1)",
+          "presence_penalty: optional number or null (default: 0)",
+          "seed: optional integer or null",
+          "stop: optional string or array of string or null",
+          "stream: optional boolean or null (default: false)",
+          "stream_options: optional ChatCompletionStreamOptions or null",
+          "suffix: optional string or null (default: null)",
+          "temperature: optional number or null (default: 1)",
+          "top_p: optional number or null (default: 1)",
+          "user: optional string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /completions",
+      "family": "completions",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers",
+      "title": "Create container",
+      "source": "https://developers.openai.com/api/reference/resources/containers.md",
+      "fields": {
+        "Body Parameters": [
+          "name: string",
+          "expires_after: optional object { anchor, minutes }",
+          "file_ids: optional array of string",
+          "memory_limit: optional \"1g\" or \"4g\" or \"16g\" or \"64g\"",
+          "network_policy: optional ContainerNetworkPolicyDisabled or ContainerNetworkPolicyAllowlist",
+          "skills: optional array of SkillReference or InlineSkill"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /containers",
+      "family": "containers",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/{container_id}/files",
+      "title": "Create container file",
+      "source": "https://developers.openai.com/api/reference/resources/containers/subresources/files.md",
+      "fields": {
+        "Path Parameters": [
+          "container_id: string"
+        ],
+        "Body Parameters": [
+          "file: optional string",
+          "file_id: optional string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /containers/{container_id}/files",
+      "family": "containers",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "optionalMultipart": true
+    },
+    {
+      "method": "POST",
+      "path": "/content_provenance_checks",
+      "title": "Create content provenance check",
+      "source": "https://developers.openai.com/api/reference/resources/content_provenance_checks.md",
+      "fields": {
+        "Body Parameters": [
+          "file: string"
+        ]
+      },
+      "multipart": true,
+      "id": "POST /content_provenance_checks",
+      "family": "content_provenance_checks",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/conversations",
+      "title": "Create a conversation",
+      "source": "https://developers.openai.com/api/reference/resources/conversations.md",
+      "fields": {
+        "Body Parameters": [
+          "items: optional array of EasyInputMessage or Message { content, role, status, type }  or ResponseOutputMessage or 30 more or null",
+          "metadata: optional Metadata or null"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /conversations",
+      "family": "conversations",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/conversations/{conversation_id}",
+      "title": "Update a conversation",
+      "source": "https://developers.openai.com/api/reference/resources/conversations.md",
+      "fields": {
+        "Path Parameters": [
+          "conversation_id: string"
+        ],
+        "Body Parameters": [
+          "metadata: Metadata or null"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /conversations/{conversation_id}",
+      "family": "conversations",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/conversations/{conversation_id}/items",
+      "title": "Create items",
+      "source": "https://developers.openai.com/api/reference/resources/conversations.md",
+      "fields": {
+        "Path Parameters": [
+          "conversation_id: string"
+        ],
+        "Query Parameters": [
+          "include: optional array of ResponseIncludable"
+        ],
+        "Body Parameters": [
+          "items: array of EasyInputMessage or Message { content, role, status, type }  or ResponseOutputMessage or 30 more"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /conversations/{conversation_id}/items",
+      "family": "conversations",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/decisions",
+      "title": "Create a decision",
+      "source": "https://developers.openai.com/api/reference/resources/decisions/methods/create.md",
+      "fields": {
+        "Body Parameters": [
+          "input: string or array of DecisionInputMessage or object { content, role, type }  or object { content, role, type }  or 2 more",
+          "model: string",
+          "questions: array of Predicate { instructions, type, name }  or Choice { choices, instructions, type, name }  or Score { instructions, levels, type, name }",
+          "prompt_cache_key: optional string or null",
+          "prompt_cache_options: optional object { mode, ttl }  or null",
+          "safety_identifier: optional string or null"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /decisions",
+      "family": "decisions",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/embeddings",
+      "title": "Create embeddings",
+      "source": "https://developers.openai.com/api/reference/resources/embeddings/methods/create.md",
+      "fields": {
+        "Body Parameters": [
+          "input: string or array of string or array of number or array of array of number",
+          "model: string or EmbeddingModel",
+          "dimensions: optional integer",
+          "encoding_format: optional \"float\" or \"base64\" (default: \"float\")",
+          "user: optional string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /embeddings",
+      "family": "embeddings",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "title": "Upload file",
+      "source": "https://developers.openai.com/api/reference/resources/files.md",
+      "fields": {
+        "Body Parameters": [
+          "file: string",
+          "purpose: \"assistants\" or \"batch\" or \"fine-tune\" or 3 more",
+          "expires_after: optional object { anchor, seconds }"
+        ]
+      },
+      "multipart": true,
+      "id": "POST /files",
+      "family": "files",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/fine_tuning/alpha/graders/run",
+      "title": "Run grader",
+      "source": "https://developers.openai.com/api/reference/resources/fine_tuning.md",
+      "fields": {
+        "Body Parameters": [
+          "grader: StringCheckGrader or TextSimilarityGrader or PythonGrader or 2 more",
+          "model_sample: string",
+          "item: optional unknown"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /fine_tuning/alpha/graders/run",
+      "family": "fine_tuning",
+      "status": "existing_customers_until_2027-01-06",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "POST",
+      "path": "/fine_tuning/alpha/graders/validate",
+      "title": "Validate grader",
+      "source": "https://developers.openai.com/api/reference/resources/fine_tuning.md",
+      "fields": {
+        "Body Parameters": [
+          "grader: StringCheckGrader or TextSimilarityGrader or PythonGrader or 2 more"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /fine_tuning/alpha/graders/validate",
+      "family": "fine_tuning",
+      "status": "existing_customers_until_2027-01-06",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "POST",
+      "path": "/fine_tuning/checkpoints/{fine_tuned_model_checkpoint}/permissions",
+      "title": "Create checkpoint permissions",
+      "source": "https://developers.openai.com/api/reference/resources/fine_tuning.md",
+      "fields": {
+        "Path Parameters": [
+          "fine_tuned_model_checkpoint: string"
+        ],
+        "Body Parameters": [
+          "project_ids: array of string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /fine_tuning/checkpoints/{fine_tuned_model_checkpoint}/permissions",
+      "family": "fine_tuning",
+      "status": "existing_customers_until_2027-01-06",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "POST",
+      "path": "/fine_tuning/jobs",
+      "title": "Create fine-tuning job",
+      "source": "https://developers.openai.com/api/reference/resources/fine_tuning.md",
+      "fields": {
+        "Body Parameters": [
+          "model: string or \"babbage-002\" or \"davinci-002\" or \"gpt-3.5-turbo\" or \"gpt-4o-mini\"",
+          "training_file: string",
+          "hyperparameters: optional object { batch_size, learning_rate_multiplier, n_epochs }",
+          "integrations: optional array of object { type, wandb }  or null",
+          "metadata: optional Metadata or null",
+          "method: optional object { type, dpo, reinforcement, supervised }",
+          "seed: optional integer or null",
+          "suffix: optional string or null (default: null)",
+          "validation_file: optional string or null"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /fine_tuning/jobs",
+      "family": "fine_tuning",
+      "status": "existing_customers_until_2027-01-06",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "POST",
+      "path": "/fine_tuning/jobs/{fine_tuning_job_id}/cancel",
+      "title": "Cancel fine-tuning",
+      "source": "https://developers.openai.com/api/reference/resources/fine_tuning.md",
+      "fields": {
+        "Path Parameters": [
+          "fine_tuning_job_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /fine_tuning/jobs/{fine_tuning_job_id}/cancel",
+      "family": "fine_tuning",
+      "status": "existing_customers_until_2027-01-06",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "POST",
+      "path": "/fine_tuning/jobs/{fine_tuning_job_id}/pause",
+      "title": "Pause fine-tuning",
+      "source": "https://developers.openai.com/api/reference/resources/fine_tuning.md",
+      "fields": {
+        "Path Parameters": [
+          "fine_tuning_job_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /fine_tuning/jobs/{fine_tuning_job_id}/pause",
+      "family": "fine_tuning",
+      "status": "existing_customers_until_2027-01-06",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "POST",
+      "path": "/fine_tuning/jobs/{fine_tuning_job_id}/resume",
+      "title": "Resume fine-tuning",
+      "source": "https://developers.openai.com/api/reference/resources/fine_tuning.md",
+      "fields": {
+        "Path Parameters": [
+          "fine_tuning_job_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /fine_tuning/jobs/{fine_tuning_job_id}/resume",
+      "family": "fine_tuning",
+      "status": "existing_customers_until_2027-01-06",
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "method": "POST",
+      "path": "/images/edits",
+      "title": "Create image edit",
+      "source": "https://developers.openai.com/api/reference/resources/images.md",
+      "fields": {
+        "Body Parameters": [
+          "images: array of object { file_id, image_url }",
+          "prompt: string",
+          "background: optional \"transparent\" or \"opaque\" or \"auto\" or null (default: \"auto\")",
+          "complexity: optional \"low\" or \"medium\" or \"high\" or null",
+          "frame_count: optional integer or null",
+          "frame_duration_ms: optional integer or null",
+          "input_fidelity: optional \"high\" or \"low\" or null",
+          "markup: optional object { file_id, image_url }",
+          "mask: optional object { file_id, image_url }",
+          "model: optional string or \"gpt-image-1.5\" or \"gpt-image-2\" or \"gpt-image-2-2026-04-21\" or 9 more or null (default: \"gpt-image-2.5-sunburst\")",
+          "moderation: optional \"low\" or \"auto\" or null (default: \"auto\")",
+          "n: optional integer or null (default: 1)",
+          "output_compression: optional integer or null",
+          "output_format: optional \"png\" or \"webp\" or \"jpeg\" or 2 more or null (default: \"png\")",
+          "partial_images: optional integer or null (default: 0)",
+          "quality: optional \"low\" or \"medium\" or \"high\" or 3 more or null (default: \"auto\")",
+          "safety_identifier: optional string or null",
+          "size: optional string or \"auto\" or \"1024x1024\" or \"1536x1024\" or \"1024x1536\" or null (default: \"auto\")",
+          "stream: optional boolean or null (default: false)",
+          "svg: optional object { model, reasoning }  or null",
+          "user: optional string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /images/edits",
+      "family": "images",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "optionalMultipart": true
+    },
+    {
+      "method": "POST",
+      "path": "/images/generations",
+      "title": "Create image",
+      "source": "https://developers.openai.com/api/reference/resources/images.md",
+      "fields": {
+        "Body Parameters": [
+          "model: string or ImageModel",
+          "prompt: string",
+          "background: optional \"transparent\" or \"opaque\" or \"auto\" or null (default: \"auto\")",
+          "complexity: optional \"low\" or \"medium\" or \"high\" or null",
+          "frame_count: optional integer or null",
+          "frame_duration_ms: optional integer or null",
+          "moderation: optional \"low\" or \"auto\" or null (default: \"auto\")",
+          "n: optional integer or null (default: 1)",
+          "output_compression: optional integer or null (default: 100)",
+          "output_format: optional \"png\" or \"webp\" or \"jpeg\" or 2 more or null (default: \"png\")",
+          "partial_images: optional integer or null (default: 0)",
+          "quality: optional \"low\" or \"medium\" or \"high\" or 5 more or null (default: \"auto\")",
+          "response_format: optional \"url\" or \"b64_json\" or null",
+          "safety_identifier: optional string or null",
+          "size: optional string or \"auto\" or \"1024x1024\" or \"1536x1024\" or 5 more or null (default: \"auto\")",
+          "stream: optional boolean or null (default: false)",
+          "style: optional \"vivid\" or \"natural\" or null",
+          "svg: optional object { model, reasoning }  or null",
+          "user: optional string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /images/generations",
+      "family": "images",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/live/sessions",
+      "title": "Create session",
+      "source": "https://developers.openai.com/api/reference/resources/live.md",
+      "fields": {
+        "Body Parameters": [
+          "session: MediaSessionConfig",
+          "transport: Webrtc { sdp, type }  or Sip { destination, trunk, type }"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /live/sessions",
+      "family": "live",
+      "status": "available",
+      "nativeOnly": true,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/live/sessions/{session_id}/accept",
+      "title": "Accept call",
+      "source": "https://developers.openai.com/api/reference/resources/live.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string"
+        ],
+        "Body Parameters": [
+          "session: object { model, type, audio, 5 more }"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /live/sessions/{session_id}/accept",
+      "family": "live",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/live/sessions/{session_id}/fork",
+      "title": "Fork session",
+      "source": "https://developers.openai.com/api/reference/resources/live.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string"
+        ],
+        "Body Parameters": [
+          "transport: object { sdp, type }",
+          "session: optional MediaSessionForkConfig"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /live/sessions/{session_id}/fork",
+      "family": "live",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/live/sessions/{session_id}/hangup",
+      "title": "Hang up session",
+      "source": "https://developers.openai.com/api/reference/resources/live.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /live/sessions/{session_id}/hangup",
+      "family": "live",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/live/sessions/{session_id}/refer",
+      "title": "Transfer call",
+      "source": "https://developers.openai.com/api/reference/resources/live.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string"
+        ],
+        "Body Parameters": [
+          "target_uri: string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /live/sessions/{session_id}/refer",
+      "family": "live",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/live/sessions/{session_id}/reject",
+      "title": "Reject call",
+      "source": "https://developers.openai.com/api/reference/resources/live.md",
+      "fields": {
+        "Path Parameters": [
+          "session_id: string"
+        ],
+        "Body Parameters": [
+          "status_code: integer"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /live/sessions/{session_id}/reject",
+      "family": "live",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/moderations",
+      "title": "Create moderation",
+      "source": "https://developers.openai.com/api/reference/resources/moderations.md",
+      "fields": {
+        "Body Parameters": [
+          "input: string or array of string or array of ImageURL { image_url, type }  or Text { text, type }",
+          "model: optional string or ModerationModel (default: \"omni-moderation-latest\")"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /moderations",
+      "family": "moderations",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/realtime/calls",
+      "title": "Create call",
+      "source": "https://developers.openai.com/api/reference/resources/realtime/subresources/calls.md",
+      "fields": {
+        "Body Parameters": [
+          "body: string"
+        ]
+      },
+      "multipart": true,
+      "id": "POST /realtime/calls",
+      "family": "realtime",
+      "status": "available",
+      "nativeOnly": true,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/realtime/calls/{call_id}/accept",
+      "title": "Accept call",
+      "source": "https://developers.openai.com/api/reference/resources/realtime/subresources/calls.md",
+      "fields": {
+        "Path Parameters": [
+          "call_id: string"
+        ],
+        "Body Parameters": [
+          "type: \"realtime\"",
+          "audio: optional RealtimeAudioConfig",
+          "include: optional array of \"item.input_audio_transcription.logprobs\"",
+          "instructions: optional string",
+          "max_output_tokens: optional number or \"inf\"",
+          "model: optional string or \"gpt-realtime\" or \"gpt-realtime-1.5\" or \"gpt-realtime-2\" or 16 more",
+          "output_modalities: optional array of \"text\" or \"audio\" (default: [\"audio\"])",
+          "parallel_tool_calls: optional boolean",
+          "prompt: optional ResponsePrompt or null",
+          "reasoning: optional RealtimeReasoning",
+          "tool_choice: optional RealtimeToolChoiceConfig (default: \"auto\")",
+          "tools: optional RealtimeToolsConfig",
+          "tracing: optional RealtimeTracingConfig or null (default: null)",
+          "truncation: optional RealtimeTruncation"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /realtime/calls/{call_id}/accept",
+      "family": "realtime",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/realtime/calls/{call_id}/hangup",
+      "title": "Hang up call",
+      "source": "https://developers.openai.com/api/reference/resources/realtime/subresources/calls.md",
+      "fields": {
+        "Path Parameters": [
+          "call_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /realtime/calls/{call_id}/hangup",
+      "family": "realtime",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/realtime/calls/{call_id}/refer",
+      "title": "Refer call",
+      "source": "https://developers.openai.com/api/reference/resources/realtime/subresources/calls.md",
+      "fields": {
+        "Path Parameters": [
+          "call_id: string"
+        ],
+        "Body Parameters": [
+          "target_uri: string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /realtime/calls/{call_id}/refer",
+      "family": "realtime",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/realtime/calls/{call_id}/reject",
+      "title": "Reject call",
+      "source": "https://developers.openai.com/api/reference/resources/realtime/subresources/calls.md",
+      "fields": {
+        "Path Parameters": [
+          "call_id: string"
+        ],
+        "Body Parameters": [
+          "status_code: optional integer"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /realtime/calls/{call_id}/reject",
+      "family": "realtime",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/realtime/client_secrets",
+      "title": "Create client secret",
+      "source": "https://developers.openai.com/api/reference/resources/realtime/subresources/client_secrets.md",
+      "fields": {
+        "Body Parameters": [
+          "expires_after: optional object { anchor, seconds }",
+          "session: optional RealtimeSessionCreateRequest or RealtimeTranscriptionSessionCreateRequest"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /realtime/client_secrets",
+      "family": "realtime",
+      "status": "available",
+      "nativeOnly": true,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/realtime/translations/client_secrets",
+      "title": "Create translation client secret",
+      "source": "https://developers.openai.com/api/reference/resources/realtime.md",
+      "fields": {
+        "Body Parameters": [
+          "session: RealtimeTranslationSessionCreateRequest",
+          "expires_after: optional object { anchor, seconds }"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /realtime/translations/client_secrets",
+      "family": "realtime",
+      "status": "available",
+      "nativeOnly": true,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/responses",
+      "title": "Create a model response",
+      "source": "https://developers.openai.com/api/reference/resources/responses.md",
+      "fields": {
+        "Body Parameters": [
+          "access_programs: optional object { cyber }",
+          "background: optional boolean or null (default: false)",
+          "context_management: optional array of object { type, compact_threshold }  or null",
+          "conversation: optional string or ResponseConversationParam or null",
+          "image: optional object { context_compression }",
+          "include: optional array of ResponseIncludable or null",
+          "input: optional string or array of EasyInputMessage or Message { content, role, status, type }  or ResponseOutputMessage or 30 more",
+          "instructions: optional string or null",
+          "max_output_tokens: optional integer or null",
+          "max_tool_calls: optional integer or null",
+          "metadata: optional Metadata or null",
+          "model: optional ResponsesModel",
+          "moderation: optional object { model, policy }  or null",
+          "parallel_tool_calls: optional boolean or null (default: true)",
+          "previous_response_id: optional string or null",
+          "prompt: optional ResponsePrompt or null",
+          "prompt_cache_key: optional string or null",
+          "prompt_cache_options: optional object { comparison_response_id, mode, prewarm, ttl }",
+          "prompt_cache_retention: optional \"in_memory\" or \"24h\" or null",
+          "reasoning: optional Reasoning or null",
+          "safety_identifier: optional string or null",
+          "service_tier: optional ServiceTier or null (default: \"auto\")",
+          "store: optional boolean or null (default: true)",
+          "stream: optional boolean or null (default: false)",
+          "stream_options: optional object { include_obfuscation }  or null",
+          "temperature: optional number or null (default: 1)",
+          "text: optional ResponseTextConfig",
+          "tool_choice: optional ToolChoiceOptions or ToolChoiceAllowed or ToolChoiceTypes or 6 more",
+          "tools: optional array of Function { name, parameters, strict, 6 more }  or FileSearch { type, vector_store_ids, filters, 2 more }  or Computer { type }  or 13 more",
+          "top_logprobs: optional integer or null",
+          "top_p: optional number or null (default: 1)",
+          "truncation: optional \"auto\" or \"disabled\" or null (default: \"disabled\")",
+          "user: optional string or null"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /responses",
+      "family": "responses",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/responses/compact",
+      "title": "Compact conversation",
+      "source": "https://developers.openai.com/api/reference/resources/responses.md",
+      "fields": {
+        "Body Parameters": [
+          "model: \"gpt-6-astra\" or \"gpt-6.1-sol\" or \"gpt-6.1-terra\" or 109 more or string or null",
+          "image: optional object { context_compression }",
+          "input: optional string or array of EasyInputMessage or Message { content, role, status, type }  or ResponseOutputMessage or 30 more or null",
+          "instructions: optional string or null",
+          "previous_response_id: optional string or null",
+          "prompt_cache_key: optional string or null",
+          "prompt_cache_options: optional object { mode, ttl }  or null",
+          "prompt_cache_retention: optional \"in_memory\" or \"24h\" or null",
+          "service_tier: optional \"auto\" or \"default\" or \"fast\" or 2 more or null"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /responses/compact",
+      "family": "responses",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/responses/input_tokens",
+      "title": "Get input token counts",
+      "source": "https://developers.openai.com/api/reference/resources/responses/subresources/input_tokens.md",
+      "fields": {
+        "Body Parameters": [
+          "conversation: optional string or ResponseConversationParam or null",
+          "input: optional string or array of EasyInputMessage or Message { content, role, status, type }  or ResponseOutputMessage or 30 more or null",
+          "instructions: optional string or null",
+          "model: optional string or null",
+          "parallel_tool_calls: optional boolean or null",
+          "personality: optional string or \"friendly\" or \"pragmatic\"",
+          "previous_response_id: optional string or null",
+          "reasoning: optional Reasoning or null",
+          "text: optional object { format, verbosity }  or null",
+          "tool_choice: optional ToolChoiceOptions or ToolChoiceAllowed or ToolChoiceTypes or 6 more or null",
+          "tools: optional array of Function { name, parameters, strict, 6 more }  or FileSearch { type, vector_store_ids, filters, 2 more }  or Computer { type }  or 13 more or null",
+          "truncation: optional \"auto\" or \"disabled\""
+        ]
+      },
+      "multipart": false,
+      "id": "POST /responses/input_tokens",
+      "family": "responses",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/responses/{response_id}/cancel",
+      "title": "Cancel a response",
+      "source": "https://developers.openai.com/api/reference/resources/responses.md",
+      "fields": {
+        "Path Parameters": [
+          "response_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /responses/{response_id}/cancel",
+      "family": "responses",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/skills",
+      "title": "Create Skill",
+      "source": "https://developers.openai.com/api/reference/resources/skills.md",
+      "fields": {
+        "Body Parameters": [
+          "files: array of string or string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /skills",
+      "family": "skills",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "optionalMultipart": true
+    },
+    {
+      "method": "POST",
+      "path": "/skills/{skill_id}",
+      "title": "Update Skill Default Version",
+      "source": "https://developers.openai.com/api/reference/resources/skills.md",
+      "fields": {
+        "Path Parameters": [
+          "skill_id: string"
+        ],
+        "Body Parameters": [
+          "default_version: string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /skills/{skill_id}",
+      "family": "skills",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/skills/{skill_id}/versions",
+      "title": "Create Skill Version",
+      "source": "https://developers.openai.com/api/reference/resources/skills.md",
+      "fields": {
+        "Path Parameters": [
+          "skill_id: string"
+        ],
+        "Body Parameters": [
+          "files: array of string or string",
+          "default: optional boolean"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /skills/{skill_id}/versions",
+      "family": "skills",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false,
+      "optionalMultipart": true
+    },
+    {
+      "method": "POST",
+      "path": "/uploads",
+      "title": "Create upload",
+      "source": "https://developers.openai.com/api/reference/resources/uploads.md",
+      "fields": {
+        "Body Parameters": [
+          "bytes: integer",
+          "filename: string",
+          "mime_type: string",
+          "purpose: \"assistants\" or \"batch\" or \"fine-tune\" or \"vision\"",
+          "expires_after: optional object { anchor, seconds }"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /uploads",
+      "family": "uploads",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/uploads/{upload_id}/cancel",
+      "title": "Cancel upload",
+      "source": "https://developers.openai.com/api/reference/resources/uploads.md",
+      "fields": {
+        "Path Parameters": [
+          "upload_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /uploads/{upload_id}/cancel",
+      "family": "uploads",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/uploads/{upload_id}/complete",
+      "title": "Complete upload",
+      "source": "https://developers.openai.com/api/reference/resources/uploads.md",
+      "fields": {
+        "Path Parameters": [
+          "upload_id: string"
+        ],
+        "Body Parameters": [
+          "part_ids: array of string",
+          "md5: optional string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /uploads/{upload_id}/complete",
+      "family": "uploads",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/uploads/{upload_id}/parts",
+      "title": "Add upload part",
+      "source": "https://developers.openai.com/api/reference/resources/uploads.md",
+      "fields": {
+        "Path Parameters": [
+          "upload_id: string"
+        ],
+        "Body Parameters": [
+          "data: string"
+        ]
+      },
+      "multipart": true,
+      "id": "POST /uploads/{upload_id}/parts",
+      "family": "uploads",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/vaults",
+      "title": "Create a vault",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Body Parameters": [
+          "metadata: optional map[string] or null",
+          "name: optional string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /vaults",
+      "family": "vaults",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/vaults/{vault_id}",
+      "title": "Update a vault",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "vault_id: string"
+        ],
+        "Body Parameters": [
+          "metadata: optional map[string]",
+          "name: optional string or null"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /vaults/{vault_id}",
+      "family": "vaults",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/vaults/{vault_id}/credentials",
+      "title": "Create a vault credential",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "vault_id: string"
+        ],
+        "Body Parameters": [
+          "auth: CredentialAuthCreateParam",
+          "name: string",
+          "metadata: optional map[string]"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /vaults/{vault_id}/credentials",
+      "family": "vaults",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/vaults/{vault_id}/credentials/{credential_id}",
+      "title": "Update a vault credential",
+      "source": "https://developers.openai.com/api/reference/resources/beta/subresources/agents.md",
+      "fields": {
+        "Path Parameters": [
+          "vault_id: string",
+          "credential_id: string"
+        ],
+        "Body Parameters": [
+          "auth: optional CredentialAuthRotateParam",
+          "metadata: optional map[string]"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /vaults/{vault_id}/credentials/{credential_id}",
+      "family": "vaults",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": true,
+      "beta": "agents=v1"
+    },
+    {
+      "method": "POST",
+      "path": "/vector_stores",
+      "title": "Create vector store",
+      "source": "https://developers.openai.com/api/reference/resources/vector_stores.md",
+      "fields": {
+        "Body Parameters": [
+          "chunking_strategy: optional AutoFileChunkingStrategyParam or StaticFileChunkingStrategyObjectParam",
+          "description: optional string",
+          "expires_after: optional object { anchor, days }",
+          "file_ids: optional array of string",
+          "metadata: optional Metadata or null",
+          "name: optional string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /vector_stores",
+      "family": "vector_stores",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/vector_stores/{vector_store_id}",
+      "title": "Modify vector store",
+      "source": "https://developers.openai.com/api/reference/resources/vector_stores.md",
+      "fields": {
+        "Path Parameters": [
+          "vector_store_id: string"
+        ],
+        "Body Parameters": [
+          "expires_after: optional object { anchor, days }  or null",
+          "metadata: optional Metadata or null",
+          "name: optional string or null"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /vector_stores/{vector_store_id}",
+      "family": "vector_stores",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/vector_stores/{vector_store_id}/file_batches",
+      "title": "Create vector store file batch",
+      "source": "https://developers.openai.com/api/reference/resources/vector_stores/subresources/file_batches.md",
+      "fields": {
+        "Path Parameters": [
+          "vector_store_id: string"
+        ],
+        "Body Parameters": [
+          "attributes: optional map[string or number or boolean] or null",
+          "chunking_strategy: optional FileChunkingStrategyParam",
+          "file_ids: optional array of string",
+          "files: optional array of object { file_id, attributes, chunking_strategy }"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /vector_stores/{vector_store_id}/file_batches",
+      "family": "vector_stores",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/vector_stores/{vector_store_id}/file_batches/{batch_id}/cancel",
+      "title": "Cancel vector store file batch",
+      "source": "https://developers.openai.com/api/reference/resources/vector_stores/subresources/file_batches.md",
+      "fields": {
+        "Path Parameters": [
+          "vector_store_id: string",
+          "batch_id: string"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /vector_stores/{vector_store_id}/file_batches/{batch_id}/cancel",
+      "family": "vector_stores",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/vector_stores/{vector_store_id}/files",
+      "title": "Create vector store file",
+      "source": "https://developers.openai.com/api/reference/resources/vector_stores/subresources/files.md",
+      "fields": {
+        "Path Parameters": [
+          "vector_store_id: string"
+        ],
+        "Body Parameters": [
+          "file_id: string",
+          "attributes: optional map[string or number or boolean] or null",
+          "chunking_strategy: optional FileChunkingStrategyParam"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /vector_stores/{vector_store_id}/files",
+      "family": "vector_stores",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/vector_stores/{vector_store_id}/files/{file_id}",
+      "title": "Update vector store file attributes",
+      "source": "https://developers.openai.com/api/reference/resources/vector_stores/subresources/files.md",
+      "fields": {
+        "Path Parameters": [
+          "vector_store_id: string",
+          "file_id: string"
+        ],
+        "Body Parameters": [
+          "attributes: map[string or number or boolean] or null"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /vector_stores/{vector_store_id}/files/{file_id}",
+      "family": "vector_stores",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "method": "POST",
+      "path": "/vector_stores/{vector_store_id}/search",
+      "title": "Search vector store",
+      "source": "https://developers.openai.com/api/reference/resources/vector_stores.md",
+      "fields": {
+        "Path Parameters": [
+          "vector_store_id: string"
+        ],
+        "Body Parameters": [
+          "query: string or array of string",
+          "filters: optional ComparisonFilter or CompoundFilter",
+          "max_num_results: optional integer (default: 10)",
+          "ranking_options: optional object { ranker, score_threshold }",
+          "rewrite_query: optional boolean (default: false)"
+        ]
+      },
+      "multipart": false,
+      "id": "POST /vector_stores/{vector_store_id}/search",
+      "family": "vector_stores",
+      "status": "available",
+      "nativeOnly": false,
+      "confirmation": false
+    },
+    {
+      "id": "POST /webhook_endpoints",
+      "method": "POST",
+      "path": "/webhook_endpoints",
+      "title": "create",
+      "family": "webhooks",
+      "status": "available",
+      "source": "https://developers.openai.com/api/docs/guides/webhooks",
+      "fields": {},
+      "multipart": false,
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "id": "POST /webhook_endpoints/{webhook_endpoint_id}",
+      "method": "POST",
+      "path": "/webhook_endpoints/{webhook_endpoint_id}",
+      "title": "update",
+      "family": "webhooks",
+      "status": "available",
+      "source": "https://developers.openai.com/api/docs/guides/webhooks",
+      "fields": {},
+      "multipart": false,
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "id": "POST /webhook_endpoints/{webhook_endpoint_id}/rotate_secret",
+      "method": "POST",
+      "path": "/webhook_endpoints/{webhook_endpoint_id}/rotate_secret",
+      "title": "rotateSecret",
+      "family": "webhooks",
+      "status": "available",
+      "source": "https://developers.openai.com/api/docs/guides/webhooks",
+      "fields": {},
+      "multipart": false,
+      "nativeOnly": false,
+      "confirmation": true
+    },
+    {
+      "id": "POST /webhook_endpoints/{webhook_endpoint_id}/test",
+      "method": "POST",
+      "path": "/webhook_endpoints/{webhook_endpoint_id}/test",
+      "title": "test",
+      "family": "webhooks",
+      "status": "available",
+      "source": "https://developers.openai.com/api/docs/guides/webhooks",
+      "fields": {},
+      "multipart": false,
+      "nativeOnly": false,
+      "confirmation": true
+    }
+  ]
+}

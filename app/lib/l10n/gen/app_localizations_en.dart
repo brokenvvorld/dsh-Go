@@ -8842,6 +8842,144 @@ class L10nEn extends L10n {
   String get openAiAlreadyConfigured => 'An OpenAI provider already exists. Return to Model providers to edit it.';
 
   @override
+  String get openaiCapabilitiesTitle => 'OpenAI capabilities';
+
+  @override
+  String get openaiCapabilitiesSummary => 'Decisions, cloud agents, images, voice and files';
+
+  @override
+  String get openaiEnableTools => 'Enable OpenAI tools';
+
+  @override
+  String get openaiSharedKey => 'OpenAI API key (shared with chat)';
+
+  @override
+  String get openaiResponseModel => 'Default task model';
+
+  @override
+  String get openaiRuntimeMissing =>
+      'This Host does not have the OpenAI extension. Update the local runtime or install dsh-go-openai on the remote Host.';
+
+  @override
+  String get openaiCapabilitiesHint =>
+      'Ask for a task in chat to use these capabilities. Requests use the official OpenAI API and this Host’s key. Images, audio and analysis results are saved to the session workspace. Availability depends on your account and model.';
+
+  @override
+  String get openaiVoiceTitle => 'OpenAI live voice';
+
+  @override
+  String get openaiTranscriptionModel => 'Recording transcription model';
+
+  @override
+  String get openaiVoiceName => 'Voice';
+
+  @override
+  String get openaiTranslationLanguage => 'Translation target language code';
+
+  @override
+  String get openaiVoiceDisclosure =>
+      'The voice is AI-generated. Starting sends microphone audio to OpenAI and incurs API usage charges. Leaving the app ends the call.';
+
+  @override
+  String get openaiUseTranscription => 'Use OpenAI for chat recordings';
+
+  @override
+  String get openaiCloudAudioHint =>
+      'Switch the chat microphone to cloud transcription. Recordings are sent to OpenAI. The Host must have speech services enabled.';
+
+  @override
+  String get openaiTranscriptionSelected => 'Chat recordings now use OpenAI';
+
+  @override
+  String get openaiVoiceFailed =>
+      'Voice could not connect or was interrupted. Check the Host version, microphone permission, network and model access.';
+
+  @override
+  String get openaiCapabilitiesAvailable => 'Available in chat';
+
+  @override
+  String get openaiDecisionsTitle => 'Decisions classification and scoring';
+
+  @override
+  String get openaiDecisionsHint =>
+      'Evaluate text, images or JSON for conditions, fixed choices and rubric scores, with probabilities and confidence.';
+
+  @override
+  String get openaiResponsesTitle => 'Search, analysis and structured output';
+
+  @override
+  String get openaiResponsesHint =>
+      'Web and file search, code analysis, hosted shell, MCP, tool search, programmatic tool calling, multi-agent, caching and conversation compaction.';
+
+  @override
+  String get openaiAgentsTitle => 'Hosted agents and background tasks';
+
+  @override
+  String get openaiAgentsHint =>
+      'Cloud sessions, sandboxes, browsers, subagents, schedules, progress, continuation, cancellation and artifact downloads.';
+
+  @override
+  String get openaiMediaTitle => 'Images and audio';
+
+  @override
+  String get openaiMediaHint =>
+      'Generate and edit images, masks, references, SVG, GIF, transcription, speech synthesis and custom voices.';
+
+  @override
+  String get openaiDataTitle => 'Files, knowledge bases and skills';
+
+  @override
+  String get openaiDataHint =>
+      'Uploads and downloads, multipart uploads, knowledge-base indexing and retrieval, embeddings, skill versions and container files.';
+
+  @override
+  String get openaiOperationsTitle => 'Batches, moderation and provenance';
+
+  @override
+  String get openaiOperationsHint =>
+      'Async batches, text/image moderation, media provenance signals, model discovery and existing cloud task management.';
+
+  @override
+  String get openaiTrainingTitle => 'Enable fine-tuning for existing accounts';
+
+  @override
+  String get openaiLegacyHint =>
+      'Fine-tuning requires an eligible existing account and stops accepting jobs on 2027-01-06. Read-only Evals closes on 2026-11-30. Retired Assistants, Sora and DALL·E endpoints are unavailable.';
+
+  @override
+  String get openaiLiveMode => 'GPT-Live conversation and web search';
+
+  @override
+  String get openaiRealtimeMode => 'Realtime voice conversation';
+
+  @override
+  String get openaiCaptionMode => 'Live transcription';
+
+  @override
+  String get openaiTranslationMode => 'Live speech translation';
+
+  @override
+  String get openaiVoiceStart => 'Start call';
+
+  @override
+  String get openaiVoiceStop => 'End call';
+
+  @override
+  String get openaiVoiceConnected => 'Connected — you can speak';
+
+  @override
+  String get openaiCommitSpeech => 'Commit this audio turn';
+
+  @override
+  String get openaiLiveDecisionsMode => 'GPT-Live with Decisions';
+
+  @override
+  String get openaiLiveDecisionQuestion => 'Live condition to evaluate (probability)';
+
+  @override
+  String get openaiMcpCredentials => 'Credential names allowed for MCP';
+
+  @override
   String get performanceTitle => 'Performance';
 
   @override

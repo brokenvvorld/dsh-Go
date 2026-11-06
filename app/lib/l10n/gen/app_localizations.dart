@@ -15392,6 +15392,258 @@ abstract class L10n {
   /// **'OpenAI 渠道已存在，请返回模型渠道页面编辑已有配置。'**
   String get openAiAlreadyConfigured;
 
+  /// No description provided for @openaiCapabilitiesTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'OpenAI 能力'**
+  String get openaiCapabilitiesTitle;
+
+  /// No description provided for @openaiCapabilitiesSummary.
+  ///
+  /// In zh, this message translates to:
+  /// **'决策、云端 Agent、图片、语音和资料处理'**
+  String get openaiCapabilitiesSummary;
+
+  /// No description provided for @openaiEnableTools.
+  ///
+  /// In zh, this message translates to:
+  /// **'启用 OpenAI 工具'**
+  String get openaiEnableTools;
+
+  /// No description provided for @openaiSharedKey.
+  ///
+  /// In zh, this message translates to:
+  /// **'OpenAI API Key（与聊天共用）'**
+  String get openaiSharedKey;
+
+  /// No description provided for @openaiResponseModel.
+  ///
+  /// In zh, this message translates to:
+  /// **'默认任务模型'**
+  String get openaiResponseModel;
+
+  /// No description provided for @openaiRuntimeMissing.
+  ///
+  /// In zh, this message translates to:
+  /// **'当前主机还没有 OpenAI 扩展。请更新本机运行环境，或在远程主机安装 dsh-go-openai。'**
+  String get openaiRuntimeMissing;
+
+  /// No description provided for @openaiCapabilitiesHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'在聊天中直接提出任务即可，助手会按需调用这些能力。使用 OpenAI 官方接口和当前主机的密钥；图片、音频和分析结果会保存到会话工作区。是否可用取决于账号权限和所选模型。'**
+  String get openaiCapabilitiesHint;
+
+  /// No description provided for @openaiVoiceTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'OpenAI 实时语音'**
+  String get openaiVoiceTitle;
+
+  /// No description provided for @openaiTranscriptionModel.
+  ///
+  /// In zh, this message translates to:
+  /// **'录音转写模型'**
+  String get openaiTranscriptionModel;
+
+  /// No description provided for @openaiVoiceName.
+  ///
+  /// In zh, this message translates to:
+  /// **'声音'**
+  String get openaiVoiceName;
+
+  /// No description provided for @openaiTranslationLanguage.
+  ///
+  /// In zh, this message translates to:
+  /// **'翻译目标语言代码'**
+  String get openaiTranslationLanguage;
+
+  /// No description provided for @openaiVoiceDisclosure.
+  ///
+  /// In zh, this message translates to:
+  /// **'声音由 AI 生成。开始后会将麦克风音频发送给 OpenAI，并按 API 用量收费；离开应用会结束通话。'**
+  String get openaiVoiceDisclosure;
+
+  /// No description provided for @openaiUseTranscription.
+  ///
+  /// In zh, this message translates to:
+  /// **'用 OpenAI 转写聊天录音'**
+  String get openaiUseTranscription;
+
+  /// No description provided for @openaiCloudAudioHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'把聊天麦克风切换为云端转写；录音会发送给 OpenAI。需要主机启用语音组件。'**
+  String get openaiCloudAudioHint;
+
+  /// No description provided for @openaiTranscriptionSelected.
+  ///
+  /// In zh, this message translates to:
+  /// **'聊天录音已切换到 OpenAI'**
+  String get openaiTranscriptionSelected;
+
+  /// No description provided for @openaiVoiceFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'语音连接未完成或已中断。请检查主机版本、麦克风权限、网络和账号的模型权限。'**
+  String get openaiVoiceFailed;
+
+  /// No description provided for @openaiCapabilitiesAvailable.
+  ///
+  /// In zh, this message translates to:
+  /// **'可在聊天中使用'**
+  String get openaiCapabilitiesAvailable;
+
+  /// No description provided for @openaiDecisionsTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'Decisions 判断与分类'**
+  String get openaiDecisionsTitle;
+
+  /// No description provided for @openaiDecisionsHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'根据文字、图片或 JSON 判断条件、选择分类、按标准评分；保留概率与置信度。'**
+  String get openaiDecisionsHint;
+
+  /// No description provided for @openaiResponsesTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'检索、分析与结构化结果'**
+  String get openaiResponsesTitle;
+
+  /// No description provided for @openaiResponsesHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'联网搜索、文件检索、代码分析、云端终端、MCP、工具搜索、程序化工具调用、多 Agent、缓存和长对话压缩。'**
+  String get openaiResponsesHint;
+
+  /// No description provided for @openaiAgentsTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'托管 Agent 与后台任务'**
+  String get openaiAgentsTitle;
+
+  /// No description provided for @openaiAgentsHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'云端会话、沙箱、浏览器、协作 Agent、定时任务、进度查询、继续或取消任务，以及下载交付文件。'**
+  String get openaiAgentsHint;
+
+  /// No description provided for @openaiMediaTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'图片与音频'**
+  String get openaiMediaTitle;
+
+  /// No description provided for @openaiMediaHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'生图、编辑、蒙版、多参考图、SVG、GIF、录音转写、语音合成和自定义声音。'**
+  String get openaiMediaHint;
+
+  /// No description provided for @openaiDataTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'文件、知识库与 Skills'**
+  String get openaiDataTitle;
+
+  /// No description provided for @openaiDataHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'上传下载、分片上传、知识库索引与检索、向量编码、技能版本和云端容器文件。'**
+  String get openaiDataHint;
+
+  /// No description provided for @openaiOperationsTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'批处理、审核与来源核验'**
+  String get openaiOperationsTitle;
+
+  /// No description provided for @openaiOperationsHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'异步批处理、文字图片审核、媒体来源信号、模型列表，以及已有云端任务的管理。'**
+  String get openaiOperationsHint;
+
+  /// No description provided for @openaiTrainingTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'启用旧账号的微调接口'**
+  String get openaiTrainingTitle;
+
+  /// No description provided for @openaiLegacyHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'微调仅限现有合资格账号，2027-01-06 停止新建。Evals 只读入口将在 2026-11-30 关闭。已停用的 Assistants、Sora 和 DALL·E 接口不提供调用。'**
+  String get openaiLegacyHint;
+
+  /// No description provided for @openaiLiveMode.
+  ///
+  /// In zh, this message translates to:
+  /// **'GPT-Live 对话与联网查询'**
+  String get openaiLiveMode;
+
+  /// No description provided for @openaiRealtimeMode.
+  ///
+  /// In zh, this message translates to:
+  /// **'Realtime 语音对话'**
+  String get openaiRealtimeMode;
+
+  /// No description provided for @openaiCaptionMode.
+  ///
+  /// In zh, this message translates to:
+  /// **'实时字幕'**
+  String get openaiCaptionMode;
+
+  /// No description provided for @openaiTranslationMode.
+  ///
+  /// In zh, this message translates to:
+  /// **'实时语音翻译'**
+  String get openaiTranslationMode;
+
+  /// No description provided for @openaiVoiceStart.
+  ///
+  /// In zh, this message translates to:
+  /// **'开始通话'**
+  String get openaiVoiceStart;
+
+  /// No description provided for @openaiVoiceStop.
+  ///
+  /// In zh, this message translates to:
+  /// **'结束通话'**
+  String get openaiVoiceStop;
+
+  /// No description provided for @openaiVoiceConnected.
+  ///
+  /// In zh, this message translates to:
+  /// **'已连接，可以说话'**
+  String get openaiVoiceConnected;
+
+  /// No description provided for @openaiCommitSpeech.
+  ///
+  /// In zh, this message translates to:
+  /// **'提交这一段录音'**
+  String get openaiCommitSpeech;
+
+  /// No description provided for @openaiLiveDecisionsMode.
+  ///
+  /// In zh, this message translates to:
+  /// **'GPT-Live 实时判断'**
+  String get openaiLiveDecisionsMode;
+
+  /// No description provided for @openaiLiveDecisionQuestion.
+  ///
+  /// In zh, this message translates to:
+  /// **'实时判断的问题（概率判断）'**
+  String get openaiLiveDecisionQuestion;
+
+  /// No description provided for @openaiMcpCredentials.
+  ///
+  /// In zh, this message translates to:
+  /// **'允许 MCP 使用的凭据名'**
+  String get openaiMcpCredentials;
+
   /// No description provided for @performanceTitle.
   ///
   /// In zh, this message translates to:

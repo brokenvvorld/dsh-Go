@@ -35,4 +35,42 @@ flutter test test/providers/provider_form_test.dart test/providers/providers_log
 
 Local validation: 180 Flutter tests passed, covering the flows above, provider pages, and related golden images. All 3 Responses runtime tests passed, as did Flutter analysis, localization generation checks, and guide synchronization checks.
 
-Mock results do not establish live-account or Android-device behavior. API credit, model access, network reachability and installation on a physical device need separate verification. See README for source builds; this branch has not published a modified APK. Before redistributing a modified app, replace the restricted name, brand and mascot assets as described in [ASSETS.md](../ASSETS.md), retaining attribution and licenses.
+Mock results do not establish live-account or Android-device behavior. API credit, model access, network reachability and installation on a physical device need separate verification. See README for source builds and [APK packaging](android-release.en.md) for the difference between automated test builds and formal releases. Check this repository’s Actions / Releases for available artifacts. Before redistributing a modified app, replace the restricted name, brand and mascot assets as described in [ASSETS.md](../ASSETS.md), retaining attribution and licenses.
+
+## Extended API capabilities
+
+Open **Settings → OpenAI capabilities**. The official chat provider and this extension share the Host's `OPENAI_API_KEY`. Response, transcription, Live and Realtime models, voice and translation language are configurable. OpenAI determines account/model access.
+
+The source-backed [capability matrix and complete operation list](openai-capabilities.md) covers **25 families and 190 HTTP operations**. This is adapter coverage, not a count of live-account tests. The assistant uses `openai_catalog`, `openai_call`, and `openai_decide`; the app provides a separate microphone/WebRTC screen.
+
+| Area | Integration |
+| --- | --- |
+| Decisions | Real `/v1/decisions` requests with text, images, JSON and conversation input; predicates, choices, scores, cache, confidence and refusals; 1–400 questions with `gpt-6-luna` |
+| Responses | Native parameters, structured output, vision/files, reasoning, cache, background work, continuation, retrieval/cancellation, compaction, token counting and SSE |
+| Responses tools | Search, file search, code interpreter, image generation, hosted shell/skills, MCP, tool search, programmatic calls and multi-agent; local tool requests return to DSH for execution/approval and explicit output replay |
+| Agents | Hosted agent sessions, events/turns, sandbox/browser work, skills, subagents, artifacts, environment templates/prewarming and automations; `agents=v1` |
+| GPT-Live / Realtime | WebRTC voice, transcripts, interruption, Responses delegation, a configurable Decisions predicate, transcription and translation; call/recording/SIP management through the catalog |
+| Images / Audio | Image generation/editing with reference images, masks, markup, SVG/GIF; file transcription/translation, speech, custom voices and consent uploads |
+| Data | Files, multipart uploads, vector stores/indexing/search, skill versions, containers, conversations and embeddings |
+| Operations | Batches, moderation, content provenance, models, vaults, webhook management and safety alert/case retrieval |
+| Compatibility | Chat Completions and Completions; fine-tuning for eligible existing accounts when enabled; read-only Evals until shutdown |
+
+The catalog deliberately excludes retired Assistants/Threads/Runs, Sora, DALL·E variations, legacy Realtime beta session creation, and Evals writes. Evals closes on 2026-11-30; new fine-tuning jobs and the old speech endpoint stop on 2027-01-06. Organization administration requires separate Admin authority and is not exposed using a chat key. ChatKit and Agent Builder are alternate frontend/orchestration products; this app retains Flutter and DSH. HTTP/SSE and WebRTC provide the implemented transports; Responses WebSocket and Live fork/sideband sockets are not separately implemented. The native voice screen is audio-only, without camera capture.
+
+Files must reside in the current DSH workspace. Use `{"$file":"/workspace/report.pdf"}` for multipart, or `$data_url` / `$base64` for inline data. Uploads/responses have a 64 MiB per-request limit; larger files require the multipart Uploads workflow. Binary outputs are saved without overwriting existing files. Background resource IDs and SSE checkpoints support continuation after interruptions; local cancellation does not guarantee a cloud job was cancelled. POST requests are not retried automatically.
+
+MCP/Vault secrets use `{"$credential":"MY_MCP_TOKEN"}` after adding the name to the explicit settings allowlist and storing its value through Host credential management. The official API key cannot be used as an MCP secret. Webhook signing secrets are stored as Host credentials and redacted from chat. A separate public HTTPS webhook receiver is required, with signature verification. Deletion, training, cloud schedules and Vault/Webhook changes use DSH approvals.
+
+Long-lived and ephemeral API keys remain on the Host; mobile receives only SDP and an opaque call handle. The app releases microphone tracks on stop, navigation, Host switch or backgrounding. A 90-second Host lease is renewed every 25 seconds. Calls require an HTTP Host carrier, including local operation or SSH forwarding; RPC-only relays cannot use this signaling route. Third-party image gateways do not automatically inherit the official chat credential.
+
+`runtime/openai/dsh-go-openai` is bundled into rebuilt runtimes. Existing APKs/Hosts require an update; a remote Host can install the package and add it to its DSH profile bundles. The plugin targets the pinned DSH 0.2.2-rc.1 service contracts.
+
+```bash
+DSH_PREFIX=/path/to/patched/runtime node --test runtime/tests/openai-capabilities.test.mjs runtime/tests/openai-responses.test.mjs
+DSH_PREFIX=/path/to/patched/runtime python3 runtime/tests/openai-host-live.py
+python3 -m unittest discover -s runtime/tests -p 'test_*.py'
+(cd app && flutter analyze --no-pub && flutter test --no-pub test/openai/capabilities_page_test.dart test/voice/openai_voice_test.dart test/media/media_settings_test.dart test/media/media_settings_page_test.dart)
+(cd packages/dsh_client && dart analyze && dart test test/openai_api_test.dart test/dsh_go_api_test.dart)
+```
+
+The 180 tests above describe the initial chat integration. Extended validation exercises the real pinned DSH Host's plugin loading/config persistence, real adapters against mock HTTP, protocol/file handling, Flutter UI/voice lifecycles and Dart signaling. No real OpenAI credentials, Android voice-device verification or full APK build were used for this extension.

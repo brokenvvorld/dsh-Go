@@ -806,7 +806,7 @@ def install_ca_bundle(entries, report):
                                 "bundleBytes": len(bundle)}
 
 
-def overlay_entries(runtime_info, with_python=False, with_pnpm=False, with_bridge=False):
+def overlay_entries(runtime_info, with_python=False, with_pnpm=False, with_bridge=False, with_openai=False):
     """Files dsh-app adds to the rootfs. Kept here so the recipe lives in one place."""
     E = {}
 
@@ -875,7 +875,7 @@ def overlay_entries(runtime_info, with_python=False, with_pnpm=False, with_bridg
         # what `npm i -g pnpm` creates under npm's global prefix (/usr/local)
         for name, target in PNPM_BINS.items():
             s("usr/local/bin/" + name, "../lib/node_modules/pnpm/bin/" + target)
-    if with_pnpm or with_bridge:
+    if with_pnpm or with_bridge or with_openai:
         patch = ("# dsh-app: overlay for `dsh web`, passed with --patch by the app's launch command and\n"
                  "# replaced on every runtime upgrade (edits here do not survive one).\n")
         if with_pnpm:
@@ -899,6 +899,10 @@ def overlay_entries(runtime_info, with_python=False, with_pnpm=False, with_bridg
                       "- insert:\n"
                       "    - id: dsh-go-bridge\n"
                       "      name: %s/lib/index.js\n" % DSH_GO_BRIDGE)
+        if with_openai:
+            patch += ("- insert:\n"
+                      "    - id: dsh-go-openai\n"
+                      "      name: /opt/dsh/node_modules/dsh-go-openai/lib/index.js\n")
         f(DSH_WEB_PATCH.lstrip("/"), patch)
     d("root/.dsh", 0o700)
     d("root/.l2s", 0o700)          # PROOT_L2S_DIR: hard-link backing files (kept with /root on upgrade)
@@ -1140,10 +1144,17 @@ def cmd_assemble(args):
     if args.bridge:
         add_tree(args.bridge, DSH_GO_BRIDGE.lstrip("/"), "bridge", lambda rel, abi, prune: None)
 
+    # Resolve peers from the pinned DSH tree, like other runtime plugins. Keep the
+    # bridge dependency-free and install no packages on the user's first launch.
+    openai_source = os.path.join(os.path.dirname(os.path.dirname(args.bridge)), "openai", "dsh-go-openai") if args.bridge else None
+    with_openai = bool(openai_source and os.path.isfile(os.path.join(openai_source, "package.json")))
+    if with_openai:
+        add_tree(openai_source, "opt/dsh/node_modules/dsh-go-openai", "bridge", lambda rel, abi, prune: None)
+
     # 4. dsh-app overlay (wins over everything above)
     runtime_info = json.loads(args.runtime_info)
     for p, e in overlay_entries(runtime_info, with_python=bool(args.python), with_pnpm=bool(args.pnpm_prefix),
-                                with_bridge=bool(args.bridge)).items():
+                                with_bridge=bool(args.bridge), with_openai=with_openai).items():
         entries[p] = e
 
     # 5. ELF audit + arch/libc pruning; Termux-style fixes for node-pty helpers

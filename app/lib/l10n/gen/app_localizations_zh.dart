@@ -8385,6 +8385,134 @@ class L10nZh extends L10n {
   String get openAiAlreadyConfigured => 'OpenAI 渠道已存在，请返回模型渠道页面编辑已有配置。';
 
   @override
+  String get openaiCapabilitiesTitle => 'OpenAI 能力';
+
+  @override
+  String get openaiCapabilitiesSummary => '决策、云端 Agent、图片、语音和资料处理';
+
+  @override
+  String get openaiEnableTools => '启用 OpenAI 工具';
+
+  @override
+  String get openaiSharedKey => 'OpenAI API Key（与聊天共用）';
+
+  @override
+  String get openaiResponseModel => '默认任务模型';
+
+  @override
+  String get openaiRuntimeMissing => '当前主机还没有 OpenAI 扩展。请更新本机运行环境，或在远程主机安装 dsh-go-openai。';
+
+  @override
+  String get openaiCapabilitiesHint =>
+      '在聊天中直接提出任务即可，助手会按需调用这些能力。使用 OpenAI 官方接口和当前主机的密钥；图片、音频和分析结果会保存到会话工作区。是否可用取决于账号权限和所选模型。';
+
+  @override
+  String get openaiVoiceTitle => 'OpenAI 实时语音';
+
+  @override
+  String get openaiTranscriptionModel => '录音转写模型';
+
+  @override
+  String get openaiVoiceName => '声音';
+
+  @override
+  String get openaiTranslationLanguage => '翻译目标语言代码';
+
+  @override
+  String get openaiVoiceDisclosure => '声音由 AI 生成。开始后会将麦克风音频发送给 OpenAI，并按 API 用量收费；离开应用会结束通话。';
+
+  @override
+  String get openaiUseTranscription => '用 OpenAI 转写聊天录音';
+
+  @override
+  String get openaiCloudAudioHint => '把聊天麦克风切换为云端转写；录音会发送给 OpenAI。需要主机启用语音组件。';
+
+  @override
+  String get openaiTranscriptionSelected => '聊天录音已切换到 OpenAI';
+
+  @override
+  String get openaiVoiceFailed => '语音连接未完成或已中断。请检查主机版本、麦克风权限、网络和账号的模型权限。';
+
+  @override
+  String get openaiCapabilitiesAvailable => '可在聊天中使用';
+
+  @override
+  String get openaiDecisionsTitle => 'Decisions 判断与分类';
+
+  @override
+  String get openaiDecisionsHint => '根据文字、图片或 JSON 判断条件、选择分类、按标准评分；保留概率与置信度。';
+
+  @override
+  String get openaiResponsesTitle => '检索、分析与结构化结果';
+
+  @override
+  String get openaiResponsesHint => '联网搜索、文件检索、代码分析、云端终端、MCP、工具搜索、程序化工具调用、多 Agent、缓存和长对话压缩。';
+
+  @override
+  String get openaiAgentsTitle => '托管 Agent 与后台任务';
+
+  @override
+  String get openaiAgentsHint => '云端会话、沙箱、浏览器、协作 Agent、定时任务、进度查询、继续或取消任务，以及下载交付文件。';
+
+  @override
+  String get openaiMediaTitle => '图片与音频';
+
+  @override
+  String get openaiMediaHint => '生图、编辑、蒙版、多参考图、SVG、GIF、录音转写、语音合成和自定义声音。';
+
+  @override
+  String get openaiDataTitle => '文件、知识库与 Skills';
+
+  @override
+  String get openaiDataHint => '上传下载、分片上传、知识库索引与检索、向量编码、技能版本和云端容器文件。';
+
+  @override
+  String get openaiOperationsTitle => '批处理、审核与来源核验';
+
+  @override
+  String get openaiOperationsHint => '异步批处理、文字图片审核、媒体来源信号、模型列表，以及已有云端任务的管理。';
+
+  @override
+  String get openaiTrainingTitle => '启用旧账号的微调接口';
+
+  @override
+  String get openaiLegacyHint =>
+      '微调仅限现有合资格账号，2027-01-06 停止新建。Evals 只读入口将在 2026-11-30 关闭。已停用的 Assistants、Sora 和 DALL·E 接口不提供调用。';
+
+  @override
+  String get openaiLiveMode => 'GPT-Live 对话与联网查询';
+
+  @override
+  String get openaiRealtimeMode => 'Realtime 语音对话';
+
+  @override
+  String get openaiCaptionMode => '实时字幕';
+
+  @override
+  String get openaiTranslationMode => '实时语音翻译';
+
+  @override
+  String get openaiVoiceStart => '开始通话';
+
+  @override
+  String get openaiVoiceStop => '结束通话';
+
+  @override
+  String get openaiVoiceConnected => '已连接，可以说话';
+
+  @override
+  String get openaiCommitSpeech => '提交这一段录音';
+
+  @override
+  String get openaiLiveDecisionsMode => 'GPT-Live 实时判断';
+
+  @override
+  String get openaiLiveDecisionQuestion => '实时判断的问题（概率判断）';
+
+  @override
+  String get openaiMcpCredentials => '允许 MCP 使用的凭据名';
+
+  @override
   String get performanceTitle => '性能';
 
   @override

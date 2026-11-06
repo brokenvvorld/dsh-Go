@@ -35,4 +35,26 @@ flutter test test/providers/provider_form_test.dart test/providers/providers_log
 
 本次本地验证：上述功能测试连同渠道页面和相关截图测试共 180 项通过；运行时 Responses 测试 3 项通过；Flutter 静态检查、文案生成检查和指南同步检查通过。
 
-模拟服务通过不等于真实账号或 Android 真机通过。真实 API 额度、模型权限、网络可达性及真机安装运行需要另行验证。源码构建方法见 README；本分支没有发布修改版 APK。若要再发布修改版应用，需按 [ASSETS.md](../ASSETS.md) 更换名称和受限制的品牌、吉祥物素材，并保留来源和许可证。
+模拟服务通过不等于真实账号或 Android 真机通过。真实 API 额度、模型权限、网络可达性及真机安装运行需要另行验证。源码构建方法见 README；自动测试包和正式发布的区别见 [APK 打包说明](android-release.md)。当前可下载产物以本仓库 Actions / Releases 为准。若要再发布修改版应用，需按 [ASSETS.md](../ASSETS.md) 更换名称和受限制的品牌、吉祥物素材，并保留来源和许可证。
+
+## 完整能力扩展
+
+设置页新增「OpenAI 能力」。填写的 Key 与官方聊天共用；默认任务模型、转写模型、实时语音模型、声音和目标语言均可修改。账号权限由 OpenAI 判断。
+
+完整范围见 [能力清单与 190 个操作](openai-capabilities.md)：Decisions、Responses 原生工具、托管 Agents、GPT-Live / Realtime、图像与音频、文件/知识库/Skills、批处理、向量、审核、来源核验、Vault、Webhook 和安全告警查询。聊天助手通过目录和工具调用这些能力；实时麦克风从设置页启动。
+
+Decisions 是实际 `/v1/decisions` 接口，包含条件概率、分类和评分，并保留拒答和置信度。GPT-Live 的「实时判断」可以使用预先填写的条件调用 Decisions；其余分类/评分任务在聊天中提出即可。
+
+插件源码位于 `runtime/openai/dsh-go-openai`，随本分支运行时打包。远程 Host 需安装此包并加入 profile bundles。未升级的 Host 会显示说明；HTTP 以外的中继连接暂不提供实时语音信令。实时语音会把录音发给 OpenAI 并计费，离开应用会关闭通话。
+
+扩展验证命令：
+
+```bash
+DSH_PREFIX=/path/to/patched/runtime node --test runtime/tests/openai-capabilities.test.mjs runtime/tests/openai-responses.test.mjs
+DSH_PREFIX=/path/to/patched/runtime python3 runtime/tests/openai-host-live.py
+python3 -m unittest discover -s runtime/tests -p 'test_*.py'
+(cd app && flutter analyze --no-pub && flutter test --no-pub test/openai/capabilities_page_test.dart test/voice/openai_voice_test.dart test/media/media_settings_test.dart test/media/media_settings_page_test.dart)
+(cd packages/dsh_client && dart analyze && dart test test/openai_api_test.dart test/dsh_go_api_test.dart)
+```
+
+原有 180 项是首次聊天接入的验证记录。扩展的验证范围以以上命令和对应提交的 CI 结果为准；不把接口目录数量当成实账号通过数量。

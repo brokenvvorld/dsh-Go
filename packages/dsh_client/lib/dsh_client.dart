@@ -31,6 +31,7 @@ export 'src/media_meta.dart';
 export 'src/goals_api.dart';
 export 'src/messages_api.dart';
 export 'src/models.dart';
+export 'src/openai_api.dart';
 export 'src/mux.dart';
 export 'src/plugin_config_api.dart';
 export 'src/plugins_api.dart';

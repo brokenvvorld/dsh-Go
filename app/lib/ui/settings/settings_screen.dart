@@ -62,6 +62,7 @@ import 'search/settings_search_page.dart';
 import 'settings_widgets.dart';
 import 'system_access_page.dart';
 import 'voice_settings_page.dart';
+import 'openai_capabilities_page.dart';
 
 /// One hue per group on the hub: rows of a group share it.
 abstract final class SettingsHues {
@@ -166,6 +167,14 @@ class SettingsScreen extends ConsumerWidget {
         SettingsSection(
           title: l10n.hubGroupCapabilities,
           children: [
+            SettingsTile(
+              key: const ValueKey('settings-openai-capabilities'),
+              icon: AppIcons.plugin,
+              tint: SettingsHues.abilities,
+              title: l10n.openaiCapabilitiesTitle,
+              subtitle: l10n.openaiCapabilitiesSummary,
+              onTap: () => _push(context, const OpenAICapabilitiesPage()),
+            ),
             SettingsTile(
               icon: AppIcons.phoneControl,
               tint: SettingsHues.abilities,

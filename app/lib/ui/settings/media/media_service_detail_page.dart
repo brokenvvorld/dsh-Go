@@ -137,13 +137,20 @@ class _MediaServiceDetailBody extends ConsumerWidget {
     final donors = <String, MediaServiceConfig>{};
     for (final other in services) {
       if (other.id == service.id || other.provider != service.provider || other.keyRef.isEmpty) continue;
+      if (other.keyRef == 'OPENAI_API_KEY' && !isOfficialOpenAIMedia(service.provider, service.baseUrl)) continue;
       donors.putIfAbsent(other.keyRef, () => other);
     }
     final reuseOptions = <(Object?, String)>[
+      if (isOfficialOpenAIMedia(service.provider, service.baseUrl) &&
+          settings.credentials['OPENAI_API_KEY']?.configured == true)
+        ('OPENAI_API_KEY', l10n.openaiSharedKey),
       for (final MapEntry(:key, :value) in donors.entries)
-        (key, '$key · ${mediaServiceTitle(value, presets, english: english)}'),
+        if (key != 'OPENAI_API_KEY' || settings.credentials[key]?.configured != true)
+          (key, '$key · ${mediaServiceTitle(value, presets, english: english)}'),
     ];
-    final shared = donors.containsKey(service.keyRef);
+    final shared =
+        donors.containsKey(service.keyRef) ||
+        service.keyRef == 'OPENAI_API_KEY' && isOfficialOpenAIMedia(service.provider, service.baseUrl);
     final reuseRow = EngineFieldRow(
       title: l10n.mediaSettingsReuseKey,
       subtitle: reuseOptions.isEmpty ? l10n.mediaSettingsReuseKeyNone : l10n.mediaSettingsReuseKeyHint,

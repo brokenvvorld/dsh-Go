@@ -69,7 +69,13 @@ class MediaSettingsHome extends ConsumerWidget {
     final addable = <(MediaPreset, MediaServiceConfig)>[
       if (catalogReady)
         for (final preset in presets)
-          if (mediaServiceFromPreset(preset: preset, catalog: catalog, existing: services) case final service?)
+          if (mediaServiceFromPreset(
+                preset: preset,
+                catalog: catalog,
+                existing: services,
+                openaiChatKeyConfigured: settings.credentials['OPENAI_API_KEY']?.configured == true,
+              )
+              case final service?)
             (preset, service),
     ];
     final full = services.length >= mediaServiceLimit;

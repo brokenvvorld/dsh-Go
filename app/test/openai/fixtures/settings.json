@@ -1,0 +1,171 @@
+{
+  "writable": true,
+  "namespaces": [
+    {
+      "ns": "dsh-go-openai",
+      "autoGenerate": true,
+      "revision": 1,
+      "schema": {
+        "uid": 49,
+        "refs": {
+          "3": {
+            "type": "boolean",
+            "meta": {
+              "default": true,
+              "volatile": true,
+              "description": "启用 OpenAI 扩展能力 / Enable OpenAI capabilities"
+            }
+          },
+          "6": {
+            "type": "const",
+            "meta": {
+              "default": "OPENAI_API_KEY",
+              "role": "credential-ref"
+            },
+            "value": "OPENAI_API_KEY"
+          },
+          "7": {
+            "type": "any",
+            "meta": {}
+          },
+          "11": {
+            "type": "transform",
+            "meta": {
+              "default": "",
+              "role": "secret",
+              "description": "OpenAI API Key（复用聊天凭据 / Shared with chat）"
+            },
+            "inner": 7,
+            "callback": "value => {\n    if (value !== '') throw new Error('Use the credential service to store the key.');\n    return '';\n  }",
+            "preserve": true
+          },
+          "15": {
+            "type": "string",
+            "meta": {
+              "default": "gpt-6.1-sol",
+              "volatile": true,
+              "description": "Responses 默认模型 / Default Responses model"
+            }
+          },
+          "19": {
+            "type": "string",
+            "meta": {
+              "default": "gpt-transcribe",
+              "volatile": true,
+              "description": "文件转写模型 / File transcription model"
+            }
+          },
+          "23": {
+            "type": "string",
+            "meta": {
+              "default": "gpt-live-1",
+              "volatile": true,
+              "description": "GPT-Live 模型 / GPT-Live model"
+            }
+          },
+          "27": {
+            "type": "string",
+            "meta": {
+              "default": "gpt-realtime-2.1-mini",
+              "volatile": true,
+              "description": "Realtime 模型 / Realtime model"
+            }
+          },
+          "31": {
+            "type": "string",
+            "meta": {
+              "default": "marin",
+              "volatile": true,
+              "description": "声音 / Voice"
+            }
+          },
+          "35": {
+            "type": "string",
+            "meta": {
+              "default": "zh",
+              "volatile": true,
+              "description": "翻译目标语言 / Translation target language"
+            }
+          },
+          "39": {
+            "type": "string",
+            "meta": {
+              "default": "",
+              "volatile": true,
+              "description": "实时判断的问题 / Condition to evaluate during live voice"
+            }
+          },
+          "43": {
+            "type": "boolean",
+            "meta": {
+              "default": false,
+              "volatile": true,
+              "description": "现有合资格账号的微调兼容入口 / Fine-tuning for eligible existing customers"
+            }
+          },
+          "44": {
+            "type": "string",
+            "meta": {}
+          },
+          "48": {
+            "type": "array",
+            "meta": {
+              "default": [],
+              "volatile": true,
+              "description": "允许交给 MCP / Vault 的凭据名（不填密钥） / Credential names allowed for MCP and vaults"
+            },
+            "inner": 44
+          },
+          "49": {
+            "type": "object",
+            "meta": {
+              "default": {}
+            },
+            "dict": {
+              "enabled": 3,
+              "credentialRef": 6,
+              "apiKey": 11,
+              "responseModel": 15,
+              "transcriptionModel": 19,
+              "liveModel": 23,
+              "realtimeModel": 27,
+              "voice": 31,
+              "translationLanguage": 35,
+              "liveDecisionQuestion": 39,
+              "allowFineTuning": 43,
+              "mcpCredentialRefs": 48
+            }
+          }
+        }
+      },
+      "value": {
+        "enabled": true,
+        "credentialRef": "OPENAI_API_KEY",
+        "apiKey": "",
+        "responseModel": "gpt-6.1-sol",
+        "transcriptionModel": "gpt-transcribe",
+        "liveModel": "gpt-live-1",
+        "realtimeModel": "gpt-realtime-2.1-mini",
+        "voice": "marin",
+        "translationLanguage": "zh",
+        "liveDecisionQuestion": "",
+        "allowFineTuning": false,
+        "mcpCredentialRefs": []
+      },
+      "base": {
+        "enabled": true,
+        "credentialRef": "OPENAI_API_KEY",
+        "apiKey": "",
+        "responseModel": "gpt-6.1-sol",
+        "transcriptionModel": "gpt-transcribe",
+        "liveModel": "gpt-live-1",
+        "realtimeModel": "gpt-realtime-2.1-mini",
+        "voice": "marin",
+        "translationLanguage": "zh",
+        "liveDecisionQuestion": "",
+        "allowFineTuning": false,
+        "mcpCredentialRefs": []
+      }
+    }
+  ]
+}

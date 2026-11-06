@@ -217,6 +217,7 @@ jobs:
         run: |
           node --test runtime/tests/*.test.mjs app/tool/engine_auth/*.test.mjs
           python3 -I runtime/tests/test_patch_dsh.py
+          python3 runtime/tests/openai-host-live.py
       - name: Media and example plugins
         run: |
           (cd runtime/media/dsh-media && npm install --ignore-scripts --no-package-lock --no-audit --no-fund && npm test)
