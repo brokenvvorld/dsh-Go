@@ -296,6 +296,8 @@ PY_APK
 
 APK 内置的 Linux 运行时由 `runtime/build-runtime.sh` 构建，以下组件来自上游二进制或软件包，各自保留许可证；构建会裁剪文件，并为 APK 命名规则修改 proot 的 DT_NEEDED 和 libtalloc 的 DT_SONAME，具体修改记录在构建报告中：原生部分的许可证文本在 APK 的 `assets/runtime/licenses/` 下，Ubuntu 软件包的版权文件保留在运行时的 `/usr/share/doc/`。
 
+Termux 滚动仓库已下架的 PRoot 5.1.107.98 原始包保存在 `runtime/vendor/termux/`。它们来自 Termux 官方 Actions 构建，内容与原有 SHA-256 pin 一致，未修改；来源、对应源码和许可证见该目录的 README 与 COPYING。
+
 | 组件 | 版本 | 来源 | 许可 |
 |---|---|---|---|
 | proot | 5.1.107.98 | Termux（源码 https://github.com/termux/proot） | GPL-2.0（`licenses/proot-COPYING.txt`） |

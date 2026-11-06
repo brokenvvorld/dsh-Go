@@ -194,6 +194,7 @@ jobs:
     timeout-minutes: 15
     permissions:
       contents: write
+      actions: read
     concurrency:
       group: android-release-${{ needs.build.outputs.tag }}
       cancel-in-progress: false

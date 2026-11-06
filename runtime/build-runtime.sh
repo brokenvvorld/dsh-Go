@@ -142,6 +142,16 @@ termux_deb() {  # $1 = package, $2 = version, $3 = termux arch; echoes path
   local pkg="$1" ver="$2" arch="$3" name="$1_$2_$3.deb"
   local dest="$CACHE/termux/$name" pin; pin="$(pin_of "$name")"
   if [[ -f "$dest" && -n "$pin" && "$(sha256 "$dest")" == "$pin" ]]; then printf '%s' "$dest"; return; fi
+  # Termux's rolling index removes old builds. Keep verified copies of the
+  # pinned PRoot packages so a clean runner builds the same native runtime.
+  local vendor="$HERE/vendor/termux/$name"
+  if [[ -f "$vendor" ]]; then
+    [[ -n "$pin" && "$(sha256 "$vendor")" == "$pin" ]] || die "vendored package hash mismatch: $name"
+    mkdir -p "$(dirname "$dest")"
+    cp "$vendor" "$dest"
+    printf '%s' "$dest"
+    return
+  fi
   # Resolve pool path + hash from the current Packages index (verifies index -> deb).
   local idx="$CACHE/termux/Packages-$arch"
   fetch "$TERMUX_REPO/dists/stable/main/binary-$arch/Packages" "$idx.new" && mv "$idx.new" "$idx"
