@@ -330,7 +330,7 @@ void main() {
         ),
       );
       await tester.pump();
-      expect(find.text('ChatGPT 登录已失效'), findsOneWidget);
+      expect(find.text('ChatGPT (Codex) 登录已失效'), findsOneWidget);
       expect(find.text('重新登录'), findsOneWidget);
       // The key sits in the row's 24 lead line, vertically centred on it.
       final key = tester.getRect(find.widgetWithText(TextButton, '重新登录'));

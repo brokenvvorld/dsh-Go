@@ -72,10 +72,13 @@ void main() {
     }
     for (final tile in tester.widgetList<SettingsTile>(find.byType(SettingsTile))) {
       final title = tile.title ?? tile.spot!.title(appL10n);
-      final row = find.ancestor(of: find.text(title), matching: find.byType(ConstrainedBox)).first;
+      // The overview may share a title with a settings row (for example 模型).
+      final titleFinder = find.descendant(of: find.byWidget(tile), matching: find.text(title));
+      expect(titleFinder, findsOneWidget, reason: title);
+      final row = find.ancestor(of: titleFinder, matching: find.byType(ConstrainedBox)).first;
       expect(tester.getSize(row).height, SettingsMetrics.rowHeight, reason: title);
       expect(
-        tester.getRect(find.text(title)).left,
+        tester.getRect(titleFinder).left,
         moreOrLessEquals(16 + SettingsMetrics.textStart, epsilon: _tol),
         reason: title,
       );
