@@ -1,17 +1,12 @@
 name: Publish APK preview
 
 on:
-  # Bootstrap the first verified APK. Later publications use Run workflow.
-  push:
-    branches: [main]
-    paths: ['.github/workflows/publish-apk-preview.yml']
   workflow_dispatch:
     inputs:
       run_id:
         description: '已成功的 Android APK 构建运行 ID'
         type: string
         required: true
-        default: '42211881318'
 
 permissions:
   contents: write
@@ -28,7 +23,7 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       GH_REPO: ${{ github.repository }}
-      RUN_ID: ${{ inputs.run_id || '42211881318' }}
+      RUN_ID: ${{ inputs.run_id }}
     steps:
       - name: Download the successful APK build
         run: |
@@ -78,9 +73,9 @@ jobs:
             [[ "$(git -C source rev-parse 'FETCH_HEAD^{commit}')" == "$SOURCE_SHA" ]]
           fi
           cat > notes.md <<EOF
-          Android 8.0+，arm64，约 194 MB。下载 Assets 中的 APK 即可安装。
+          Android 8.0+，arm64。下载 Assets 中的 APK 即可安装。
 
-          这是已通过构建、签名与文件完整性校验的测试包，尚未完成真机验证，完整 CI 的界面测试仍在修复。
+          这是已通过构建、签名与文件完整性校验的测试包，尚未完成真机验证；完整 CI 结果请查看对应源码提交的检查。
           未配置固定签名时使用临时测试签名，不能保证覆盖现有安装；请先备份数据。
 
           构建：https://github.com/$GH_REPO/actions/runs/$RUN_ID

@@ -63,6 +63,7 @@ enum SettingsPageId {
   personalization,
   replyPrefs,
   agentPresets,
+  openaiCapabilities,
   phone,
   phoneAppRules,
   phoneDnd,
@@ -337,6 +338,13 @@ final _pages = <SettingsPageMeta>[
     links: const ['agent-presets'],
   ),
   // 能力
+  SettingsPageMeta(
+    SettingsPageId.openaiCapabilities,
+    title: (l) => l.openaiCapabilitiesTitle,
+    group: _abilities,
+    keywords: (l) => l.openaiCapabilitiesSummary,
+    links: const ['openai-capabilities'],
+  ),
   SettingsPageMeta(
     SettingsPageId.phone,
     title: (l) => l.phoneControlTitle,

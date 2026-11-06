@@ -13,6 +13,8 @@ import 'package:dsh_app/state/settings_state.dart';
 import 'package:dsh_app/ui/features/feature_catalog.dart';
 import 'package:dsh_app/ui/settings/index/spot_anchor.dart';
 import 'package:dsh_app/ui/settings/index/spots.dart';
+import 'package:dsh_app/ui/settings/index/settings_pages.dart' show settingsPageForLink;
+import 'package:dsh_app/ui/settings/openai_capabilities_page.dart';
 import 'package:dsh_app/ui/settings/search/settings_search.dart';
 import 'package:dsh_app/ui/settings/search/settings_search_page.dart';
 import 'package:dsh_app/ui/settings/settings_screen.dart';
@@ -62,6 +64,13 @@ void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
   group('matching', () {
+    test('OpenAI capabilities can be searched in both languages and opened by link', () {
+      for (final query in ['OpenAI', '决策', 'decision']) {
+        expect(_ids(query), contains('page:openaiCapabilities'), reason: query);
+      }
+      expect(settingsPageForLink('openai-capabilities'), isA<OpenAICapabilitiesPage>());
+    });
+
     test('lower case, full width folded, spaces dropped', () {
       expect(normalizeQuery('ＡＰＩ　Key'), 'apikey');
       expect(normalizeQuery(' Dark  Mode '), 'darkmode');

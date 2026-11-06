@@ -30,6 +30,7 @@ import '../diagnostics_page.dart';
 import '../interface_page.dart';
 import '../media_settings_page.dart';
 import '../notification_settings.dart';
+import '../openai_capabilities_page.dart';
 import '../performance_page.dart';
 import '../personalization_page.dart';
 import '../privacy_page.dart';
@@ -53,6 +54,7 @@ Widget settingsPage(SettingsPageId id, {String? sessionId}) => switch (id) {
   SettingsPageId.notifications => const NotificationSettingsPage(),
   SettingsPageId.replyPrefs => const ReplyPrefsPage(),
   SettingsPageId.sharedLinks => const HostedLinksPage(),
+  SettingsPageId.openaiCapabilities => const OpenAICapabilitiesPage(),
   SettingsPageId.phone => const PhoneControlScreen(),
   SettingsPageId.phoneAppRules => const PhoneAppRulesPage(),
   SettingsPageId.phoneDnd => const PhoneDndPage(),

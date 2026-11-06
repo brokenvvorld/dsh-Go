@@ -171,8 +171,7 @@ class SettingsScreen extends ConsumerWidget {
               key: const ValueKey('settings-openai-capabilities'),
               icon: AppIcons.plugin,
               tint: SettingsHues.abilities,
-              title: l10n.openaiCapabilitiesTitle,
-              subtitle: l10n.openaiCapabilitiesSummary,
+              spot: SettingsIndex.entry(SettingsPageId.openaiCapabilities),
               onTap: () => _push(context, const OpenAICapabilitiesPage()),
             ),
             SettingsTile(

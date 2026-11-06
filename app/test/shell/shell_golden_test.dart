@@ -156,8 +156,8 @@ void main() {
       settingsProvider.overrideWith(() => FakeSettings(const AppSettings(loaded: true))),
     ],
     before: (tester) async {
-      await tester.drag(find.byType(CustomScrollView), const Offset(0, -3000));
-      await tester.pump(const Duration(milliseconds: 600));
+      await tester.scrollUntilVisible(find.text('关于 DSH Go'), 300, scrollable: find.byType(Scrollable).first);
+      await tester.pumpAndSettle();
     },
   );
 

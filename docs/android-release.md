@@ -12,6 +12,12 @@
 
 没有发布签名时，测试包使用 runner 的临时 debug key；不同运行之间不保证可覆盖安装。不要为了安装测试包卸载正在使用的版本，卸载会删除应用数据。配置下面的固定签名后，后续构建使用同一把 key。
 
+## 将已有测试包放到 Releases
+
+在 Actions → **Publish APK preview** → Run workflow 中填入成功的 **Android APK** 运行 ID（构建页面 URL 最后的数字）。它直接下载已有产物，核对校验和，再发布为带 `Pre-release` 标记的测试版，不重新编译 APK。
+
+此入口允许临时测试签名，只接受本仓库 main 上已成功的测试构建；不替换已有 Release，不进入 `latest`。下载在 Releases → 对应测试版 → Assets。固定签名的正式版仍使用下面的流程。
+
 ## 首次设置发布签名
 
 在仓库 Settings → Secrets and variables → Actions 中添加以下 **Repository secrets**：

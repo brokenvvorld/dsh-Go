@@ -12,6 +12,12 @@ Download the ZIP under **Artifacts** on the completed run. It contains an arm64 
 
 Without signing secrets, test APKs use the runner's temporary debug key and may not install over a build from another run. Do not uninstall an app containing important data just to install a test build: uninstalling deletes its data. Configure a fixed key for subsequent builds to share a signature.
 
+## Put an existing test APK on Releases
+
+Open Actions → **Publish APK preview** → Run workflow and enter a successful **Android APK** run ID (the number at the end of its URL). It downloads the existing artifact, checks its hashes, and publishes a prerelease without rebuilding the APK.
+
+This entry point allows temporary test signatures and accepts only successful test builds from this repository's main branch. It does not replace existing Releases or update `latest`. Download from Releases → preview → Assets. Stable releases still use fixed signing as described below.
+
 ## Configure signing once
 
 Add these **Repository secrets** under Settings → Secrets and variables → Actions:
@@ -32,7 +38,7 @@ keytool -genkeypair -v -keystore dsh-go-release.jks -storetype JKS \
 
 Encode with `base64 -w 0 dsh-go-release.jks` on Linux, `base64 -i dsh-go-release.jks | tr -d '\n'` on macOS, or `[Convert]::ToBase64String([IO.File]::ReadAllBytes((Resolve-Path .\dsh-go-release.jks)))` in PowerShell. Paste into the Secret, never into source control.
 
-Publishing fails immediately when signing is missing or incomplete. It never publishes a debug-signed APK. The workflow verifies v1/v2/v3 signatures and compares the certificate to the configured key. Temporary signing files are removed afterwards.
+Stable publishing fails immediately when signing is missing or incomplete. It never publishes a debug-signed APK as a stable release. The workflow verifies v1/v2/v3 signatures and compares the certificate to the configured key. Temporary signing files are removed afterwards.
 
 The fork retains upstream's applicationId but uses your own key, so it cannot install over an upstream-signed APK. Back up before migrating. Keep the same key for future upgrades of your own builds.
 
