@@ -26,7 +26,7 @@ permissions:
 
 concurrency:
   group: android-apk-${{ github.event_name }}-${{ github.ref }}-${{ inputs.version }}
-  cancel-in-progress: false
+  cancel-in-progress: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
 
 env:
   FLUTTER_VERSION: 3.47.7
@@ -134,7 +134,9 @@ jobs:
           SIGNING_MODE: ${{ steps.signing.outputs.mode }}
         run: |
           apk=app/build/app/outputs/flutter-apk/app-arm64-release.apk
-          apksigner verify --verbose --min-sdk-version 21 --print-certs "$apk" > "$RUNNER_TEMP/apk-signature.txt"
+          min_sdk=26
+          [[ "$SIGNING_MODE" != release ]] || min_sdk=21
+          apksigner verify --verbose --min-sdk-version "$min_sdk" --print-certs "$apk" > "$RUNNER_TEMP/apk-signature.txt"
           python3 - <<'PY'
           import os, pathlib, re, zipfile
           temp = pathlib.Path(os.environ['RUNNER_TEMP'])
