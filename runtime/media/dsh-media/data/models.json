@@ -1,7 +1,7 @@
 {
   "v": 1,
-  "revision": "2026-11-01.0.3.0",
-  "asOf": "2026-11-01",
+  "revision": "2026-11-06.0.3.1",
+  "asOf": "2026-11-06",
   "contract": "dsh-go/media/catalog",
   "capabilities": {
     "tools": [
@@ -120,9 +120,97 @@
       "verifiedAt": "2026-10-31",
       "level": "official-page-read",
       "verification": "Lite stops new purchases; use documented Pro replacement; no paid request"
+    },
+    {
+      "id": "openai-sunburst-2.6",
+      "url": "https://developers.openai.com/api/docs/models/gpt-image-2.6-sunburst",
+      "retrieved": "2026-11-06",
+      "level": "official-page-read",
+      "scope": "Images generation and editing; PNG output uses the existing media contract."
+    },
+    {
+      "id": "openai-flare-2.6",
+      "url": "https://developers.openai.com/api/docs/models/gpt-image-2.6-flare",
+      "retrieved": "2026-11-06",
+      "level": "official-page-read",
+      "scope": "Images generation and editing; PNG output uses the existing media contract."
     }
   ],
   "models": [
+    {
+      "id": "gpt-image-2.6-sunburst",
+      "label": "GPT Image 2.6 Sunburst",
+      "kind": "image",
+      "profile": "openai-gpt-image",
+      "ratios": [
+        "1:1",
+        "3:2",
+        "2:3"
+      ],
+      "sizes": [
+        "1024x1024",
+        "1536x1024",
+        "1024x1536"
+      ],
+      "aspectSizes": {
+        "1:1": "1024x1024",
+        "3:2": "1536x1024",
+        "2:3": "1024x1536"
+      },
+      "qualities": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "maxN": 4,
+      "maxRefs": 1,
+      "edit": true,
+      "extend": false,
+      "upscale": false,
+      "sources": [
+        "openai-images-reference",
+        "openai-images-guide",
+        "openai-sunburst-2.6",
+        "openai-edit"
+      ]
+    },
+    {
+      "id": "gpt-image-2.6-flare",
+      "label": "GPT Image 2.6 Flare",
+      "kind": "image",
+      "profile": "openai-gpt-image",
+      "ratios": [
+        "1:1",
+        "3:2",
+        "2:3"
+      ],
+      "sizes": [
+        "1024x1024",
+        "1536x1024",
+        "1024x1536"
+      ],
+      "aspectSizes": {
+        "1:1": "1024x1024",
+        "3:2": "1536x1024",
+        "2:3": "1024x1536"
+      },
+      "qualities": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "maxN": 4,
+      "maxRefs": 1,
+      "edit": true,
+      "extend": false,
+      "upscale": false,
+      "sources": [
+        "openai-images-reference",
+        "openai-images-guide",
+        "openai-flare-2.6",
+        "openai-edit"
+      ]
+    },
     {
       "id": "gpt-image-2",
       "label": "GPT Image 2",
@@ -588,6 +676,8 @@
       "baseUrl": "https://api.openai.com/v1",
       "responseFormat": "",
       "models": [
+        "gpt-image-2.6-sunburst",
+        "gpt-image-2.6-flare",
         "gpt-image-2",
         "gpt-image-2.5-sunburst",
         "gpt-image-2.5-flare"

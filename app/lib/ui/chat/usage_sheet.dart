@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../l10n/l10n.dart';
+import '../../state/balance_state.dart';
 import '../../state/usage_state.dart';
 import '../common/app_sheet.dart';
 import '../common/sheet_title_bar.dart';
@@ -184,8 +185,10 @@ class UsageSheet extends ConsumerWidget {
           children: [
             SheetTitleBar(l10n.activityUsage),
             SessionUsageSections(usage: usage, pricing: pricing, sheet: true, margin: _margin),
-            const SizedBox(height: 16),
-            BalanceCard(title: l10n.activityUsageBalance, margin: _margin),
+            if (ref.watch(showDeepSeekBalanceProvider(model))) ...[
+              const SizedBox(height: 16),
+              BalanceCard(title: l10n.activityUsageBalance, margin: _margin),
+            ],
           ],
         ),
       ),

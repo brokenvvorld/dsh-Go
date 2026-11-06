@@ -12,11 +12,13 @@ import '../../share_code/plugin_share.dart' show sharedPluginFromBundle;
 import '../../state/plugin_config/plugin_config_state.dart';
 import '../../links/plugin_links.dart' show marketPluginLink;
 import '../../state/plugins_state.dart';
+import '../../state/media_generation.dart' show bundledMediaProvider, isMediaPluginName;
 import '../../update/version.dart';
 import '../common/app_sheet.dart';
 import '../common/list_page_row.dart';
 import '../common/sheet_navigator.dart';
 import '../engine_settings/engine_settings_page.dart';
+import '../settings/media_settings_page.dart';
 import '../share_code/plugin_share_sheet.dart';
 import '../theme/app_icons.dart';
 import '../theme/theme.dart';
@@ -105,6 +107,7 @@ class MarketPluginSheet extends ConsumerWidget {
     final status = marketInstallStatus(plugin, bundles);
     final job = ref.watch(pluginInstallsProvider.select((jobs) => jobs[plugin.name]));
     final installed = bundles?.where((b) => b.name == plugin.name).firstOrNull;
+    final bundledMedia = isMediaPluginName(plugin.name) ? ref.watch(bundledMediaProvider) : null;
     final needsApp = marketNeedsApp(entry, ref.watch(appVersionProvider));
     final blocked = marketBlockedInstall(entry, installed);
     final title = entry.title(locale);
@@ -168,7 +171,8 @@ class MarketPluginSheet extends ConsumerWidget {
                 (latest.version, l10n.commonVersion),
                 (_date(latest.published), l10n.commonUpdate),
               ]),
-              if (blocked) ...[
+              if (bundledMedia != null) ...[const SizedBox(height: 16), Text(l10n.mediaBundledHint)],
+              if (blocked && bundledMedia == null) ...[
                 const SizedBox(height: 16),
                 MarketBlockedBox(
                   version: installed!.version!,
@@ -236,7 +240,20 @@ class MarketPluginSheet extends ConsumerWidget {
           top: false,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
-            child: _primaryAction(context, host, status, job, installed, needsApp),
+            child: bundledMedia != null
+                ? FilledButton(
+                    onPressed: () => bundledMedia.enabled && bundledMedia.error == null
+                        ? Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const MediaSettingsPage()))
+                        : SheetNavigator.of(context).push(
+                            (_) => BundleSheet(name: bundledMedia.name, initial: bundledMedia, ownerRoute: ownerRoute),
+                          ),
+                    child: Text(
+                      bundledMedia.enabled && bundledMedia.error == null
+                          ? l10n.mediaSettingsTitle
+                          : l10n.hubPluginManage,
+                    ),
+                  )
+                : _primaryAction(context, host, status, job, installed, needsApp),
           ),
         ),
       ],
@@ -388,7 +405,8 @@ class BundleSheet extends ConsumerWidget {
     final job = ref.watch(pluginInstallsProvider.select((jobs) => jobs[name]));
     final summary = bundle.summary();
     final error = bundleErrorText(bundle);
-    final canSwitch = bundle.readOnlyReason == null && (bundle.installed || bundle.optional) && !gone;
+    final canSwitch =
+        bundle.readOnlyReason == null && (bundle.installed || bundle.optional || isBundledMediaBundle(bundle)) && !gone;
     final config = ref.watch(pluginConfigProvider).value;
     final configurable = bundleSettingsRows(bundle, config);
     // Every plugin with fields gets its native page; a third-party one

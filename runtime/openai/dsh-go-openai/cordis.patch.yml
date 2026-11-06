@@ -1,3 +1,7 @@
+- id: web
+  config:
+    searchProvider: openai
+    fetchProvider: http
 - insert:
     - id: dsh-go-openai
       name: dsh-go-openai

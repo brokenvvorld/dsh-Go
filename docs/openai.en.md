@@ -12,6 +12,24 @@ This branch is based on [DSH Go](https://github.com/ccch1mneyyy/dsh-Go) by ccch1
 
 For a third-party gateway, change the endpoint and protocol as needed. Requests and credentials go to the service you configure. The settings shortcut opens an existing OpenAI provider's details; duplicate creation does not overwrite it. The DeepSeek API-key entry remains separate.
 
+## Skills, plugins and accounts
+
+Skills supply instructions, procedures and companion resources. Invoked skill content enters conversation context and does not require a DeepSeek model. Plugins register executable DSH tools: the chat model requests a tool call, then the host runs code or contacts the selected external service. Local files, commands and phone-control tools remain available.
+
+The image and video plugin is bundled with this fork's runtime, retaining the `dsh-media` settings and existing credentials. The previous market package 0.2.1 targets a different DSH version from this fork's 0.2.2-rc.1. Updating the app provides the compatible plugin; version checks are retained. Its market detail opens media settings rather than installing the old package again.
+
+OpenAI images reuse the host's `OPENAI_API_KEY`. The chat model chooses and calls the tool; the selected GPT Image model generates the result. Third-party video services remain configurable and require their own keys and billing. OpenAI shut down the Videos API on 2026-09-24, so an OpenAI key alone does not provide video models.
+
+Ordinary DSH web search now uses the Responses `web_search` tool, with OpenAI selected by default in new runtimes. A host with an explicitly saved DeepSeek search setting can switch in Web search settings. Webpage fetching remains ordinary HTTP. Account status, model providers and usage no longer imply that OpenAI users must sign in to or top up DeepSeek.
+
+## Subscription sign-in and billing
+
+**ChatGPT (Codex)** is the existing pi-ai Codex-compatible sign-in route. It authorizes a ChatGPT account and uses the plan allowance available to that account for supported chat models, subject to access and usage limits. It is separate from an OpenAI Platform API key and does not pay for standalone plugin calls to images, audio, search or Decisions. The service determines whether a third-party compatible client can sign in and use a model.
+
+As documented on 2026-11-06, eligible paid Pro / Business subscriptions can also claim separate API credits. Link the subscription to an API organization you own through ChatGPT or Platform billing, then use a project key from that organization. Signing in to this app does not claim those credits or convert ChatGPT conversation allowance into API balance. Check billing settings for eligibility, credit amounts and expiry.
+
+Official references: [authentication and API billing](https://learn.chatgpt.com/docs/auth?surface=cli), [API credits for subscribers](https://developers.openai.com/api/docs/guides/chatgpt-api-credits), [API deprecations](https://developers.openai.com/api/docs/deprecations).
+
 ## Changes
 
 - OpenAI API is the primary initial-setup action and has a direct settings entry.
@@ -74,3 +92,5 @@ python3 -m unittest discover -s runtime/tests -p 'test_*.py'
 ```
 
 The 180 tests above describe the initial chat integration. Extended validation exercises the real pinned DSH Host's plugin loading/config persistence, real adapters against mock HTTP, protocol/file handling, Flutter UI/voice lifecycles and Dart signaling. No real OpenAI credentials, Android voice-device verification or full APK build were used for this extension.
+
+Plugin/account compatibility validation: 478 Flutter tests passed; one live-account test was not enabled. Media Node tests had 324 passes and four existing skips; OpenAI extension/search tests had 30 passes. Real DSH hosts verified old configuration preservation, no media tools without a key, disable/restart/re-enable behavior and safe mode. Image and background-video workflows passed against local mock services. Complete patch-chain and repeated-application checks passed. No real OpenAI account or physical Android device was used.

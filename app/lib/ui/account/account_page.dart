@@ -116,7 +116,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
     final l10n = context.l10n;
     final state = ref.watch(accountProvider);
     return AppPage.list(
-      title: l10n.engineAccountTitle,
+      title: l10n.engineAccountDeepSeek,
       actions: [
         if (state.signedIn)
           GlassIconButton(icon: AppIcons.refresh, tooltip: l10n.engineAccountRefresh, onPressed: _refresh),

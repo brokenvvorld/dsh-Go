@@ -12,6 +12,24 @@
 
 接第三方网关时可自行改地址和协议；请求和密钥会发送给填写的服务方。已有 OpenAI 渠道时，设置页入口打开它的详情，重复添加不会覆盖原配置。DeepSeek 的 API Key 入口仍单独保留。
 
+## Skill、插件与账号
+
+Skill 给助手提供说明、工作步骤和随附资源；调用时内容进入对话上下文，不要求使用 DeepSeek 模型。插件则给 DSH 注册可执行工具，聊天模型发起工具调用后，由主机运行代码或请求外部服务。本地文件、命令、手机操控等功能可以继续使用。
+
+图像与视频插件随本分支运行时内置，保留 `dsh-media` 的配置和已有凭据。之前市场里的 0.2.1 包与本分支的 DSH 0.2.2-rc.1 不匹配，不能通过取消版本检查解决；更新应用后使用随包的适配版本。市场详情会直接进入媒体设置，不再重复安装旧包。
+
+OpenAI 图片服务复用主机的 `OPENAI_API_KEY`；聊天模型只负责选择和调用工具，图片由所选 GPT Image 模型生成。视频插件保留可配置的第三方服务，但这些服务需要各自的 Key 并独立计费。OpenAI 官方 Videos API 已于 2026-09-24 停用，只有 OpenAI Key 时不提供可用视频模型。
+
+普通联网搜索通过 OpenAI Responses 的 `web_search` 接入 DSH 原有搜索工具，新运行时默认选择 OpenAI。已有主机如果明确保存过 DeepSeek 搜索配置，可在「联网搜索」中切换。网页读取仍走普通 HTTP。OpenAI 账号状态、模型渠道和用量页不再将 DeepSeek 登录或充值当作使用前提。
+
+## “订阅登录”使用什么额度
+
+「ChatGPT (Codex)」是现有 pi-ai 的 Codex 兼容登录渠道：使用 ChatGPT 账号授权，聊天消耗该账号获准使用的套餐额度，受模型权限和用量限制；它不是 OpenAI Platform API Key，也不会自动支付独立插件的生图、语音、搜索或 Decisions 请求。第三方兼容客户端的实际登录和模型可用性仍由服务端决定。
+
+按 2026-11-06 的官方说明，符合条件的付费 Pro / Business 订阅还可领取独立 API 额度。需要在 ChatGPT 或 Platform 账单页关联自己拥有的 API 组织；领取后使用该组织的项目 Key。登录本应用不会代领，也不会将 ChatGPT 对话额度转换成 API 余额。可领取资格、额度和有效期以账户账单页为准。
+
+官方依据：[登录与 API 计费](https://learn.chatgpt.com/docs/auth?surface=cli)、[订阅附带的 API 额度](https://developers.openai.com/api/docs/guides/chatgpt-api-credits)、[接口停用时间](https://developers.openai.com/api/docs/deprecations)。
+
 ## 这次改了什么
 
 - 首次引导以 OpenAI API 为主要入口，模型渠道页增加直接入口。
@@ -58,3 +76,5 @@ python3 -m unittest discover -s runtime/tests -p 'test_*.py'
 ```
 
 原有 180 项是首次聊天接入的验证记录。扩展的验证范围以以上命令和对应提交的 CI 结果为准；不把接口目录数量当成实账号通过数量。
+
+本次插件与账号适配验证：Flutter 478 项通过，真实账号测试 1 项未启用；媒体 Node 测试 324 项通过、4 项既有测试跳过，OpenAI 扩展与搜索测试 30 项通过。真实 DSH 主机验证了旧插件配置保留、无 Key 不暴露媒体工具、关闭后重启、重新启用和安全模式；图片及后台视频使用本地模拟服务跑通。补丁完整应用和重复应用检查通过。未使用真实 OpenAI 账号，也未做 Android 真机验证。

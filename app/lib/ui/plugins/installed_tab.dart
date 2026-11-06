@@ -140,7 +140,8 @@ class BundleTile extends ConsumerWidget {
         !ref.read(pluginListViewProvider).readOnly &&
         (ref.read(installedPluginsProvider).value?.any((b) => identical(b, bundle)) ?? false);
     final summary = bundle.summary();
-    final switchable = bundle.readOnlyReason == null && (bundle.installed || bundle.optional);
+    final switchable =
+        bundle.readOnlyReason == null && (bundle.installed || bundle.optional || isBundledMediaBundle(bundle));
     final running = job?.isActive ?? false;
     // The official market's entry: a newer pinned version, or this one withdrawn.
     final listed = ref.watch(officialMarketProvider.select((c) => c.value?.byName[bundle.name]));
@@ -174,7 +175,7 @@ class BundleTile extends ConsumerWidget {
           if (currentBundle()) unawaited(showBundleSheet(context, bundle));
         },
       );
-    } else if (switchable || readOnly && (bundle.installed || bundle.optional)) {
+    } else if (switchable || readOnly && (bundle.installed || bundle.optional || isBundledMediaBundle(bundle))) {
       trailing = Switch(
         value: bundle.enabled,
         onChanged: readOnly

@@ -8842,6 +8842,35 @@ class L10nEn extends L10n {
   String get openAiAlreadyConfigured => 'An OpenAI provider already exists. Return to Model providers to edit it.';
 
   @override
+  String get openAiBillingSummary => 'Billed through the OpenAI API. No DeepSeek sign-in required.';
+
+  @override
+  String get providerOtherAccounts => 'Other model accounts';
+
+  @override
+  String get providerAccountsHint => 'Choose a configured model provider or add an OpenAI API key';
+
+  @override
+  String get chatGptSubscriptionUsage =>
+      'Uses your ChatGPT plan through the Codex-compatible connection, subject to account access and usage limits. API tools such as images and audio still require an API key and use Platform billing. Eligible Pro / Business API credits must be claimed separately in billing settings.';
+
+  @override
+  String get openaiSearchHint =>
+      'Search uses your configured OpenAI API key and is billed as API usage. It uses the Responses model below, which can differ from the chat model. No DeepSeek account is required.';
+
+  @override
+  String get mediaBundledHint =>
+      'The image and video plugin is bundled with the app and updates with it. There is no need to install the older market version.';
+
+  @override
+  String get mediaOpenAiServicesHint =>
+      'OpenAI images can reuse your chat API key; no DeepSeek account is required. OpenAI currently has no video generation API. Video services require a key from the selected provider and are billed by that provider.';
+
+  @override
+  String get mediaBundledUnavailableHint =>
+      'The bundled plugin is disabled or failed to load. Open plugin management to check its status; do not reinstall the market version.';
+
+  @override
   String get openaiCapabilitiesTitle => 'OpenAI capabilities';
 
   @override

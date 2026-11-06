@@ -1,5 +1,5 @@
 // 模型渠道 (a list page): where the chat's models come from. DeepSeek (account or
-// API Key, kept by the app) first, then the ChatGPT / Claude subscriptions
+// API Key, kept by the app), the ChatGPT / Claude subscriptions
 // (when the engine has the sign-in bridge), then the custom providers of the
 // active engine (llm-pi-ai routes) and 「添加渠道」.
 
@@ -203,7 +203,7 @@ class _DeepSeekCard extends ConsumerWidget {
     }
     return Padding(
       padding: const EdgeInsets.only(bottom: 24),
-      child: ListPageCard(title: l10n.engineProvidersOfficial, children: [row]),
+      child: ListPageCard(title: l10n.providerOtherAccounts, children: [row]),
     );
   }
 }
@@ -224,6 +224,10 @@ class _SubscriptionAccounts extends ConsumerWidget {
       child: ListPageCard(
         title: l10n.engineProvidersSubscription,
         children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 10, 16, 12),
+            child: Text(l10n.chatGptSubscriptionUsage, style: Theme.of(context).textTheme.bodySmall),
+          ),
           for (final status in snapshot.statuses)
             _SubscriptionRow(
               status: status,

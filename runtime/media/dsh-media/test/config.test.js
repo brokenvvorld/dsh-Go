@@ -12,9 +12,10 @@ const service = overrides => ({
   ...overrides,
 });
 
-test('empty setup has no service and every writable secret has a fixed target', () => {
+test('fresh setup reuses OpenAI credentials while every writable legacy secret has a fixed target', () => {
   const config = Config({});
-  assert.deepEqual(runtimeSnapshot(config).services, []);
+  assert.deepEqual(runtimeSnapshot(config).services.map(({ id, keyRef, modelIds }) => ({ id, keyRef, modelIds })), [{ id: 'openai_image', keyRef: 'OPENAI_API_KEY', modelIds: ['gpt-image-2.6-flare', 'gpt-image-2.6-sunburst', 'gpt-image-2.5-flare', 'gpt-image-2.5-sunburst', 'gpt-image-2'] }]);
+  assert.deepEqual(runtimeSnapshot(Config({ services: [] })).services, [], 'an intentionally empty service list stays empty');
   const slots = config.credentials.get();
   for (let i = 0; i < CREDENTIAL_SLOTS.length; i += 1) {
     assert.equal(slots['slot' + (i + 1)].credentialRef, CREDENTIAL_SLOTS[i]);
@@ -111,7 +112,7 @@ test('catalog entries have explicit evidence, conservative supported dimensions 
       const source = CATALOG.sources.find(item => item.id === id);
       assert.ok(source);
       assert.equal(source.level, 'official-page-read');
-      assert.match(source.retrieved ?? source.verifiedAt, /^2026-10-(28|30)$/);
+      assert.match(source.retrieved ?? source.verifiedAt, /^2026-(10-(28|30)|11-06)$/);
     }
     for (const [ratio, size] of Object.entries(model.aspectSizes)) {
       const [a, b] = ratio.split(':').map(Number);
@@ -217,7 +218,7 @@ test('catalog publishes exactly the eight provider presets the settings page off
     ['siliconflow-video', '硅基流动 · 视频', 'SiliconFlow · Video', 'siliconflow', 'silicon-video',
       'https://api.siliconflow.cn', '', ['Wan-AI/Wan2.2-T2V-A14B', 'Wan-AI/Wan2.2-I2V-A14B'], 'video', 'siliconflow'],
     ['openai-image', 'OpenAI · 图片', 'OpenAI · Image', 'openai', 'openai-gpt-image',
-      'https://api.openai.com/v1', '', ['gpt-image-2', 'gpt-image-2.5-sunburst', 'gpt-image-2.5-flare'], 'image', 'openai'],
+      'https://api.openai.com/v1', '', ['gpt-image-2.6-sunburst', 'gpt-image-2.6-flare', 'gpt-image-2', 'gpt-image-2.5-sunburst', 'gpt-image-2.5-flare'], 'image', 'openai'],
     ['gemini-image', 'Gemini · 图片', 'Gemini · Image', 'gemini', 'openai-compatible',
       'https://generativelanguage.googleapis.com/v1beta/openai', 'b64_json', ['gemini-2.5-flash-image'], 'image', 'gemini'],
   ];

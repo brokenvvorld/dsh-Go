@@ -250,7 +250,8 @@ typedef _OfficialCopy = ({String index, String? indexTag, String sidecar, String
 
 Future<_OfficialCopy?> _readOfficialCopy() async {
   try {
-    final json = jsonDecode((await SharedPreferences.getInstance()).getString(_officialCopyKey)!) as Map<String, Object?>;
+    final json =
+        jsonDecode((await SharedPreferences.getInstance()).getString(_officialCopyKey)!) as Map<String, Object?>;
     return (
       index: json['index']! as String,
       indexTag: json['indexTag'] as String?,
@@ -575,11 +576,15 @@ enum BundleGroup {
   hidden,
 }
 
+bool isBundledMediaBundle(PluginBundle bundle) =>
+    bundle.name == '@ccch1mneyyy/dsh-media' && bundle.availability == 'installation';
+
 BundleGroup bundleGroup(PluginBundle bundle) {
   if (bundle.installed) {
     return bundle.official ? BundleGroup.official : BundleGroup.installed;
   }
   if (bundle.optional) return BundleGroup.official;
+  if (isBundledMediaBundle(bundle)) return BundleGroup.official;
   if (bundle.isOnDemand) return BundleGroup.onDemand;
   // Selected but broken names (`not-bundle`, unreadable files) stay visible.
   if (bundle.error != null && bundle.enabled && !bundle.official) {
@@ -999,6 +1004,7 @@ enum MarketInstallStatus { notInstalled, installed, updateAvailable }
 MarketInstallStatus marketInstallStatus(MarketPlugin plugin, List<PluginBundle>? bundles) {
   if (bundles == null) return MarketInstallStatus.notInstalled;
   for (final bundle in bundles) {
+    if (bundle.name == plugin.name && isBundledMediaBundle(bundle)) return MarketInstallStatus.installed;
     if (bundle.name != plugin.name || !(bundle.installed || bundle.availability == 'profile')) {
       continue;
     }

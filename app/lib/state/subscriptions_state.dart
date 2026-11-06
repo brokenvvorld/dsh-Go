@@ -14,7 +14,7 @@ export 'package:dsh_client/dsh_client.dart' show LoginPhase, LoginStep, Subscrip
 
 /// 订阅在界面上的名字。
 String subscriptionLabel(Subscription s) => switch (s) {
-  Subscription.chatgpt => 'ChatGPT',
+  Subscription.chatgpt => 'ChatGPT (Codex)',
   Subscription.claude => 'Claude',
 };
 

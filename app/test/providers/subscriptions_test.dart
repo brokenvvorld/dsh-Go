@@ -123,13 +123,22 @@ void main() {
         ),
       );
       expect(find.text('订阅'), findsOneWidget);
+      expect(find.text(appL10n.chatGptSubscriptionUsage), findsOneWidget);
       expect(find.text('已登录 · me@example.com'), findsOneWidget);
       expect(find.widgetWithText(FilledButton, '登录'), findsOneWidget);
       final titles = [
         for (final row in tester.widgetList<ListPageRow>(find.byType(ListPageRow)))
           row.title ?? row.spot?.title(appL10n),
       ];
-      expect(titles, [appL10n.viewModelSelect, '连接 OpenAI', 'DeepSeek', 'ChatGPT', 'Claude', 'My Gateway', '添加渠道']);
+      expect(titles, [
+        appL10n.viewModelSelect,
+        '连接 OpenAI',
+        'DeepSeek',
+        'ChatGPT (Codex)',
+        'Claude',
+        'My Gateway',
+        '添加渠道',
+      ]);
       // Plain letters, no brand marks: 「G」 and 「C」.
       expect(find.text('G'), findsOneWidget);
       expect(find.text('C'), findsOneWidget);
@@ -169,7 +178,8 @@ void main() {
         steps: const [LoginStep(phase: LoginPhase.open, url: _url)],
       );
       final browser = await _openSheet(tester, bridge);
-      expect(find.text('登录 ChatGPT'), findsOneWidget);
+      expect(find.text('登录 ChatGPT (Codex)'), findsOneWidget);
+      expect(find.text(appL10n.chatGptSubscriptionUsage), findsOneWidget);
       expect(find.text('在浏览器中完成登录'), findsOneWidget);
       expect(bridge.calls.first, 'begin:openai-codex');
       expect(browser.opened, [Uri.parse(_url)]);
@@ -513,7 +523,7 @@ void main() {
 
       await tester.tap(find.text('退出登录'));
       await settle(tester);
-      expect(find.text('退出 ChatGPT？'), findsOneWidget);
+      expect(find.text('退出 ChatGPT (Codex)？'), findsOneWidget);
       await tester.tap(find.text('取消'));
       await settle(tester);
       expect(bridge.calls, isNot(contains('signOut:openai-codex')));

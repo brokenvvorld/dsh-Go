@@ -15,6 +15,7 @@ import '../../state/features_state.dart';
 import '../../state/hosts_state.dart';
 import '../../state/phone_state.dart';
 import '../../state/plugins_state.dart';
+import '../../state/providers_state.dart';
 import '../../state/sessions_state.dart';
 import '../../state/settings_state.dart';
 import '../../state/ui_mode_state.dart';
@@ -41,6 +42,7 @@ import '../plugins/plugins_screen.dart';
 import '../plugins/seats/plugin_settings_tiles.dart';
 import '../plugins/seats/seat_probe.dart';
 import '../providers/providers_page.dart';
+import '../providers/provider_widgets.dart';
 import '../remote/host_status.dart';
 import '../remote/remote_screen.dart';
 import '../shell/brand_mark.dart';
@@ -115,9 +117,7 @@ class SettingsScreen extends ConsumerWidget {
     final plugins = ref.watch(installedPluginsProvider.select((s) => s.value?.length));
     // Read only once the host's settings are at hand: the hub asks for nothing.
     final search = ref.exists(engineSettingsProvider) ? ref.watch(engineSettingsProvider).value : null;
-    final newApi = search == null
-        ? null
-        : search.valueOf(const FieldRef(WebSearchSettingsPage.webNs, ['searchProvider'])) == 'deepseek-search-api';
+    final searchProvider = search?.valueOf(const FieldRef(WebSearchSettingsPage.webNs, ['searchProvider']));
     // 通用.
     final exempt = ref.watch(batteryExemptProvider).value;
     // 主机.
@@ -185,7 +185,15 @@ class SettingsScreen extends ConsumerWidget {
               icon: AppIcons.webSearch,
               tint: SettingsHues.abilities,
               spot: SettingsIndex.entry(SettingsPageId.webSearch),
-              value: text(newApi == null ? null : (newApi ? l10n.engineSearchNewApiBadge : l10n.commonDefault)),
+              value: text(
+                search == null
+                    ? null
+                    : switch (searchProvider) {
+                        'openai' => 'OpenAI',
+                        'deepseek-search-api' => l10n.engineSearchNewApiBadge,
+                        _ => l10n.commonDefault,
+                      },
+              ),
               onTap: () => _push(context, const WebSearchSettingsPage()),
             ),
             SettingsTile(
@@ -365,8 +373,8 @@ class SettingsScreen extends ConsumerWidget {
   }
 }
 
-/// The hub's overview card: who is paying (DeepSeek account or API Key) and
-/// the balance, with the engine's state underneath. The card opens 账号, the
+/// The hub's overview card: the configured model provider or DeepSeek account,
+/// with the engine's state underneath. The card opens that provider's settings;
 /// engine line opens 引擎. With no runtime on this phone and a remote host in
 /// use there is nothing here to sign in to: the card shows that host and
 /// opens 远程主机.
@@ -401,6 +409,26 @@ class _SettingsOverviewState extends ConsumerState<SettingsOverview> {
     final colors = DshColors.of(context);
     final active = ref.watch(activeHostProvider);
     final remoteOnly = runtime.status.runtimeMissing && !active.isLocal;
+    final providerState = ref.watch(customProvidersProvider);
+    final providers = providerState.isLoading ? null : providerState.value;
+    final openAi = providers?.byId('openai');
+    final openAiHealth = openAi == null ? null : providers!.healthOf(openAi);
+    final openAiUri = Uri.tryParse(openAi?.baseUrl ?? '');
+    final officialOpenAi =
+        openAi != null &&
+        (openAi.baseUrl.isEmpty ||
+            (openAiUri?.scheme == 'https' &&
+                openAiUri?.host == 'api.openai.com' &&
+                (!openAiUri!.hasPort || openAiUri.port == 443)));
+    // Local saved route ids only help while that same local host is loading.
+    // They must never label a remote host as having our on-device credentials.
+    final openAiSaved = active.isLocal && settings.customProviderIds.contains('openai');
+    final useProviders =
+        !remoteOnly &&
+        (!active.isLocal ||
+            openAi != null ||
+            openAiSaved ||
+            (!account.signedIn && !settings.hasApiKey && !account.signingIn));
 
     // The account's wallets when signed in; otherwise the key's balance.
     final money = account.signedIn && wallets != null ? balanceFromAccount(wallets) : balance.balance;
@@ -419,6 +447,25 @@ class _SettingsOverviewState extends ConsumerState<SettingsOverview> {
     // Set when the card shows the remote host: its link state.
     String? hostLink;
     switch (account.phase) {
+      case _ when remoteOnly:
+        final link = HostStatusView.ofLink(ref.watch(hostLinkStatusProvider(active)).value ?? HostLinkStatus.idle);
+        leading = OverviewGlyph(hostKindIcon(active.kind), tint: hostKindTint(active.kind));
+        title = ref.watch(hostNameProvider(active)) ?? l10n.commonRemoteHost;
+        subtitle = [l10n.commonRemoteHost, link.label].join(' · ');
+        warn = link.tone == StatusTone.error || link.tone == StatusTone.warn;
+        hostLink = link.label;
+      case _ when useProviders:
+        leading = const OverviewGlyph(AppIcons.apiKey);
+        title = openAi != null
+            ? (officialOpenAi ? 'OpenAI API' : openAi.displayName)
+            : openAiSaved
+            ? 'OpenAI API'
+            : l10n.engineProvidersTitle;
+        subtitle = openAiHealth != null && openAiHealth != ProviderHealth.ready
+            ? ProviderHealthView.of(openAiHealth).label
+            : openAi != null
+            ? (officialOpenAi ? l10n.openAiBillingSummary : l10n.engineProviderReady)
+            : l10n.providerAccountsHint;
       case AccountPhase.signedIn:
         leading = AccountAvatar(profile: account.profile, size: OverviewCard.avatarSize);
         title = account.profile?.displayName ?? l10n.hubSettingsAccount;
@@ -427,13 +474,6 @@ class _SettingsOverviewState extends ConsumerState<SettingsOverview> {
         leading = const OverviewGlyph(AppIcons.apiKey);
         title = l10n.hubSettingsAccount;
         subtitle = l10n.hubSettingsSigningIn;
-      case _ when remoteOnly:
-        final link = HostStatusView.ofLink(ref.watch(hostLinkStatusProvider(active)).value ?? HostLinkStatus.idle);
-        leading = OverviewGlyph(hostKindIcon(active.kind), tint: hostKindTint(active.kind));
-        title = ref.watch(hostNameProvider(active)) ?? l10n.commonRemoteHost;
-        subtitle = [l10n.commonRemoteHost, link.label].join(' · ');
-        warn = link.tone == StatusTone.error || link.tone == StatusTone.warn;
-        hostLink = link.label;
       case _ when settings.hasApiKey:
         leading = const OverviewGlyph(AppIcons.apiKey);
         title = l10n.hubSettingsApiKey;
@@ -457,7 +497,7 @@ class _SettingsOverviewState extends ConsumerState<SettingsOverview> {
     final dsh = runtime.status.dshVersion;
     // The card is 账号's way in (its title is whoever is signed in).
     return SpotAnchor(
-      spot: SettingsIndex.entry(SettingsPageId.account),
+      spot: SettingsIndex.entry(useProviders ? SettingsPageId.models : SettingsPageId.account),
       child: OverviewCard(
         leading: leading,
         title: Text(title),
@@ -472,7 +512,13 @@ class _SettingsOverviewState extends ConsumerState<SettingsOverview> {
         semanticLabel: hostLink != null
             ? l10n.hubSettingsHostSemantics(title, hostLink)
             : l10n.hubSettingsAccountSemantics(title, subtitle),
-        onTap: () => _push(hostLink != null ? const RemoteScreen() : const AccountPage()),
+        onTap: () => _push(
+          hostLink != null
+              ? const RemoteScreen()
+              : useProviders
+              ? const ProvidersPage()
+              : const AccountPage(),
+        ),
         footer: OverviewFooter(
           tone: engine.tone,
           text: [l10n.hubSettingsEngine, engine.label, if (dsh != null) 'DSH $dsh'].join(' · '),

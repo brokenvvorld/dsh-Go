@@ -285,6 +285,7 @@ class MediaSettingsHome extends ConsumerWidget {
         ),
         SettingsSection(
           title: l10n.mediaSettingsServices,
+          footer: Text(l10n.mediaOpenAiServicesHint),
           children: [for (final service in services) serviceRow(service), addRow],
         ),
         if (error != null) MediaInlineError(error),

@@ -1799,7 +1799,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> with WidgetsBindingObse
                                     duration: AppMotion.of(context, AppMotion.standard),
                                     curve: AppMotion.std,
                                     alignment: Alignment.bottomCenter,
-                                    child: connected
+                                    child: connected && ref.watch(showDeepSeekBalanceProvider(chat?.model))
                                         ? const _BalanceBannerSlot()
                                         : const SizedBox(width: double.infinity),
                                   ),

@@ -17,7 +17,11 @@ const additions = [
 ];
 for (const [name, version, resolved, integrity] of additions) {
   const key = 'node_modules/' + name;
-  assert.equal(lock.packages[key], undefined, 'test addition must not replace a runtime lock entry');
+  if (lock.packages[key] !== undefined) {
+    assert.equal(lock.packages[key].version, version);
+    assert.equal(lock.packages[key].integrity, integrity);
+    continue;
+  }
   manifest.dependencies[name] = version;
   lock.packages[''].dependencies[name] = version;
   lock.packages[key] = { version, resolved, integrity, license: 'MIT' };

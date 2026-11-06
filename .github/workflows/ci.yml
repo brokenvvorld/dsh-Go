@@ -219,6 +219,22 @@ jobs:
           node --test runtime/tests/*.test.mjs app/tool/engine_auth/*.test.mjs
           python3 -I runtime/tests/test_patch_dsh.py
           python3 runtime/tests/openai-host-live.py
+      - name: Bundled media upgrade and lifecycle
+        run: |
+          python3 - <<'PY'
+          import json, os, shutil
+          from pathlib import Path
+          target = Path(os.environ['RUNNER_TEMP']) / 'dsh-media'
+          shutil.copytree(os.environ['DSH_PREFIX'], target, symlinks=True)
+          source = Path('runtime/media/dsh-media')
+          shutil.copytree(source, target / 'node_modules/@ccch1mneyyy/dsh-media',
+                          ignore=shutil.ignore_patterns('node_modules', 'test'))
+          manifest = target / 'node_modules/@deepseek-ai/dsh/package.json'
+          data = json.loads(manifest.read_text())
+          data.setdefault('dependencies', {})['@ccch1mneyyy/dsh-media'] = json.loads((source / 'package.json').read_text())['version']
+          manifest.write_text(json.dumps(data))
+          PY
+          DSH_PREFIX="$RUNNER_TEMP/dsh-media" python3 runtime/tests/media-host-live.py
       - name: Media and example plugins
         run: |
           (cd runtime/media/dsh-media && npm install --ignore-scripts --no-package-lock --no-audit --no-fund && npm test)

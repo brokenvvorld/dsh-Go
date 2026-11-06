@@ -182,6 +182,11 @@ class _SubscriptionLoginSheetState extends ConsumerState<SubscriptionLoginSheet>
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SheetTitleBar(l10n.engineSubscriptionSignIn(subscriptionLabel(widget.subscription))),
+            if (widget.subscription == Subscription.chatgpt)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(SheetTitleBar.inset, 0, SheetTitleBar.inset, 12),
+                child: Text(l10n.chatGptSubscriptionUsage, style: Theme.of(context).textTheme.bodySmall),
+              ),
             SmoothSize(
               duration: AppMotion.of(context, AppMotion.standard),
               curve: AppMotion.std,

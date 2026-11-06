@@ -202,7 +202,7 @@ const Service = z.object({
     .default('openai-gpt-image').description('请求协议（由服务商预设决定）'),
   responseFormat: z.union(['', 'url', 'b64_json']).default('')
     .description('兼容接口返回格式（仅 OpenAI 兼容服务需要；其他协议留空）'),
-  models: z.string().max(2048).default('gpt-image-2.5-flare')
+  models: z.string().max(2048).default('gpt-image-2.6-flare')
     .description('允许的模型 ID（英文逗号分隔，来自已安装目录）'),
   keyRef: z.string().pattern(/^[A-Za-z_][A-Za-z0-9_]{0,127}$/).required()
     .description('凭据名（任意已配置的凭据，如 DSH_MEDIA_ARK_API_KEY；旧版固定槽仍可用）'),
@@ -228,11 +228,18 @@ const Credentials = z.object(Object.fromEntries(
   CREDENTIAL_SLOTS.map((ref, index) => ['slot' + (index + 1), credentialSlot(ref, index + 1)]),
 ));
 
+export const DEFAULT_OPENAI_SERVICE = Object.freeze({
+  id: 'openai_image', label: 'OpenAI', enabled: true, provider: 'openai',
+  baseUrl: 'https://api.openai.com/v1', profile: 'openai-gpt-image',
+  models: 'gpt-image-2.6-flare,gpt-image-2.6-sunburst,gpt-image-2.5-flare,gpt-image-2.5-sunburst,gpt-image-2',
+  keyRef: 'OPENAI_API_KEY',
+});
+
 export const Config = z.object({
   // Deployment-only. It is intentionally not volatile or editable via settings.
   dshHome: z.string().description('DSH 数据根（仅主机部署配置）'),
   services: z.transform(z.array(Service).max(8), validateServices, true)
-    .default([]).volatile()
+    .default([DEFAULT_OPENAI_SERVICE]).volatile()
     .extra('extra', { [CATALOG_META_KEY]: CATALOG })
     .description('服务（图片或视频各建一个，可共用同一凭据）'),
   credentials: Credentials.volatile()

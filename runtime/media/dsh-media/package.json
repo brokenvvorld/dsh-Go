@@ -1,6 +1,6 @@
 {
   "name": "@ccch1mneyyy/dsh-media",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "DeepSeek Harness 图片生成、编辑与后台视频生成；DSH Go 媒体协议 v1",
   "type": "module",
   "main": "src/index.js",
@@ -27,7 +27,8 @@
     "data/models.json",
     "cordis.patch.yml",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "src/provider-protocol.js"
   ],
   "scripts": {
     "test": "node --test test/*.test.js",
@@ -69,5 +70,6 @@
     "v": 1,
     "minApp": "1.0.2",
     "contributes": {}
-  }
+  },
+  "dshGoBundledMedia": true
 }

@@ -3,6 +3,7 @@ import { describe } from './catalog.js';
 import { createClient, saveArtifacts, redactSecrets, OpenAIError } from './client.js';
 import { workspaceIO } from './workspace.js';
 import { installVoice } from './voice.js';
+import { installWeb } from './web.js';
 export { Config } from './config.js';
 export const name = 'dsh-go-openai';
 export const read = value => typeof value?.get === 'function' ? value.get() : value;
@@ -28,6 +29,7 @@ export function apply(ctx, config) {
       return record.value;
     };
     installVoice(credentialsCtx, config, credential, lifetime.signal, track);
+    installWeb(credentialsCtx, config, credential, lifetime.signal, track);
     credentialsCtx.inject(['tools', 'fs', 'workingDirectory', 'sandboxPolicy'], toolCtx => {
       const when = async () => read(config.enabled) && Boolean((await credentialsCtx.credentials.resolve(credentialRef('OPENAI_API_KEY')))?.value);
       function register(tool) {

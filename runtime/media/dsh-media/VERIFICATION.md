@@ -1,3 +1,13 @@
+# 0.3.1 本分支验证（2026-11-06）
+
+- Node 单测：328 项，324 通过、4 项既有 jobs 生命周期用例跳过，0 失败。
+- 真实 DSH 0.2.2-rc.1 Host：无 Key 不注册生成工具；只有 OpenAI Key 时注册图片生成/编辑，不注册视频；旧 0.2.1 profile 包存在时使用内置版本，保留服务、默认模型、预算与凭据引用；settings 实际写入成功。
+- `pluginManager/listBundles` 与实际加载状态一致；关闭媒体、重启进程后保持关闭，重新启用成功。安全模式不自动选中媒体；只读 profile 检查不写入 manifest。
+- 真实 headless Session + 本地脚本模型/HTTP：图片和视频各一条完整流程，通过生产审批、预算、文件发布和后台视频结果；25/36 个事件、2/3 次模型请求。没有请求付费服务。
+- 未验证 Android/PRoot 真机或真实 OpenAI/第三方账号额度。下面的旧版本记录保留供比较。
+
+复现 Host 检查：`DSH_PREFIX=/path/to/assembled-equivalent-runtime python3 runtime/tests/media-host-live.py`。该目录需要已应用运行时补丁、内置媒体包、`image-size@2.0.2`，并在 DSH 安装 manifest 声明媒体依赖；与 `rtbuild.py` 的打包结果一致。
+
 # 0.2.0 验证与复现
 
 运行环境：Linux，Node v24.21.0，DSH npm `0.2.1-rc.4`，`TZ=Asia/Shanghai`。现有 rc.4 runtime lock 的 628 个非根记录全部保留，只加入精确 integrity 的 `dsh-llm-mock-server@0.2.1-rc.4` 与 `image-size@2.0.2`；不混用其他版本的 jobs。

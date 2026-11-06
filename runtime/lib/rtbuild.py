@@ -1092,10 +1092,10 @@ def cmd_assemble(args):
     entries["opt/node"] = Entry("dir", 0o755, origin="node")
 
     # 3. npm trees on disk: DSH (whole --prefix) and pnpm (laid out like `npm i -g pnpm`)
-    def add_tree(src, dest_root, origin, drop_reason):
+    def add_tree(src, dest_root, origin, drop_reason, excluded_dirs=()):
         src = os.path.abspath(src)
         for dirpath, dirnames, filenames in os.walk(src):
-            dirnames.sort()
+            dirnames[:] = sorted(name for name in dirnames if name not in excluded_dirs)
             rel_dir = os.path.relpath(dirpath, src)
             rel_dir = "" if rel_dir == "." else rel_dir.replace(os.sep, "/")
             dest_dir = dest_root + ("/" + rel_dir if rel_dir else "")
@@ -1150,6 +1150,24 @@ def cmd_assemble(args):
     with_openai = bool(openai_source and os.path.isfile(os.path.join(openai_source, "package.json")))
     if with_openai:
         add_tree(openai_source, "opt/dsh/node_modules/dsh-go-openai", "bridge", lambda rel, abi, prune: None)
+
+    # Ship the same package name as the optional upstream plugin. DSH resolves
+    # installation packages before profile-local copies, so upgrades preserve
+    # the dsh-media entry and its settings without running two implementations.
+    media_source = os.path.join(os.path.dirname(os.path.dirname(args.bridge)), "media", "dsh-media") if args.bridge else None
+    if media_source and os.path.isfile(os.path.join(media_source, "package.json")):
+        def media_drop_reason(rel, abi, prune):
+            if rel == "node_modules" or rel.startswith(("node_modules/", "test/")):
+                return "media-development-file"
+            if rel.endswith((".tgz", ".log")):
+                return "media-development-file"
+            return None
+        add_tree(media_source, "opt/dsh/node_modules/@ccch1mneyyy/dsh-media", "bridge", media_drop_reason, ("node_modules", "test"))
+        app_path = "opt/dsh/node_modules/@deepseek-ai/dsh/package.json"
+        app = json.loads(entries[app_path].read())
+        media = json.loads(entries["opt/dsh/node_modules/@ccch1mneyyy/dsh-media/package.json"].read())
+        app.setdefault("dependencies", {})[media["name"]] = media["version"]
+        entries[app_path] = Entry("file", 0o644, data=(json.dumps(app, indent=2) + "\n").encode(), origin="overlay")
 
     # 4. dsh-app overlay (wins over everything above)
     runtime_info = json.loads(args.runtime_info)

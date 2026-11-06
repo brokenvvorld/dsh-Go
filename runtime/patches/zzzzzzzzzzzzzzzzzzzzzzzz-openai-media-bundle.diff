@@ -1,0 +1,46 @@
+--- a/node_modules/@deepseek-ai/dsh-app-boot/lib/index.js
++++ b/node_modules/@deepseek-ai/dsh-app-boot/lib/index.js
+@@ -1549,7 +1549,10 @@
+ 	const { packageNames, packageDirs, declarers, versions } = collectInstallationScopePackages(installAnchor, new Set(profile?.skippedBundles.map((skipped) => skipped.packageName)));
+ 	const profileDeclarers = /* @__PURE__ */ new Map();
+ 	const profileVersions = /* @__PURE__ */ new Map();
+-	const localPackageNames = profile === void 0 ? [] : installedProfilePackageNames(profile, manifest);
++	const localPackageNames = profile === void 0 ? [] : installedProfilePackageNames(profile, manifest).filter((name) => {
++		const dir = packageDirs.get(name);
++		return name !== "@ccch1mneyyy/dsh-media" || dir === void 0 || readPackageManifest(join(dir, "package.json")).dshGoBundledMedia !== true;
++	});
+ 	const profilePackages = profile === void 0 ? /* @__PURE__ */ new Map() : collectProfileScopePackages(profile, packageNames, profileDeclarers, profileVersions);
+ 	const linkedRoots = profile === void 0 ? [] : linkedProfileRoots(profile, profilesDir);
+ 	return await Promise.resolve(new ProfileRuntimeResolution({
+@@ -1795,6 +1798,16 @@
+ function loadProfileDirectory(binName, dir, installAnchor, options = {}) {
+ 	const manifest = readProfileManifest(binName, dir);
+ 	const bundles = options.readOnly === true ? (manifest.dsh?.profile?.bundles ?? []).filter((bundle) => !RETIRED_BUNDLES.has(bundle)) : dropRetiredBundles(dir, manifest).dsh?.profile?.bundles ?? [];
++	// Ship media as an ordinary, once-selected bundle. Keep the existing entry
++	// name/config and honor later user disablement instead of re-adding each boot.
++	const mediaName = "@ccch1mneyyy/dsh-media";
++	const mediaDir = packageDirFromAnchor(installAnchor, mediaName);
++	if (process.env.DSH_APP_SAFE_MODE !== "1" && mediaDir && readPackageManifest(join(mediaDir, "package.json")).dshGoBundledMedia === true && manifest.dshGo?.mediaBundleInitialized !== true) {
++		if (!bundles.includes(mediaName)) bundles.push(mediaName);
++		manifest.dsh = { ...manifest.dsh, profile: { ...manifest.dsh?.profile, bundles: [...bundles] } };
++		manifest.dshGo = { ...manifest.dshGo, mediaBundleInitialized: true };
++		if (options.readOnly !== true) writeProfileManifest(dir, manifest);
++	}
+ 	const layers = [];
+ 	const skippedBundles = [];
+ 	const exemptions = bundles.length === 0 ? {} : readProfileVersionExemptions(dir);
+@@ -2410,6 +2423,14 @@
+ 		}
+ 		if (layer.kind === "linked") return this.routeLinked(request, name, parent, resolution, flavor, cjs);
+ 		const target = resolution.entries.get(name);
++		// The shipped media bundle and its plugin must resolve to the same version.
++		// An old profile-local copy remains on disk but cannot shadow the tested APK
++		// version; other user plugins keep the normal local-first behavior.
++		if (name === "@ccch1mneyyy/dsh-media" && target?.scope === "installation" && readPackageManifest(join(target.packageDir, "package.json")).dshGoBundledMedia === true) {
++			const state = { route: { kind: "interception", entry: target, after: layer.after } };
++			if (memo) requests.set(request, state);
++			return state;
++		}
+ 		const candidates = [];
+ 		const localSearchPaths = [];
+ 		for (const searchPath of createRequire(parent).resolve.paths(name)) {

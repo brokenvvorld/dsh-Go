@@ -1276,6 +1276,14 @@
         }
       }
     },
+    "zzzzzzzzzzzzzzzzzzzzzzzz-openai-media-bundle.diff": {
+      "0.2.2-rc.1": {
+        "node_modules/@deepseek-ai/dsh-app-boot/lib/index.js": {
+          "after": "d173f745e8ce4d62b75efdd5932e565b45d215abdcf8ac06eac9990f081f60ba",
+          "before": "0efe3b6c4be30e101982c0740b55d3e035fb754e32ad366a197a9b7ec5be6cdb"
+        }
+      }
+    },
     "zzzzzzzzzzzzzzzzzzzzzzzz-ralph-result-unicode.diff": {
       "0.2.2-rc.1": {
         "node_modules/@deepseek-ai/dsh-tool-ralph/lib/index.js": {
@@ -1393,6 +1401,14 @@
         "node_modules/@deepseek-ai/dsh-session-query-sqlite/lib/index.js": {
           "after": "6a70f328528d9c799b9f15a0c4505712ebb259163d4e9abe7a6a7dfa0557730b",
           "before": "9c347d1916155416f4af9ddf79f196e106be683884acfa107246745512853d35"
+        }
+      }
+    },
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz-openai-web-default.diff": {
+      "0.2.2-rc.1": {
+        "node_modules/@deepseek-ai/dsh-base/cordis.patch.yml": {
+          "after": "cd16d09e29cecb8f0e528b4ede0b7252f3f938c8b8e5f3e62a872fd96bf2ca23",
+          "before": "b65a86e55f02d863286bb6faac8ae292c18fffca3c8aa4491b600fa4dd6b48d0"
         }
       }
     }

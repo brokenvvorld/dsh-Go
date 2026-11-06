@@ -2,11 +2,22 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dsh_client/dsh_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'account_state.dart';
+import 'hosts_state.dart';
 import 'settings_state.dart';
+
+/// A local DeepSeek wallet says nothing about another host or provider's quota.
+final showDeepSeekBalanceProvider = Provider.autoDispose.family<bool, ModelSelection?>((ref, model) {
+  if (!ref.watch(activeHostProvider).isLocal) return false;
+  final provider = model?.provider;
+  if (provider == 'deepseek-account') return ref.watch(accountProvider.select((s) => s.signedIn));
+  if (provider != 'deepseek' && provider != 'deepseek-official') return false;
+  return ref.watch(settingsProvider.select((s) => s.hasApiKey));
+});
 
 /// DeepSeek account balance (`GET https://api.deepseek.com/user/balance`).
 class DeepSeekBalance {

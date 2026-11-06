@@ -55,9 +55,16 @@ MediaPluginState mediaPluginStateOf(List<PluginBundle>? bundles, {bool offered =
   if (bundles == null) return MediaPluginState.absent;
   final bundle = bundles.where((b) => isMediaPluginName(b.name)).firstOrNull;
   if (bundle == null) return offered ? MediaPluginState.installable : MediaPluginState.absent;
-  if (bundle.installed && bundle.enabled && bundle.error == null) return MediaPluginState.ready;
+  if ((bundle.installed || bundle.availability == 'installation') && bundle.enabled && bundle.error == null) {
+    return MediaPluginState.ready;
+  }
   return MediaPluginState.installable;
 }
+
+/// The runtime supplies this package; installing a market copy cannot update it.
+final bundledMediaProvider = Provider<PluginBundle?>(
+  (ref) => ref.watch(installedPluginsProvider.select((state) => state.value?.where(isBundledMediaBundle).firstOrNull)),
+);
 
 /// The media plugin in the official market, which 「在此主机上安装」 installs;
 /// null while the market loads, when it failed or doesn't list one.

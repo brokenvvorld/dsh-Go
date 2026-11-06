@@ -63,7 +63,10 @@ class MediaInstallPrompt extends ConsumerWidget {
         ref
             .read(installedPluginsProvider)
             .value
-            ?.any((b) => isMediaPluginName(b.name) && (b.installed || b.availability == 'profile')) ??
+            ?.any(
+              (b) =>
+                  isMediaPluginName(b.name) && (b.installed || b.availability == 'profile' || isBundledMediaBundle(b)),
+            ) ??
         false;
     if (entry == null || listed) {
       await openMediaPluginMarket(context, tab: listed ? PluginsTab.installed : PluginsTab.market);
@@ -82,12 +85,13 @@ class MediaInstallPrompt extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     final entry = ref.watch(mediaMarketEntryProvider);
+    final bundled = ref.watch(bundledMediaProvider) != null;
     final job = entry == null ? null : ref.watch(pluginInstallsProvider.select((jobs) => jobs[entry.name]));
     return EmptyView(
       icon: AppIcons.generateMedia,
       compact: compact,
       title: l10n.mediaInstallTitle,
-      message: l10n.mediaInstallBody,
+      message: bundled ? l10n.mediaBundledUnavailableHint : l10n.mediaInstallBody,
       action: job != null && job.isActive
           ? ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 320),
@@ -102,7 +106,7 @@ class MediaInstallPrompt extends ConsumerWidget {
                 minimumSize: Size(0, compact ? 38 : 44),
                 padding: const EdgeInsets.symmetric(horizontal: 20),
               ),
-              child: Text(l10n.mediaInstallAction),
+              child: Text(bundled ? l10n.hubPluginManage : l10n.mediaInstallAction),
             ),
     );
   }

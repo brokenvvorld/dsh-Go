@@ -14,7 +14,7 @@ function deferred() {
 }
 
 const service = overrides => ({
-  id: 'office', enabled: true, keyRef: CREDENTIAL_SLOTS[0], ...overrides,
+  id: 'office', enabled: true, keyRef: CREDENTIAL_SLOTS[0], models: 'gpt-image-2.5-flare', ...overrides,
 });
 
 function mockResult(request) {
@@ -194,7 +194,7 @@ test('late credential description cannot resurrect configuration that was remove
     describe: () => gate.promise,
   });
   try {
-    f.setRaw({});
+    f.setRaw({ services: [] });
     f.emit('loader/volatile-update', [['services']]);
     await f.installed.settled();
     assert.equal(f.registered.size, 0);
@@ -532,4 +532,32 @@ test('registered video tool follows the per-kind video default over the legacy i
   assert.equal(captured.length, 1);
   assert.equal(captured[0].service.id, 'video');
   assert.equal(captured[0].model.id, 'doubao-seedance-2-5-260628');
+});
+
+
+test('OpenAI chat key alone enables default image tools without a DeepSeek account or video credential', async t => {
+  let captured;
+  const f = await fixture(t, {
+    configured: ['OPENAI_API_KEY'],
+    async generate(request, context) {
+      captured = request;
+      assert.equal(await context.resolveCredential(), 'unit-test-key');
+      return mockResult(request);
+    },
+  });
+  await f.installed.ready;
+  assert.deepEqual([...f.registered.keys()], ['generate_image', 'edit_image']);
+  assert.deepEqual(f.describeRefs, ['OPENAI_API_KEY']);
+  assert.deepEqual(f.resolveRefs, []);
+  await f.registered.get('generate_image').execute({ prompt: 'A blue circle' }, f.exec());
+  assert.equal(captured.model.id, 'gpt-image-2.6-flare');
+  assert.equal(captured.service.baseUrl, 'https://api.openai.com/v1');
+  assert.deepEqual(f.resolveRefs, ['OPENAI_API_KEY']);
+});
+
+test('a missing OpenAI key exposes no image tool; a separately named credential is not reused', async t => {
+  const f = await fixture(t, { configured: ['DSH_MEDIA_ARK_API_KEY'] });
+  await f.installed.ready;
+  assert.equal(f.registered.size, 0);
+  assert.deepEqual(f.resolveRefs, []);
 });

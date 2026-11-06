@@ -1,6 +1,7 @@
 import 'package:dsh_app/state/media_generation.dart';
 import 'package:dsh_app/state/plugins_state.dart';
 import 'package:dsh_app/ui/plugins/plugin_detail_sheet.dart';
+import 'package:dsh_app/ui/plugins/plugin_actions.dart';
 import 'package:dsh_app/ui/plugins/plugins_screen.dart';
 import 'package:dsh_app/ui/settings/media_settings_page.dart';
 import 'package:dsh_app/update/version.dart';
@@ -25,6 +26,12 @@ void main() {
     expect(mediaPluginStateOf([], offered: true), MediaPluginState.installable);
     expect(mediaPluginStateOf([]), MediaPluginState.absent);
     expect(mediaPluginStateOf(null, offered: true), MediaPluginState.absent);
+  });
+
+  test('bundled media is ready without a profile dependency', () {
+    const bundled = PluginBundle(name: '@ccch1mneyyy/dsh-media', availability: 'installation', enabled: true);
+    expect(mediaPluginStateOf([bundled]), MediaPluginState.ready);
+    expect(bundleGroup(bundled), BundleGroup.official);
   });
 
   late FakePluginCarrier carrier;
@@ -90,5 +97,56 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byType(PluginsScreen), findsOneWidget);
     expect(carrier.argsOf('pluginManager/installBundle'), isEmpty);
+  });
+
+  testWidgets('bundled media opens settings and cannot be replaced by the market package', (tester) async {
+    carrier.handlers['pluginManager/listBundles'] = (_) => [
+      {...bundleJson('@ccch1mneyyy/dsh-media'), 'availability': 'installation', 'installed': false, 'version': '0.3.1'},
+    ];
+    usePhoneView(tester);
+    final entry = officialFixtureMarket().byName['@dsh-go/media']!;
+    await tester.pumpWidget(
+      testApp(
+        Scaffold(body: MarketPluginSheet(entry: entry)),
+        overrides: pluginOverrides(fakeHost(client)),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('图像与视频'), findsOneWidget);
+    expect(find.textContaining('随应用内置'), findsOneWidget);
+    final context = tester.element(find.byType(MarketPluginSheet));
+    await installMarketEntry(context, entry);
+    await updateMarketEntry(context, entry);
+    expect(carrier.argsOf('pluginManager/installBundle'), isEmpty);
+    expect(carrier.argsOf('pluginManager/removeBundle'), isEmpty);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('disabled bundled media stays visible and opens management without reinstalling', (tester) async {
+    carrier.handlers['pluginManager/setBundleEnabled'] = (args) => {
+      'stage': 'enable',
+      'target': args['name'],
+      'changed': true,
+      'application': 'applied',
+    };
+    carrier.handlers['pluginManager/listBundles'] = (_) => [
+      {...bundleJson('@ccch1mneyyy/dsh-media', enabled: false), 'availability': 'installation', 'installed': false},
+    ];
+    await pump(tester);
+    expect(find.text('在此主机上安装'), findsNothing);
+    expect(find.text('管理'), findsOneWidget);
+    await tester.tap(find.text('管理'));
+    await tester.pumpAndSettle();
+    expect(find.byType(PluginsScreen), findsOneWidget);
+    expect(find.textContaining('@ccch1mneyyy/dsh-media'), findsWidgets);
+    expect(find.byType(Switch), findsOneWidget);
+    await tester.tap(find.byType(Switch));
+    await tester.pumpAndSettle();
+    expect(carrier.argsOf('pluginManager/setBundleEnabled').single, {
+      'name': '@ccch1mneyyy/dsh-media',
+      'enabled': true,
+    });
+    expect(carrier.argsOf('pluginManager/installBundle'), isEmpty);
+    expect(tester.takeException(), isNull);
   });
 }

@@ -552,7 +552,7 @@ final _pages = <SettingsPageMeta>[
   // The overview card.
   SettingsPageMeta(
     SettingsPageId.account,
-    title: (l) => l.engineAccountTitle,
+    title: (l) => l.engineAccountDeepSeek,
     keywords: (l) => l.searchKwAccount,
     freq: Freq.medium,
     links: const ['account'],

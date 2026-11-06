@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dsh_app/state/balance_state.dart';
+import 'package:dsh_app/state/account_state.dart';
+import 'package:dsh_app/state/hosts_state.dart';
 import 'package:dsh_app/state/commands_state.dart';
 import 'package:dsh_app/state/settings_state.dart';
 import 'package:dsh_app/state/usage_state.dart';
@@ -17,8 +19,37 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'support/harness.dart';
+import '../account/support.dart' show FixedAccount;
+import '../phone/support.dart' show FixedActiveHost;
 
 void main() {
+  test('DeepSeek balance only belongs to the matching local credential and model', () {
+    ProviderContainer make({HostRef host = HostRef.local, String key = '', bool signedIn = false}) {
+      final container = ProviderContainer(
+        overrides: [
+          activeHostProvider.overrideWith(() => FixedActiveHost(host)),
+          settingsProvider.overrideWith(() => TestSettings(AppSettings(loaded: true, apiKey: key))),
+          accountProvider.overrideWith(
+            () => FixedAccount(AccountState(phase: signedIn ? AccountPhase.signedIn : AccountPhase.signedOut)),
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+      return container;
+    }
+
+    bool visible(ProviderContainer container, String provider) =>
+        container.read(showDeepSeekBalanceProvider(ModelSelection(provider: provider, model: 'test-model')));
+    final apiKey = make(key: testKey);
+    expect(visible(apiKey, 'deepseek-official'), isTrue);
+    expect(visible(apiKey, 'openai'), isFalse);
+    expect(visible(apiKey, 'openai-codex'), isFalse);
+    expect(visible(apiKey, 'deepseek-account'), isFalse);
+    expect(visible(make(), 'deepseek-official'), isFalse);
+    expect(visible(make(signedIn: true), 'deepseek-account'), isTrue);
+    expect(visible(make(host: const HostRef.ssh('remote'), key: testKey), 'deepseek-official'), isFalse);
+  });
+
   group('slash commands', () {
     final all = mergeSlashCommands(testHostCommands);
 

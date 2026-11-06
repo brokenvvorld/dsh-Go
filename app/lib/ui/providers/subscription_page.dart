@@ -161,6 +161,10 @@ class _SubscriptionPageState extends ConsumerState<SubscriptionPage> {
               ],
             ),
             gap,
+            if (widget.subscription == Subscription.chatgpt) ...[
+              Text(l10n.chatGptSubscriptionUsage, style: Theme.of(context).textTheme.bodySmall),
+              gap,
+            ],
             if (models.isEmpty && !catalog.isLoading && failed)
               _modelsFailed(catalog.error)
             else if (models.isEmpty && !catalog.isLoading && catalog.value == null)

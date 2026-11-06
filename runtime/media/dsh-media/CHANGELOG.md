@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.1 — bundled OpenAI support
+
+- Ship the tested media plugin with this fork's runtime and preserve existing `dsh-media` settings when an old market package is installed.
+- Reuse `OPENAI_API_KEY` for the default image service; add GPT Image 2.6 Flare and Sunburst. Keep third-party video providers and separate their credentials.
+- Keep enable/disable selection across restarts and exclude automatic media initialization from safe mode.
+- Include `provider-protocol.js` in the package's production file list.
+
 ## 0.3.0 — 2026-11-01
 
 - Publish eight provider presets in `data/models.json` (`presets[]`), carried to the App through the existing services catalog metadata: Ark, Alibaba Model Studio, SiliconFlow, OpenAI and Gemini image/video templates with their profile, API root, response format, model list and shared `keyGroup`.

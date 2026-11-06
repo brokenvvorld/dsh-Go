@@ -1,8 +1,16 @@
 # @ccch1mneyyy/dsh-media
 
-DSH Go 的主机侧媒体插件，版本 `0.3.0`。提供生成图片、用一句话编辑图片、后台生成视频；服务密钥留在 Host credentials，原件保存到当前工作区。设置命名空间保持 `dsh-media`，媒体结果使用冻结的 `meta["dsh-go/media"]` v1。
+DSH Go 的主机侧媒体插件，版本 `0.3.1`。提供生成图片、用一句话编辑图片、后台生成视频；服务密钥留在 Host credentials，原件保存到当前工作区。设置命名空间保持 `dsh-media`，媒体结果使用冻结的 `meta["dsh-go/media"]` v1。
 
 0.2.0 已通过本地 HTTP mock 和真实 DSH `0.2.1-rc.4` headless 会话；0.3.0 通过完整 Node 测试，未重跑 headless。尚未调用付费服务或在 Android / PRoot 上验证。模型可用性、审核、配额和最终费用由供应商决定。此仓库准备了发布包，未发布到 npm，也未预装进 App 运行时；发布后由插件市场安装。
+
+## 本分支的内置版本
+
+本分支随 APK 打包这个插件，不再要求安装市场中的旧版本。聊天模型通过 `generate_image` / `edit_image` / `generate_video` 工具调用媒体服务；工具不依赖 DeepSeek 账号，生成服务和聊天模型可以不同。
+
+首次启用默认提供 OpenAI 图片服务，复用 `OPENAI_API_KEY`，默认使用 GPT Image 2.6 Flare，也可选择 Sunburst 或仍受支持的旧图像模型。没有配置密钥时不注册生成工具；填写密钥本身不会发起生成请求。视频仍需单独配置方舟、百炼或硅基流动的服务与密钥，OpenAI Key 不用于这些接口。
+
+已有 `dsh-media` 服务、默认值和凭据引用保持不变。随包版本替代 profile 内的旧包；首次迁移后，禁用插件的选择会跨重启保存。安全模式不会自动加载媒体插件。功能只读取已有凭据，不迁移或回显密钥值。
 
 ## 支持范围
 
@@ -82,10 +90,17 @@ Host 重启后，原会话可调用 `resume_media(rid)` 继续查询已保存的
 
 ## English
 
-`@ccch1mneyyy/dsh-media` is a Host-side DeepSeek Harness plugin. It keeps credentials on the Host, saves original media in the current workspace and emits DSH Go media metadata v1. The settings namespace remains `dsh-media`. Node `^22.19.0 || >=24.0.0` and the pinned DSH `0.2.1-rc.4` peers are required; the DSH Go manifest declares app `1.0.2` or later.
+`@ccch1mneyyy/dsh-media` is a Host-side DeepSeek Harness plugin. It keeps credentials on the Host, saves original media in the current workspace and emits DSH Go media metadata v1. The settings namespace remains `dsh-media`. Node `^22.19.0 || >=24.0.0` and the pinned DSH `0.2.2-rc.1` peers are required; the DSH Go manifest declares app `1.0.2` or later.
 
 It supports OpenAI / Gemini-compatible images, Ark Seedream / Seedance, Alibaba Wan and SiliconFlow Qwen / Wan. Editing uses one workspace image. Video generation runs as a real background job; `get_media_result` retrieves its media result after the completion notice. `resume_media(rid)` explicitly resumes a saved provider task in its original session without submitting again. Provider cancellation is confirmed only when the API reports it; SiliconFlow cancellation is unavailable.
 
 All currently bundled prices are unknown. Every generation requires explicit one-time approval. The default CNY 20 daily ledger and CNY 20 per-request hold limit local reservations, **not actual provider bills**. Accepted or uncertain submissions retain their hold. No paid-provider, Android or PRoot validation is claimed. The package is prepared for publication but this change does not publish or preinstall it.
 
 Version 0.3.0 also publishes provider presets in the plugin catalogue. The App builds a service from a preset, writes any env-style credential name such as `DSH_MEDIA_ARK_API_KEY`, reuses one key for the image and video services of the same provider, and keeps separate image/video defaults. The four fixed slots remain for compatibility only, and a legacy `serviceId`/`modelId` default keeps its exact previous behavior.
+
+
+### In-box media in this fork
+
+The APK carries version 0.3.1 for DSH 0.2.2-rc.1, so the old market package is no longer needed. The default OpenAI image service uses `OPENAI_API_KEY` and GPT Image 2.6 Flare. No image tools are registered without that key, and entering it never starts a generation request. The chat model calls ordinary media tools; no DeepSeek login is required. Ark, Alibaba and SiliconFlow video services still need their own credentials.
+
+The existing `dsh-media` entry, service configuration, defaults and credential references are preserved. The installation copy takes precedence over an old profile-local media package. A one-time profile initialization selects the bundle; later disablement survives restarts. Safe mode does not automatically select media.

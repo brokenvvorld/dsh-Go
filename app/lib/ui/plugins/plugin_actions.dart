@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../l10n/l10n.dart';
 import '../../state/engine_control.dart';
 import '../../state/hosts_state.dart';
+import '../../state/media_generation.dart' show bundledMediaProvider, isMediaPluginName;
 import '../../state/plugins_state.dart';
 import '../common/app_dialog.dart';
 import '../common/app_sheet.dart';
@@ -63,6 +64,10 @@ Future<PluginInstallJob> runPluginInstall(BuildContext context, PluginInstallReq
 /// risk asks first, listing what the checks found. Null when declined.
 Future<PluginInstallJob?> installMarketEntry(BuildContext context, MarketEntry entry) async {
   final container = ProviderScope.containerOf(context, listen: false);
+  if (isMediaPluginName(entry.name) && container.read(bundledMediaProvider) != null) {
+    ScaffoldMessenger.maybeOf(context)?.showSnackBar(SnackBar(content: Text(context.l10n.mediaBundledHint)));
+    return null;
+  }
   final host = container.read(pluginHostProvider);
   if (marketNeedsApp(entry, container.read(appVersionProvider)) != null) return null;
   if (!await confirmMarketRisk(context, entry) || !context.mounted) return null;
@@ -74,6 +79,10 @@ Future<PluginInstallJob?> installMarketEntry(BuildContext context, MarketEntry e
 /// (when there is one to confirm), then what an update costs.
 Future<void> updateMarketEntry(BuildContext context, MarketEntry entry, {String? from}) async {
   final container = ProviderScope.containerOf(context, listen: false);
+  if (isMediaPluginName(entry.name) && container.read(bundledMediaProvider) != null) {
+    ScaffoldMessenger.maybeOf(context)?.showSnackBar(SnackBar(content: Text(context.l10n.mediaBundledHint)));
+    return;
+  }
   final host = container.read(pluginHostProvider);
   if (marketNeedsApp(entry, container.read(appVersionProvider)) != null) return;
   if (!await confirmMarketRisk(context, entry) || !context.mounted) return;

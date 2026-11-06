@@ -483,7 +483,7 @@ const fallbackMediaPresets = <MediaPreset>[
     provider: 'openai',
     profile: 'openai-gpt-image',
     baseUrl: 'https://api.openai.com/v1',
-    models: ['gpt-image-2', 'gpt-image-2.5-sunburst', 'gpt-image-2.5-flare'],
+    models: ['gpt-image-2.6-flare', 'gpt-image-2.6-sunburst', 'gpt-image-2', 'gpt-image-2.5-sunburst', 'gpt-image-2.5-flare'],
     kind: GenerateKind.image,
     keyGroup: 'openai',
   ),

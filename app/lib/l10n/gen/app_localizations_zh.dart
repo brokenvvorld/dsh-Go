@@ -8385,6 +8385,32 @@ class L10nZh extends L10n {
   String get openAiAlreadyConfigured => 'OpenAI 渠道已存在，请返回模型渠道页面编辑已有配置。';
 
   @override
+  String get openAiBillingSummary => '按 OpenAI API 用量计费，不需要登录 DeepSeek';
+
+  @override
+  String get providerOtherAccounts => '其他模型账号';
+
+  @override
+  String get providerAccountsHint => '选择已配置的模型渠道，或添加 OpenAI API Key';
+
+  @override
+  String get chatGptSubscriptionUsage =>
+      '通过 ChatGPT 的 Codex 兼容通道使用套餐额度，受账号权限和用量限制。生图、语音等 API 工具仍需 API Key，按 Platform 账户结算。符合条件的 Pro / Business API 赠送额度需在账单页单独领取。';
+
+  @override
+  String get openaiSearchHint => '使用已配置的 OpenAI API Key 搜索，按 API 用量计费。搜索使用下面的 Responses 模型，与聊天模型可以不同；不需要 DeepSeek 账号。';
+
+  @override
+  String get mediaBundledHint => '图像与视频插件已随应用内置，更新应用即可更新插件，无需再安装市场里的旧版本。';
+
+  @override
+  String get mediaOpenAiServicesHint =>
+      'OpenAI 图片服务可复用聊天的 API Key，不需要 DeepSeek 账号。OpenAI 当前不提供视频生成 API；使用视频服务需另配对应平台的 Key，并由该平台计费。';
+
+  @override
+  String get mediaBundledUnavailableHint => '内置插件尚未启用或加载失败。请在插件管理中查看状态，无需重新安装市场版本。';
+
+  @override
   String get openaiCapabilitiesTitle => 'OpenAI 能力';
 
   @override
