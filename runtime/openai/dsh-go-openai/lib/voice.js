@@ -49,7 +49,7 @@ export async function startVoice({ kind, sdp, config, credential, signal, fetchI
   return { sdp: (await boundedBytes(answer, signal, 256000)).toString('utf8'), id: id && /^[\w-]+$/.test(id) ? id : null, kind };
 }
 
-export function installVoice(ctx, config, credential, lifetime, track) {
+export function installVoice(ctx, config, credential, lifetime, track, { cleanupCredential = credential } = {}) {
   ctx.inject(['speechToText'], speechCtx => {
     speechCtx.effect(() => speechCtx.speechToText.register({
       info: { id: 'openai', name: 'OpenAI', location: 'cloud', languages: ['auto', 'zh', 'en', 'ja', 'ko', 'fr', 'de', 'es', 'ru'] },
@@ -77,7 +77,7 @@ export function installVoice(ctx, config, credential, lifetime, track) {
       const session = sessions.get(token); sessions.delete(token);
       clearTimeout(session?.lease);
       if (!session?.id || session.kind === 'translation' || session.kind === 'transcription') return;
-      const key = await credential();
+      const key = await cleanupCredential();
       const path = session.kind.startsWith('live') ? '/live/sessions/' : '/realtime/calls/';
       const response = await fetch(`${API_ROOT}${path}${encodeURIComponent(session.id)}/hangup`, { method: 'POST', headers: { Authorization: `Bearer ${key}` }, signal: AbortSignal.timeout(5000), redirect: 'error' });
       await response.body?.cancel();

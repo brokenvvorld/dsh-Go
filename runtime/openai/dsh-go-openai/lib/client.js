@@ -143,7 +143,9 @@ async function events(response, signal, io) {
           checkpoints.add(id);
           await io.save(Buffer.from(JSON.stringify({ id, type: event.type, note: 'Query this resource before retrying interrupted work.' })), 'application/json', signal);
         }
-        if (/^response\.(completed|failed|cancelled|incomplete)$/.test(event.type) || /^agent\.session\.turn\.(completed|failed|cancelled)$/.test(event.type) && !event.subagent_id && !event.turn?.subagent_id) { terminal = true; break; }
+        if (/^response\.(completed|failed|cancelled|incomplete)$/.test(event.type)
+          || /^agent\.session\.(failed|environment\.failed)$/.test(event.type)
+          || /^agent\.session\.turn\.(completed|failed|cancelled)$/.test(event.type) && !event.subagent_id && !event.turn?.subagent_id) { terminal = true; break; }
       }
     }
     return { events: result, streamEnded: true, terminal, recovery: terminal ? null : 'Stream ended before a terminal event. Retrieve the response/session before submitting more work.' };

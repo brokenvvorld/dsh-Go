@@ -79,6 +79,10 @@ MCP 的 `authorization` 或 Vault 的敏感字段用 `{"$credential":"MY_MCP_TOK
 - 语音信令目前需要 HTTP Host 连接（本机或 SSH 转发等）；仅提供 RPC 的远程中继连接不显示可用的通话按钮。
 - 新插件随本分支运行时打包；既有 APK 和旧 Host 不会凭空获得这些代码。远程主机可安装本仓库 `runtime/openai/dsh-go-openai` 包，加入 DSH profile bundles，再重启 Host。它依赖当前固定的 DSH 0.2.2-rc.1 服务协议。
 
+## 2026-11-07 维护候选
+
+本轮核对与未完成事项见 [维护记录](maintenance/2026-11-07.md)。Agents 会话创建和更新可传入 `prompt_cache_options`（TTL 为 `30m` 或 `12h`），工具列表与审核配置完整透传。SSE 保留 error 后续生命周期，识别会话和环境失败；idle 不代表任务成功。关闭扩展后仍允许挂断既有通话，新请求继续被拒绝。
+
 ## 来源与验证
 
 主要来源：[文档总目录](https://developers.openai.com/api/docs)、[API Reference](https://developers.openai.com/api/reference)、[更新日志](https://developers.openai.com/api/docs/changelog)、[停用公告](https://developers.openai.com/api/docs/deprecations)、[Decisions](https://developers.openai.com/api/docs/guides/decisions)、[Agents](https://developers.openai.com/api/docs/guides/agents)、[工具](https://developers.openai.com/api/docs/guides/tools)、[GPT-Live](https://developers.openai.com/api/docs/guides/live)、[Realtime](https://developers.openai.com/api/docs/guides/realtime)、[Images](https://developers.openai.com/api/docs/guides/image-generation)、[Webhooks](https://developers.openai.com/api/docs/guides/webhooks)。每个操作的来源、参数摘要和状态还保存在机器可读目录中。

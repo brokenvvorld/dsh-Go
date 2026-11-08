@@ -22,13 +22,17 @@ export function apply(ctx, config) {
     return operation;
   }
   ctx.inject(['credentials'], credentialsCtx => {
-    const credential = async () => {
-      if (!read(config.enabled)) throw new OpenAIError('OPENAI_DISABLED');
+    const resolveCredential = async () => {
       const record = await credentialsCtx.credentials.resolve(credentialRef('OPENAI_API_KEY'));
       if (!record?.value) throw new OpenAIError('OPENAI_CREDENTIAL_MISSING');
       return record.value;
     };
-    installVoice(credentialsCtx, config, credential, lifetime.signal, track);
+    const credential = async () => {
+      if (!read(config.enabled)) throw new OpenAIError('OPENAI_DISABLED');
+      return resolveCredential();
+    };
+    // Disabling new requests must not prevent hanging up an existing call.
+    installVoice(credentialsCtx, config, credential, lifetime.signal, track, { cleanupCredential: resolveCredential });
     installWeb(credentialsCtx, config, credential, lifetime.signal, track);
     credentialsCtx.inject(['tools', 'fs', 'workingDirectory', 'sandboxPolicy'], toolCtx => {
       const when = async () => read(config.enabled) && Boolean((await credentialsCtx.credentials.resolve(credentialRef('OPENAI_API_KEY')))?.value);

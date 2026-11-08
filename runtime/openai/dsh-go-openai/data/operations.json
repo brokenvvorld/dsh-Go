@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-06",
+  "checkedAt": "2026-11-07",
   "operations": [
     {
       "method": "DELETE",
@@ -2293,7 +2293,8 @@
           "review: optional \"none\" or \"auto_review\"",
           "stream: optional boolean (default: false)",
           "stream_options: optional object { include_obfuscation }",
-          "vault_ids: optional array of string or null"
+          "vault_ids: optional array of string or null",
+          "prompt_cache_options: optional object { ttl: \"30m\" or \"12h\" } or null"
         ]
       },
       "multipart": false,
@@ -2316,7 +2317,8 @@
         "Body Parameters": [
           "agent: optional object { model, reasoning, service_tier, tools }",
           "metadata: optional map[string] or null",
-          "review: optional \"none\" or \"auto_review\""
+          "review: optional \"none\" or \"auto_review\"",
+          "prompt_cache_options: optional object { ttl: \"30m\" or \"12h\" } or null"
         ]
       },
       "multipart": false,
