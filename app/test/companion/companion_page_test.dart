@@ -547,7 +547,7 @@ void main() {
         expect(requests, 0);
         final l10n = L10n.of(tester.element(find.byType(CompanionPage)));
         expect(find.text(l10n.companionNotConnected), findsOneWidget);
-        await tester.pumpWidget(_app(const SizedBox()));
+        await tester.pumpWidget(const SizedBox());
         await tester.pump(const Duration(seconds: 10));
       });
 

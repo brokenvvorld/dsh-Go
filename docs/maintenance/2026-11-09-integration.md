@@ -40,7 +40,28 @@
 
 ## 验证状态
 
-当前候选已完成：Flutter analyze 无问题；OpenAI 39 项通过；全量 runtime Node 1,599 通过、1 跳过（该轮早于新增租约回归，新增回归已由 OpenAI 测试单独通过）；运行时 Python 20 通过、1 跳过；补丁 Python 9 通过、1 跳过；tooling Python 74 通过；Dart client 817 通过、31 跳过；真实固定 DSH 插件加载及 2 项入包检查通过。Flutter 功能/截图与 Android 构建待完成，因此候选不能进入 main。跳过项不计为通过。没有使用真实 OpenAI Key，也没有真实账号、Android 真机或真实电话验证。涉及上游 Android 运行时升级与手机操控的真机范围不能用桌面测试替代。
+| 验证 | 实际结果 |
+| --- | --- |
+| Flutter analyze | 无问题 |
+| Flutter OpenAI、渠道、首次引导、语音、媒体、引擎设置、伙伴小屋功能与截图 | 1,119 通过、144 跳过；修正新增测试的 ProviderScope 清理后整组复跑通过 |
+| OpenAI Responses 实际适配器模拟 API、capabilities、web、maintenance | 39 通过，0 跳过 |
+| 全量 runtime Node 与 engine_auth | 1,599 通过、1 跳过；该轮早于新增租约回归，新增回归由上项单独通过 |
+| 运行时 Python / 补丁 Python / tooling Python | 20 通过、1 跳过 / 9 通过、1 跳过 / 74 通过 |
+| Dart client / remote | 817 通过、31 跳过 / 499 通过、4 跳过；两个包静态检查无问题 |
+| 媒体插件 | 333 通过，0 跳过 |
+| 实际固定 DSH 插件加载、设置持久化、关闭后语音门禁 | 通过，不调用 OpenAI 服务 |
+| 入包检查、完整运行时补丁哈希 | 2 项入包检查通过；全新锁定运行时所有补丁哈希通过 |
+| 中英文生成与指南同步 | 63 个文案分片、6,178 个 key 与 26 个指南文件检查通过 |
+
+查看了 OpenAI 能力页、渠道浅色/深色截图；没有更新截图基线。跳过项不计为通过。以上 Flutter 是相关功能集合，不是整个 app 的全量测试。没有使用真实 OpenAI Key，也没有真实账号、Android 真机或真实电话验证。
+
+## 远端整合与未验证范围
+
+- 本地合并提交为 `345d9b0291d09c03af707b09bde72a47e21702c1`。通过 Git Data API 等价写入的合并提交为 `63a79f29ce0799cd12c06e2a9bd6bbf6607fa64d`，完整保留已有候选和上游两个父提交；远端合并树与本地树均为 `03d2bbcb4dd87f0fd95f220d6a713129fce39b02`。
+- 首次写入曾返回 `user rejected MCP tool call`；用户要求继续同步后重试成功。两边 main 及原维护分支在续办前均未变化，不新建重复分支。
+- 本提交另修正伙伴小屋新增测试的 ProviderScope 清理；相关 Flutter 功能和截图整组复跑结果见上表。
+- 继续使用 `maintenance/incomplete-20261107-openai` 承载候选和远端 CI/APK 检查。实际远端结果以此分支最新 workflow 为准，既有 main 的绿色结果不能算作本候选通过。
+- 当前环境没有 Android SDK、签名材料与连接设备；Android 安装、PRoot、手机操控/升级真机检查未运行，没有真实账号测试。未创建正式发布 tag，未向上游写入。
 
 ## 后续检查范围
 
