@@ -33,6 +33,21 @@ BOOT_CACHE = "/opt/dsh-go/boot-cache.mjs"
 BOOT_CACHE_SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "boot", "boot-cache.mjs")
 DIRECT_SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "direct")
 PNPM_BINS = {"pnpm": "pnpm.mjs", "pnpx": "pnpx.mjs", "pn": "pnpm.mjs", "pnx": "pnpx.mjs"}
+# Only these app-owned paths may change during an engine upgrade. Python (including
+# pip packages), dpkg, /usr and the rest of /usr/local remain the user's system.
+ENGINE_PATHS = [
+    "opt/dsh", "opt/node", "opt/dsh-go", "etc/dsh-app",
+    "etc/profile.d/dsh-app.sh", "usr/local/lib/node_modules/pnpm",
+] + ["usr/local/bin/" + name for name in ("dsh", "node", "npm", "npx", "corepack", *PNPM_BINS)]
+
+
+def upgrade_descriptor(abi, ubuntu_version, base_sha, deb_shas, python_sha):
+    # Deliberately excludes DSH, Node, bridges, patches and build timestamps.
+    system = [abi, base_sha, sorted(deb_shas), python_sha]
+    identity = hashlib.sha256(json.dumps(system, sort_keys=True).encode()).hexdigest()
+    return {"schema": 1, "baseId": identity, "ubuntuVersion": ubuntu_version,
+            "paths": ENGINE_PATHS}
+
 ABI = {
     "arm64-v8a": {"machine": 183, "npm_cpu": "arm64", "node": "arm64", "ubuntu": "arm64", "termux": "aarch64"},
     "x86_64": {"machine": 62, "npm_cpu": "x64", "node": "x64", "ubuntu": "amd64", "termux": "x86_64"},
@@ -806,6 +821,16 @@ def install_ca_bundle(entries, report):
                                 "bundleBytes": len(bundle)}
 
 
+def bridge_shared_rows():
+    """The rows of the bridge bundle's cordis.patch.yml that the local overlay also carries."""
+    source = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "bridge", "dsh-go-bridge", "cordis.patch.yml")
+    with open(source, encoding="utf-8") as patch:
+        rows = patch.read().split("    # --- shared rows ---\n", 1)[1]
+    # Local runtimes load the bridge by path; it is not a profile dependency.
+    return rows.replace("name: dsh-go-bridge/companion/full-context",
+                        "name: %s/lib/companion/full-context.js" % DSH_GO_BRIDGE)
+
+
 def overlay_entries(runtime_info, with_python=False, with_pnpm=False, with_bridge=False, with_openai=False):
     """Files dsh-app adds to the rootfs. Kept here so the recipe lives in one place."""
     E = {}
@@ -837,6 +862,7 @@ def overlay_entries(runtime_info, with_python=False, with_pnpm=False, with_bridg
       "export TERM=\"${TERM:-xterm-256color}\"\n"
       "export TMPDIR=\"${TMPDIR:-/tmp}\"\n"
       "export DSH_HOME=\"${DSH_HOME:-/root/.dsh}\"\n"
+      "export XDG_DATA_DIRS=\"${XDG_DATA_DIRS-/usr/local/share:/usr/share:/system}\"\n"
       + ("export pnpm_config_registry=\"${pnpm_config_registry:-%s}\"\n" % NPMMIRROR if with_pnpm else ""))
     f("etc/apt/apt.conf.d/99dsh-app-proot",
       "// proot fakes root; apt's privilege drop to _apt only causes setgroups/permission noise.\n"
@@ -899,6 +925,7 @@ def overlay_entries(runtime_info, with_python=False, with_pnpm=False, with_bridg
                       "- insert:\n"
                       "    - id: dsh-go-bridge\n"
                       "      name: %s/lib/index.js\n" % DSH_GO_BRIDGE)
+            patch += bridge_shared_rows()
         if with_openai:
             patch += ("- insert:\n"
                       "    - id: dsh-go-openai\n"
@@ -950,6 +977,16 @@ def cmd_assemble(args):
         samples = report["droppedSamples"].setdefault(reason, [])
         if len(samples) < 12:
             samples.append(path)
+
+    runtime_info = json.loads(args.runtime_info)
+    def digest(path):
+        with open(path, "rb") as source:
+            return hashlib.file_digest(source, "sha256").hexdigest()
+    upgrade = upgrade_descriptor(abi, runtime_info["ubuntuVersion"], digest(args.base),
+                                 [digest(p) for p in args.deb or []],
+                                 digest(args.python) if args.python else None)
+    runtime_info["upgrade"] = upgrade
+    report["upgrade"] = upgrade
 
     # 1. Ubuntu Base
     hardlinks = []
@@ -1170,7 +1207,6 @@ def cmd_assemble(args):
         entries[app_path] = Entry("file", 0o644, data=(json.dumps(app, indent=2) + "\n").encode(), origin="overlay")
 
     # 4. dsh-app overlay (wins over everything above)
-    runtime_info = json.loads(args.runtime_info)
     for p, e in overlay_entries(runtime_info, with_python=bool(args.python), with_pnpm=bool(args.pnpm_prefix),
                                 with_bridge=bool(args.bridge), with_openai=with_openai).items():
         entries[p] = e
@@ -1344,6 +1380,8 @@ def launch_template():
         "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
         "LANG=C.UTF-8", "TERM=xterm-256color", "TMPDIR=/tmp",
         "DSH_HOME=/root/.dsh",
+        # Linux font discovery appends /fonts; Android's fonts are in the bound /system.
+        "XDG_DATA_DIRS=/usr/local/share:/usr/share:/system",
         # pnpm 11 reads its registry from here (not from any npmrc outside $HOME); see DSH_WEB_PATCH
         "pnpm_config_registry=" + NPMMIRROR,
         "UV_USE_IO_URING=0",
@@ -1430,6 +1468,7 @@ def cmd_manifest(args):
     m = {
         "schema": 1,
         "runtimeVersion": v["runtimeVersion"],
+        "upgrade": report.get("upgrade"),
         "abi": args.abi,
         "rootfs": report["archive"],
         "rootfsFormat": "tar.xz" if report["archive"].endswith(".xz") else "tar.gz",

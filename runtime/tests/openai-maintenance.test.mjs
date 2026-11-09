@@ -88,3 +88,71 @@ for (const firstHangupStatus of [200, 503]) test(`disabled OpenAI cleans up call
   assert.equal(blocked.status, 502); assert.equal((await blocked.json()).error, 'OPENAI_DISABLED');
   assert.equal(requests.length, firstHangupStatus === 200 ? 2 : 3);
 });
+
+test('Multi-agent create and recovery use the beta route and header on the wire', async t => {
+  const seen = [];
+  const server = createServer(async (req, res) => {
+    let body = ''; for await (const chunk of req) body += chunk;
+    seen.push({ url: req.url, beta: req.headers['openai-beta'], body });
+    res.writeHead(200, { 'content-type': 'application/json' });
+    res.end(JSON.stringify({ id: 'resp_multi', status: 'queued' }));
+  });
+  await new Promise(done => server.listen(0, '127.0.0.1', done));
+  t.after(() => { server.closeAllConnections(); server.close(); });
+  const client = createClient({ credential: async () => key, root: `http://127.0.0.1:${server.address().port}/v1`, approve: async () => true });
+  await client.request({ operation: 'POST /responses', body: { model: 'gpt-6.1-sol', input: 'test', multi_agent: { enabled: true } } }, signal());
+  for (const operation of ['GET /responses/{response_id}', 'POST /responses/{response_id}/cancel', 'GET /responses/{response_id}/input_items', 'DELETE /responses/{response_id}']) {
+    await client.request({ operation, params: { response_id: 'resp_multi' }, query: { beta: true } }, signal());
+  }
+  for (const request of seen) {
+    assert.equal(new URL(request.url, 'http://localhost').searchParams.get('beta'), 'true');
+    assert.equal(request.beta, 'responses_multi_agent=v1');
+  }
+  await client.request({ operation: 'POST /responses', body: { model: 'gpt-6.1-sol', input: 'ordinary' } }, signal());
+  assert.equal(seen.at(-1).url, '/v1/responses');
+  assert.equal(seen.at(-1).beta, undefined);
+});
+
+test('an expired voice lease retries a failed cloud hangup and releases the call slot', async t => {
+  const { installVoice } = await import('../openai/dsh-go-openai/lib/voice.js');
+  const { Readable } = await import('node:stream');
+  const { EventEmitter } = await import('node:events');
+  const timers = [], routes = new Map(), cleanup = [];
+  const realTimeout = globalThis.setTimeout;
+  t.mock.method(globalThis, 'setTimeout', (fn, delay, ...args) => {
+    if (delay !== 90000) return realTimeout(fn, delay, ...args);
+    timers.push(fn); return { unref() {} };
+  });
+  let hangups = 0;
+  t.mock.method(globalThis, 'fetch', async url => {
+    if (String(url).endsWith('/hangup')) return new Response(null, { status: ++hangups === 1 ? 503 : 200 });
+    return json({ session: { id: 'live_lease' }, transport: { sdp: 'v=0\r\nanswer' } });
+  });
+  const ctx = {
+    connection: { requestRejection: () => undefined },
+    webServer: { register(route) { routes.set(route.path, route.handler); return () => routes.delete(route.path); } },
+    inject(names, cb) { if (names.every(n => n in ctx)) cb(ctx); },
+    effect(cb) { cleanup.push(cb()); },
+  };
+  installVoice(ctx, { liveModel: 'gpt-live-1', responseModel: 'gpt-6.1-sol', voice: 'marin' }, async () => key, signal(), x => x);
+  t.after(async () => { for (const dispose of cleanup.reverse()) await dispose?.(); });
+  async function call(action, body) {
+    const req = Readable.from([Buffer.from(JSON.stringify(body))]);
+    req.method = 'POST'; req.url = `/openai/v1/voice/${action}`;
+    const res = new EventEmitter();
+    res.writeHead = status => { res.status = status; };
+    res.end = body => { res.body = body && JSON.parse(body); res.writableEnded = true; };
+    await routes.get('/openai/v1/voice')(req, res);
+    return res;
+  }
+  const first = await call('start', { kind: 'live', sdp: 'v=0\r\n' });
+  assert.equal(first.status, 200);
+  await timers.shift()();
+  await new Promise(setImmediate);
+  assert.equal(hangups, 1);
+  assert.equal(timers.length, 1, 'failed lease cleanup must arm another cleanup attempt');
+  await timers.shift()();
+  await new Promise(setImmediate);
+  assert.equal(hangups, 2);
+  assert.equal((await call('start', { kind: 'live', sdp: 'v=0\r\n' })).status, 200);
+});

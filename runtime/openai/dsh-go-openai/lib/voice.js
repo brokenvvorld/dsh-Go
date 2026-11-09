@@ -93,7 +93,14 @@ export function installVoice(ctx, config, credential, lifetime, track, { cleanup
       const session = sessions.get(token);
       if (!session) throw new OpenAIError('OPENAI_VOICE_EXPIRED');
       clearTimeout(session.lease);
-      session.lease = setTimeout(() => { void stop(token).catch(() => {}); }, 90000);
+      session.lease = setTimeout(async () => {
+        try { await stop(token); }
+        catch {
+          // A transient hangup failure must not leave an expired session holding
+          // the only call slot forever. Retry cleanup only, never call creation.
+          if (!lifetime.aborted && sessions.get(token) === session) renew(token);
+        }
+      }, 90000);
       session.lease.unref?.();
     }
     webCtx.effect(() => async () => { await Promise.allSettled([...sessions.keys()].map(stop)); });

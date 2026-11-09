@@ -159,7 +159,10 @@ export function createClient({ credential, io, approve, training = false, fetchI
       const row = admitted(args.operation, { native, training });
       if (!object(args.body ?? {})) fail('OPENAI_INVALID_BODY');
       if (row.confirmation && !await approve?.(row)) fail('OPENAI_APPROVAL_REQUIRED');
-      const path = requestPath(row, args.params, args.query);
+      // Beta Responses uses both a query selector and a feature header. Recovery
+      // requests have no creation body, so callers retain query.beta with the ID.
+      const multiAgent = row.family === 'responses' && (args.body?.multi_agent?.enabled === true || args.query?.beta === true);
+      const path = requestPath(row, args.params, multiAgent ? { ...args.query, beta: true } : args.query);
       if (row.method === 'GET' && Object.keys(args.body ?? {}).length) fail('OPENAI_GET_BODY');
       if (row.family === 'decisions') validateDecision(args.body);
       const body = await materialize(args.body ?? {}, io, signal);
@@ -167,7 +170,7 @@ export function createClient({ credential, io, approve, training = false, fetchI
       if (typeof key !== 'string' || !key.trim()) fail('OPENAI_CREDENTIAL_MISSING');
       const headers = { Authorization: `Bearer ${key}` };
       if (row.beta) headers['OpenAI-Beta'] = row.beta;
-      if (row.family === 'responses' && body.multi_agent?.enabled) headers['OpenAI-Beta'] = 'responses_multi_agent=v1';
+      if (multiAgent) headers['OpenAI-Beta'] = 'responses_multi_agent=v1';
       let payload;
       if (row.method !== 'GET') {
         if (row.multipart || row.optionalMultipart && hasFile(body)) payload = multipart(body);

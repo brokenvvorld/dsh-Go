@@ -9,7 +9,7 @@ export const workflows = {
     example: { model: 'gpt-6-luna', input: '用户的问题或证据', questions: [{ type: 'predicate', name: 'needs_search', instructions: '回答是否需要查询最新资料？' }] } },
   responses: { description: '完整 Responses 请求：图片/文件、结构化输出、思考档位、缓存、后台执行、上下文压缩、联网/文件检索、Code Interpreter、图片、Shell、Skills、MCP、工具搜索、PTC、多 Agent。',
     example: { model: 'gpt-6.1-sol', input: '查询并标注来源', tools: [{ type: 'web_search' }], store: false },
-    continuation: '本地 function/computer/shell/apply_patch 调用返回后，必须通过现有 DSH 工具和审批执行，再以匹配 call_id 的 output 回传；不把调用请求当作已经执行。MCP 审批也需要用户决定。后台任务保存 response id 后 retrieve/cancel，不重复 create。' },
+    continuation: '本地 function/computer/shell/apply_patch 调用返回后，必须通过现有 DSH 工具和审批执行，再以匹配 call_id 的 output 回传；不把调用请求当作已经执行。MCP 审批也需要用户决定。后台任务保存 response id 后 retrieve/cancel，不重复 create。多 Agent 创建自动选择 Beta 路由；后续 retrieve/cancel/delete/input_items/compact/input_tokens 同时传 query:{beta:true}，保留原来的 Beta 协议。' },
   agents: { description: '托管 Codex 会话、云端沙箱、浏览器、MCP、Skills、多 Agent、产物、事件、预热环境、定时任务。',
     example: { agent: { model: 'gpt-6.1-sol', instructions: '完成任务，将交付文件放在 /workspace/outputs。' }, environment: { type: 'openai_hosted' }, input: '用户的任务' },
     continuation: '保存 session id；读取会话、items、turns 和 required_actions。agent.session.idle 不等于任务成功。续写、取消、审批和工具结果通过 events 发送。不要重建会话重做已提交的工作。产物通过 artifacts/content 下载。' },
