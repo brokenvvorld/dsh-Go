@@ -43,7 +43,7 @@ test('Agents updates preserve tools, prompt cache TTL, review and Beta header', 
   assert.deepEqual(result.data.prompt_cache_options, body.prompt_cache_options);
 });
 
-test('disabling OpenAI blocks new calls while still hanging up the active call', async t => {
+for (const firstHangupStatus of [200, 503]) test(`disabled OpenAI cleans up calls and preserves failed hangups (${firstHangupStatus})`, async t => {
   assert.ok(process.env.DSH_PREFIX, 'Set DSH_PREFIX to the pinned runtime');
   const root = await mkdtemp(join(tmpdir(), 'openai-stop-disabled-'));
   t.after(() => rm(root, { recursive: true, force: true }));
@@ -63,7 +63,7 @@ test('disabling OpenAI blocks new calls while still hanging up the active call',
   globalThis.fetch = async (url, options) => {
     assert.ok(String(url).startsWith('https://api.openai.com/v1/'));
     requests.push(String(url));
-    if (String(url).endsWith('/hangup')) return new Response(null, { status: 200 });
+    if (String(url).endsWith('/hangup')) return new Response(null, { status: requests.filter(url => url.endsWith('/hangup')).length === 1 ? firstHangupStatus : 200 });
     return json({ session: { id: 'live_test' }, transport: { sdp: 'v=0\r\nanswer' } });
   };
   const server = createServer((req, res) => { void routes.get('/openai/v1/voice')(req, res); });
@@ -76,9 +76,15 @@ test('disabling OpenAI blocks new calls while still hanging up the active call',
   const start = await call('start', { kind: 'live', sdp: 'v=0\r\n' });
   assert.equal(start.status, 200); const { token } = await start.json();
   config.enabled = false;
+  if (firstHangupStatus !== 200) {
+    const failed = await call('stop', { token });
+    assert.equal(failed.status, 502);
+    assert.equal((await failed.json()).error, 'OPENAI_VOICE_HTTP');
+    assert.equal((await call('ping', { token })).status, 200);
+  }
   assert.equal((await call('stop', { token })).status, 200);
-  assert.equal(requests.filter(url => url.endsWith('/hangup')).length, 1);
+  assert.equal(requests.filter(url => url.endsWith('/hangup')).length, firstHangupStatus === 200 ? 1 : 2);
   const blocked = await call('start', { kind: 'live', sdp: 'v=0\r\n' });
   assert.equal(blocked.status, 502); assert.equal((await blocked.json()).error, 'OPENAI_DISABLED');
-  assert.equal(requests.length, 2);
+  assert.equal(requests.length, firstHangupStatus === 200 ? 2 : 3);
 });

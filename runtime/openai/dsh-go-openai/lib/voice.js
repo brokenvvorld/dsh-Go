@@ -74,13 +74,20 @@ export function installVoice(ctx, config, credential, lifetime, track, { cleanup
   ctx.inject(['webServer', 'connection'], webCtx => {
     const sessions = new Map(); let starting = false;
     async function stop(token) {
-      const session = sessions.get(token); sessions.delete(token);
-      clearTimeout(session?.lease);
-      if (!session?.id || session.kind === 'translation' || session.kind === 'transcription') return;
+      const session = sessions.get(token);
+      if (!session?.id || session.kind === 'translation' || session.kind === 'transcription') {
+        sessions.delete(token);
+        clearTimeout(session?.lease);
+        return;
+      }
       const key = await cleanupCredential();
       const path = session.kind.startsWith('live') ? '/live/sessions/' : '/realtime/calls/';
       const response = await fetch(`${API_ROOT}${path}${encodeURIComponent(session.id)}/hangup`, { method: 'POST', headers: { Authorization: `Bearer ${key}` }, signal: AbortSignal.timeout(5000), redirect: 'error' });
       await response.body?.cancel();
+      if (!response.ok) throw new OpenAIError('OPENAI_VOICE_HTTP', { status: response.status });
+      // Keep the handle and lease on failure so the caller can retry cleanup.
+      sessions.delete(token);
+      clearTimeout(session.lease);
     }
     function renew(token) {
       const session = sessions.get(token);
