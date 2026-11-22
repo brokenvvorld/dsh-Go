@@ -12,14 +12,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../l10n/l10n.dart';
+import '../../links/external_link.dart';
 import '../../state/app_info.dart';
-import '../../state/star_prompt.dart' show starLinkOpenerProvider;
 import '../settings/settings_widgets.dart';
 import '../theme/app_icons.dart';
 
 /// 「服务由 liguobao/ds-harness-remote 提供」. Only the project name and its
-/// glyph open the project page, in the browser app as 给项目点 Star does
-/// (signed in to GitHub there, a star is one tap away).
+/// glyph open the credited project in the browser.
 /// They take taps up to 48dp tall by reaching into the empty space above and
 /// below their line: never into the card above, the next section or the rest
 /// of the line.
@@ -61,7 +60,7 @@ class _RelayCreditState extends ConsumerState<RelayCredit> {
     final url = Uri.parse(AppInfo.remoteProjectUrl);
     var opened = false;
     try {
-      opened = await ref.read(starLinkOpenerProvider)(url);
+      opened = await ref.read(externalLinkOpenerProvider)(url);
     } catch (_) {
       // No browser: handled below.
     }

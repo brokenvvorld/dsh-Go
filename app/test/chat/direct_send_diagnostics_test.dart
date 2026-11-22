@@ -15,7 +15,6 @@ import 'package:dsh_app/state/hosts_state.dart';
 import 'package:dsh_app/state/phone_state.dart';
 import 'package:dsh_app/state/settings_state.dart';
 import 'package:dsh_app/state/voice_settings.dart';
-import 'package:dsh_app/usage/usage_stats.dart';
 import 'package:dsh_client/dsh_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -245,14 +244,6 @@ class _Voice extends VoiceSettingsController {
   Future<VoiceMode> ready() async => VoiceMode.auto;
 }
 
-class _Usage extends UsageStatsController {
-  final counted = <UsageCount>[];
-  @override
-  UsageStatsState build() => const UsageStatsState(loaded: true, enabled: false);
-  @override
-  void count(UsageCount count) => counted.add(count);
-}
-
 class _Reads {
   int connections = 0;
   int links = 0;
@@ -268,7 +259,6 @@ class _Harness {
   ChatController get chat => container.read(chatProvider(_session).notifier);
   ChatState get state => container.read(chatProvider(_session));
   _Peer get peer => container.read(_peers)[container.read(activeHostProvider)]!;
-  List<UsageCount> get counts => (container.read(usageStatsProvider.notifier) as _Usage).counted;
 
   static Future<_Harness> start(WidgetTester tester, {HostRef selected = _ssh, bool initialSnapshot = true}) async {
     final peers = {
@@ -297,7 +287,6 @@ class _Harness {
         diagnosticsChannelProvider.overrideWithValue(_Diagnostics()),
         phoneChannelProvider.overrideWithValue(_Phone()),
         voiceSettingsProvider.overrideWith(_Voice.new),
-        usageStatsProvider.overrideWith(_Usage.new),
       ],
     );
     final h = _Harness(container, peers, reads);
@@ -390,7 +379,6 @@ void main() {
       expect(h.peer.carrier.prompts, hasLength(1));
       expect(h.state.pending, isEmpty);
       expect(h.state.error, appL10n.stateActionReason(appL10n.stateSendFailed, appL10n.stateChatWriterHeld));
-      expect(h.counts, isEmpty);
       final record = _failure(before, host: host.kind.name, category: 'session_writer_held');
 
       if (host == _ssh) {
@@ -451,7 +439,6 @@ void main() {
       expect(h.state.pending, isEmpty);
       expect(h.state.error, isNot(contains('SYNTHETIC_')));
       expect(h.peer.carrier.prompts, hasLength(1));
-      expect(h.counts, isEmpty);
     });
   }
 
@@ -466,15 +453,12 @@ void main() {
       expect(await h.chat.send(_text), isFalse);
       final first = h.peer.carrier.prompts.single['requestId'];
       _failure(before, category: sample.$2, unknown: true);
-      expect(h.counts, isEmpty);
       h.peer.carrier.promptError = null;
       expect(await h.chat.send(_text), isTrue);
       expect(h.peer.carrier.prompts.map((request) => request['requestId']), [first, first]);
-      expect(h.counts, [UsageCount.turns]);
       expect(_added(before), hasLength(1), reason: 'the successful retry is not another failure');
       expect(await h.chat.send(_text), isTrue);
       expect(h.peer.carrier.prompts.last['requestId'], isNot(first));
-      expect(h.counts, [UsageCount.turns, UsageCount.turns]);
     });
   }
 
@@ -515,7 +499,6 @@ void main() {
     expect(h.peer.carrier.argsOf('fileUploads/upload'), hasLength(1));
     expect(h.state.notice, appL10n.stateChatTextOnlyModel);
     expect(h.state.error, isNull);
-    expect(h.counts, [UsageCount.turns]);
     expect(_added(before), isEmpty);
   });
 
@@ -528,7 +511,6 @@ void main() {
     expect(h.peer.carrier.prompts, hasLength(1));
     expect(h.state.pending, hasLength(1));
     expect(h.state.error, isNull);
-    expect(h.counts, [UsageCount.turns]);
     expect(_added(before), isEmpty);
   });
 
@@ -586,7 +568,6 @@ void main() {
       gate.completeError(const DshCarrierLostException('SYNTHETIC_LATE_REPLY_PRIVATE'));
       expect(await result, isTrue);
       expect(h.peer.carrier.prompts, hasLength(1));
-      expect(h.counts, [UsageCount.turns]);
       expect(_added(before), isEmpty, reason: 'accepted does not mean the agent completed successfully');
       if (feedback == 'failed_pending') {
         expect(h.state.pending.single.requestId, id);
@@ -663,7 +644,6 @@ void main() {
       if (!h.disposed) {
         await h.flush(tester);
         expect(h.state.error, isNull);
-        expect(h.counts, isEmpty);
       }
       expect(_added(before), isEmpty);
       expect(old.carrier.prompts, hasLength(1));

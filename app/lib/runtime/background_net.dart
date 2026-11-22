@@ -14,7 +14,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../l10n/l10n.dart';
 import '../state/chat_state.dart';
 import '../state/connection_state.dart';
-import '../state/notify_state.dart' show launchNoticeShownProvider;
 import '../state/sessions_state.dart';
 import 'runtime_bridge.dart';
 import 'runtime_state.dart';
@@ -211,7 +210,6 @@ class BackgroundNetController extends Notifier<BackgroundNetReason?> {
     // Any line about background running counts as the introduction.
     _introduced = true;
     unawaited(_save());
-    ref.read(launchNoticeShownProvider.notifier).set(true);
     state = reason;
   }
 

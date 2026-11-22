@@ -12,9 +12,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../l10n/l10n.dart';
 import '../runtime/runtime_state.dart';
 import '../share_code/share_net.dart';
-import '../update/version.dart';
-import '../usage/usage_stats.dart';
 import 'app_info.dart';
+import 'app_version.dart';
 import 'connection_state.dart';
 import 'market_sidecar.dart';
 
@@ -853,14 +852,8 @@ class InstalledPluginsController extends AsyncNotifier<List<PluginBundle>?> {
     cache.stamp(bundles, identity, host.client);
     cache.put(readListKey(identity, ReadListKind.plugins), bundles, () => CachedPlugins(bundles));
     _latest = bundles;
-    _counted(bundles);
     return _visible(bundles);
   }
-
-  /// How many plugins 「已安装」 lists, for the usage statistics.
-  void _counted(List<PluginBundle> bundles) => ref
-      .read(usageStatsProvider.notifier)
-      .plugins(bundles.where((b) => bundleGroup(b) == BundleGroup.installed && b.installed).length);
 
   /// Re-reads the list; keeps the old one (and rethrows) on failure.
   Future<void> refresh() async {
@@ -892,7 +885,6 @@ class InstalledPluginsController extends AsyncNotifier<List<PluginBundle>?> {
         }
         state = AsyncData(_visible(bundles));
         cache.finishRefresh(ReadListKind.plugins, activity);
-        _counted(bundles);
       }
     } on Object catch (error, stack) {
       if (r.mounted && seq == _loadSeq && identical(client, _client)) {

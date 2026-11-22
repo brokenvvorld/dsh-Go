@@ -8879,9 +8879,6 @@ class L10nEn extends L10n {
   String get hubAboutGithub => 'GitHub profile';
 
   @override
-  String get hubAboutNewVersion => 'Update available';
-
-  @override
   String get hubValueSet => 'Set';
 
   @override
@@ -16604,19 +16601,10 @@ class L10nEn extends L10n {
   String get searchKwVersion => 'version,about,build';
 
   @override
-  String get searchKwUpdate => 'update,upgrade,new version';
-
-  @override
-  String get searchKwUpdateAuto => 'auto update,updates';
-
-  @override
   String get searchKwHelp => 'help,guide,ask ai,how to';
 
   @override
   String get searchKwCommunity => 'group,forum,feedback,chat group';
-
-  @override
-  String get searchKwStar => 'github,star';
 
   @override
   String get searchKwLicenses => 'license,open source';
@@ -16792,9 +16780,6 @@ class L10nEn extends L10n {
 
   @override
   String get searchKwPluginsMarket => 'plugin market,install plugins,marketplace';
-
-  @override
-  String get searchKwUsageStats => 'statistics,stats,usage data,analytics,telemetry,anonymous,privacy,data';
 
   @override
   String get searchKwQuickPanel => 'swipe,left swipe,shortcuts,gesture,quick panel,quick access';
@@ -17917,37 +17902,6 @@ class L10nEn extends L10n {
   String shellQuickPanelHint(String path) {
     return 'Change these in $path';
   }
-
-  @override
-  String starPromptTitle(int hours) {
-    String _temp0 = intl.Intl.pluralLogic(
-      hours,
-      locale: localeName,
-      other: 'I’ve kept you company in DSH Go for $hours hours now~',
-      one: 'I’ve kept you company in DSH Go for an hour now~',
-      zero: 'I’ve kept you company in DSH Go for half an hour now~',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String get starPromptBody =>
-      'DSH Go is free and open source. If it’s made your phone a little nicer to use, please give it a Star — it means so much to this little whale!';
-
-  @override
-  String get starPromptPlea => 'Pretty please~ It really matters!!';
-
-  @override
-  String get starPromptStar => 'Star it on GitHub';
-
-  @override
-  String get starPromptDone => 'Already starred';
-
-  @override
-  String get starPromptLater => 'Maybe later';
-
-  @override
-  String get starSettingsTitle => 'Star DSH Go on GitHub';
 
   @override
   String get phoneStartupFailureStopping => 'Startup failed; stopping';
@@ -19262,291 +19216,6 @@ class L10nEn extends L10n {
 
   @override
   String get appSlogan => 'Anytime, anywhere. Just Go!';
-
-  @override
-  String get updateCheck => 'Check for updates';
-
-  @override
-  String get updateAutoCheck => 'Check automatically';
-
-  @override
-  String get updateAutoCheckDaily => 'Once a day';
-
-  @override
-  String get updateTileDownloading => 'Downloading';
-
-  @override
-  String updateTileDownloadingPercent(int percent) {
-    return 'Downloading $percent%';
-  }
-
-  @override
-  String get updateTileVerifying => 'Verifying';
-
-  @override
-  String get updateTileReady => 'Ready to install';
-
-  @override
-  String get updateTileInstalling => 'Installing';
-
-  @override
-  String updateTileSkipped(String version) {
-    return 'Skipped $version';
-  }
-
-  @override
-  String updateTileNewVersion(String version) {
-    return 'New: $version';
-  }
-
-  @override
-  String get updateTileUpToDate => 'Up to date';
-
-  @override
-  String get updateTileUnavailable => 'Can’t check right now';
-
-  @override
-  String get updateUpToDate => 'You’re up to date';
-
-  @override
-  String get updateCheckUnavailable => 'Can’t check for updates right now. Try again later.';
-
-  @override
-  String get updateDownloadInterrupted => 'Download interrupted';
-
-  @override
-  String get updateDownloadInterruptedMessage => 'The network is disconnected or too slow. Retry to resume.';
-
-  @override
-  String get updateDownloadUnavailable => 'Download link unavailable';
-
-  @override
-  String get updateDownloadUnavailableMessage => 'Try again later, or download from the release page.';
-
-  @override
-  String get updateChecksumFailed => 'Package verification failed';
-
-  @override
-  String get updateChecksumFailedMessage => 'The file doesn’t match the release and was deleted. Try again.';
-
-  @override
-  String get updateChecksumMissing => 'Verification info missing';
-
-  @override
-  String get updateChecksumMissingMessage => 'For safety, download from the release page to install.';
-
-  @override
-  String get updateStorageWriteFailed => 'Couldn’t save package';
-
-  @override
-  String get updateStorageWriteFailedMessage => 'Storage may be full. Free up space and try again.';
-
-  @override
-  String get updateFreeSpaceRetry => 'Free up space and try again.';
-
-  @override
-  String updateSpaceRequired(String size) {
-    return 'About $size of free space needed. Free up space and try again.';
-  }
-
-  @override
-  String get updateSettingsOpenFailed => 'Couldn’t open system settings';
-
-  @override
-  String get updateSettingsOpenFailedMessage =>
-      'Allow “Install unknown apps” in Settings → Apps → DSH Go, then return to install.';
-
-  @override
-  String get updateInstallCancelled => 'Installation cancelled';
-
-  @override
-  String get updateInstallCancelledMessage => 'The package is saved. You can install it anytime.';
-
-  @override
-  String get updateInstallUnconfirmed => 'Installation result not confirmed';
-
-  @override
-  String get updateInstallUnconfirmedMessage =>
-      'The package is saved. Check any system prompts, then retry or open it with the system installer.';
-
-  @override
-  String get updateSignatureMismatch => 'App signatures don’t match';
-
-  @override
-  String get updateSignatureMismatchMessage =>
-      'The DSH Go on your phone has a different signature (usually a test build). Uninstall it before installing this version. Uninstalling erases your chats, Linux environment, and settings.';
-
-  @override
-  String get updateWrongPackage => 'This isn’t a DSH package';
-
-  @override
-  String get updateWrongPackageMessage => 'The wrong file was downloaded and deleted. Try again later.';
-
-  @override
-  String get updateDowngradeBlocked => 'Can’t install an older version';
-
-  @override
-  String get updateDowngradeBlockedMessage => 'The DSH on your phone is newer than this package.';
-
-  @override
-  String get updateIncompatible => 'Incompatible with this phone';
-
-  @override
-  String get updateIncompatibleMessage =>
-      'The package’s required Android version or processor architecture doesn’t match your phone.';
-
-  @override
-  String get updatePackageCorrupt => 'Package is damaged';
-
-  @override
-  String get updatePackageCorruptMessage => 'It was deleted. Download it again.';
-
-  @override
-  String get updateInstallBlocked => 'Installation blocked';
-
-  @override
-  String get updateInstallBlockedMessage =>
-      'Allow installation in the system prompt, or download from the release page.';
-
-  @override
-  String get updateInstallIncomplete => 'Installation incomplete';
-
-  @override
-  String get updateInstallIncompleteMessage => 'Try again, or download from the release page.';
-
-  @override
-  String updateBrowserOpenFailed(String host, String path) {
-    return 'Couldn’t open your browser. Visit $host$path manually.';
-  }
-
-  @override
-  String updateUpToDateVersion(String version) {
-    return 'You’re up to date: $version';
-  }
-
-  @override
-  String updateCurrentVersion(String version) {
-    return 'Current $version';
-  }
-
-  @override
-  String get updateNewVersionFound => 'New version available';
-
-  @override
-  String get updateReleaseNotes => 'What’s new';
-
-  @override
-  String get updateNoReleaseNotes => 'No release notes for this version.';
-
-  @override
-  String get updateInstallKeepsData => 'DSH Go closes to install. Your chats and settings stay.';
-
-  @override
-  String get updateNoCompatiblePackage => 'No package for this phone';
-
-  @override
-  String get updateDownloading => 'Downloading';
-
-  @override
-  String updateDownloadSource(String source) {
-    return 'Via $source';
-  }
-
-  @override
-  String get updateDownloadInBackgroundNote => 'Download continues after you close this window';
-
-  @override
-  String get updateVerifyingPackage => 'Verifying package…';
-
-  @override
-  String get updateVerifyingPackageNote => 'Checking the file matches the release';
-
-  @override
-  String get updateInstalling => 'Installing…';
-
-  @override
-  String get updateConfirmInstallNote => 'Confirm installation in the system prompt';
-
-  @override
-  String get updatePackageDownloaded => 'Package downloaded';
-
-  @override
-  String get updateReadyToInstall => 'Verified and ready to install.';
-
-  @override
-  String get updateAllowInstall => 'Allow DSH Go to install apps';
-
-  @override
-  String get updateAllowInstallMessage =>
-      'Turn on “Install unknown apps” in system settings. Installation resumes when you return.';
-
-  @override
-  String get updateOpenReleasePage => 'Open release page';
-
-  @override
-  String get updateUpdateNow => 'Update now';
-
-  @override
-  String get updateSkipVersion => 'Skip this version';
-
-  @override
-  String get updateInstallWithSystem => 'Install with the system installer';
-
-  @override
-  String get updateSystemInstallerFailed => 'Couldn\'t open the system installer';
-
-  @override
-  String get updateStarProject => 'Star it';
-
-  @override
-  String get updateCancelDownload => 'Cancel download';
-
-  @override
-  String get updateDownloadInBackground => 'Download in background';
-
-  @override
-  String get updateVerifying => 'Verifying…';
-
-  @override
-  String get updateInstallingBusy => 'Installing…';
-
-  @override
-  String get updateOpenPermissionSettings => 'Turn on';
-
-  @override
-  String updateNoAbiPackage(String abi) {
-    return 'No $abi package for this release yet. Check the release page.';
-  }
-
-  @override
-  String get updateNoPackage => 'No package for this release yet. Check the release page.';
-
-  @override
-  String updateDownloadingPercent(int percent) {
-    return 'Downloading $percent%';
-  }
-
-  @override
-  String get usageStatsTitle => 'Send anonymous usage stats';
-
-  @override
-  String get usageStatsSection => 'Improve DSH Go';
-
-  @override
-  String get usageStatsFooter =>
-      'This switch controls dsh-go’s own usage counts, versions and phone maker statistics. It includes no chats, files or accounts, and does not control Google ML Kit SDK statistics.';
-
-  @override
-  String get usageNoticeBody => 'No chats or personal info.\nTurn off anytime.';
-
-  @override
-  String get usageUpgradeNotice => 'New: anonymous usage stats, to help improve DSH Go.\nNo chats or personal info.';
-
-  @override
-  String get usageUpgradeLearn => 'Learn more';
-
-  @override
-  String get usageUpgradeOff => 'Turn off';
 
   @override
   String viewArtifactSaved(String value) {

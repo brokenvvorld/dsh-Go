@@ -188,7 +188,7 @@ Capabilities depend on the host and connection. DSHarness Remote currently accep
 
 Installation requires Android 8.0 (API 26) or later. The **arm64** package on the Releases page is for typical 64-bit Android phones; the x64 package for x86_64 devices and emulators is under “Other builds” at the end of the release notes. This repository has no 32-bit ARM build.
 
-1. Download the APK for your device architecture from [GitHub Releases](https://github.com/brokenvvorld/dsh-Go/releases) or the [download page](https://go.dshtui.com/download), and follow Android's prompt to allow that installation source.
+1. Download the APK for your device architecture manually from [this fork's GitHub Releases](https://github.com/brokenvvorld/dsh-Go/releases), and follow Android's prompt to allow that installation source. This fork does not check for, download, or install new versions inside the app.
 2. On first launch, choose an on-device runtime or a remote host.
 3. Configure a model and its credentials for the selected host, then start a conversation. Some remote providers must be configured on the host itself.
 
@@ -200,7 +200,7 @@ The local engine uses compatible PRoot startup by default. Direct startup is off
 
 Model requests go to the provider you configure. During phone-control tasks, relevant screen text may be sent to the model, and vision-capable models may receive screenshots. Read the app's permission disclosure before enabling the feature.
 
-“Send anonymous usage statistics” is on by default. You can turn it off during onboarding or in Settings → Privacy and sharing. See [Troubleshooting](docs/guide/en/11-faq.md) for the fields collected and what happens when it is disabled. Review content before sharing it; recipients can save a copy of a shared link or file's contents.
+This fork does not send DSH Go's own anonymous usage statistics. The local text recognition SDK used by phone control has separate diagnostics; see [Troubleshooting](docs/guide/en/11-faq.md). Review content before sharing it; recipients can save a copy of a shared link or file's contents.
 
 ## Risks and disclaimer
 

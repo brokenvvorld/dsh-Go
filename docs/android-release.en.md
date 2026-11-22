@@ -57,7 +57,7 @@ The tag determines the APK version. Versions containing `-`, such as `1.0.12-bet
 
 The workflow creates a draft, uploads the APK, `SHA256SUMS`, and `update.json`, downloads the files back and verifies them, then publishes. Download the APK under Releases → version → Assets; the source archives are not installable apps.
 
-The compiled app checks this repository for updates with upstream's `dl.dshtui.com` feed disabled. No OpenAI API key or upstream deployment credentials are needed to build. `releases/latest` is unavailable until a stable release exists.
+The app does not check for, download, or install new versions. Download them manually from this fork’s Releases. The publication workflow keeps the verification manifest; no OpenAI API key or upstream operator credentials are needed.
 
 If Actions is disabled for the fork, enable workflows from its Actions page. Organization policies must permit the publishing job's `contents: write` permission.
 
@@ -67,8 +67,7 @@ After installing the toolchain, run from the repository root. Local signing uses
 
 ```sh
 runtime/build-runtime.sh arm64-v8a
-tooling/build-apk.sh --build-name 1.0.12 -- \
-  --dart-define=DSH_UPDATE_REPO=brokenvvorld/dsh-Go --dart-define=DSH_UPDATE_MIRROR=
+tooling/build-apk.sh --build-name 1.0.12
 DSH_RELEASE_REPO=brokenvvorld/dsh-Go python3 tooling/release_assets.py \
   --version 1.0.12 --delta-from 0
 ```

@@ -13,7 +13,7 @@ import '../../state/plugin_config/plugin_config_state.dart';
 import '../../links/plugin_links.dart' show marketPluginLink;
 import '../../state/plugins_state.dart';
 import '../../state/media_generation.dart' show bundledMediaProvider, isMediaPluginName;
-import '../../update/version.dart';
+import '../../state/app_version.dart';
 import '../common/app_sheet.dart';
 import '../common/list_page_row.dart';
 import '../common/sheet_navigator.dart';

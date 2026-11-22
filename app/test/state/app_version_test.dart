@@ -1,4 +1,4 @@
-import 'package:dsh_app/update/version.dart';
+import 'package:dsh_app/state/app_version.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 AppVersion v(String s) => AppVersion.tryParse(s)!;
@@ -72,10 +72,10 @@ void main() {
   // minute: (year - 2026) * 10^8 + MMDDhhmm. A dev build installed on the phone
   // is `X.Y.Z+<minute>` like any release.
   group('build-minute versionCodes', () {
-    test('a release built after the installed dev build is offered, one built before is not', () {
+    test('build numbers order equivalent version names', () {
       final dev = v('1.0.0').withBuild(10251234); // 2026-10-25 12:34
-      expect(v('1.0.0+10301200').isNewerThan(dev), isTrue); // update.json carries the build
-      expect(v('1.0.0+10201200').isNewerThan(dev), isFalse); // Android would refuse it as a downgrade
+      expect(v('1.0.0+10301200').isNewerThan(dev), isTrue);
+      expect(v('1.0.0+10201200').isNewerThan(dev), isFalse);
       expect(v('1.0.0+10251234').isNewerThan(dev), isFalse);
     });
 

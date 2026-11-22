@@ -18,6 +18,15 @@ final _sources = [
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  test('the community feed requests fork content, not an app release', () {
+    final sources = defaultCommunitySources();
+    final github = sources.singleWhere((source) => source.id == 'github');
+    expect(github.url.toString(), 'https://raw.githubusercontent.com/brokenvvorld/dsh-Go/main/community.json');
+    for (final source in sources.where((source) => source.id != 'feed')) {
+      expect(source.url.path, endsWith('/community.json'));
+    }
+  });
+
   group('CommunityFeed.parse', () {
     test('reads every section and drops what it cannot use', () {
       final feed = CommunityFeed.parse(sampleFeed());

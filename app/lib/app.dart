@@ -11,7 +11,6 @@ import 'performance/refresh_rate.dart';
 import 'state/app_info.dart';
 import 'state/appearance_state.dart';
 import 'state/locale_state.dart';
-import 'state/star_prompt.dart' show starPromptGateProvider, starPromptProvider;
 import 'state/tile_style_state.dart';
 import 'ui/chat/dsh_ui/dsh_ui_model.dart' show DshUiAppAccent;
 import 'ui/common/side_insets.dart';
@@ -19,7 +18,6 @@ import 'ui/launch/launch_overlay.dart';
 import 'ui/shell/root_gate.dart';
 import 'ui/theme/theme.dart';
 import 'ui_config/ui_config_state.dart';
-import 'usage/usage_stats.dart';
 
 class DshApp extends ConsumerStatefulWidget {
   const DshApp({super.key, this.home});
@@ -56,11 +54,6 @@ class _DshAppState extends ConsumerState<DshApp> with WidgetsBindingObserver {
     // Start loading the stored tile style now, so 全部功能 opens in it rather
     // than flashing the default first.
     ref.read(tileStyleProvider);
-    // Anonymous usage statistics live as long as the app, in either 界面
-    // (release builds: today is noted, and earlier days go out).
-    ref.read(usageStatsProvider);
-    // 公测版: the star prompt counts time in front from launch, in either 界面.
-    if (ref.read(starPromptGateProvider)) ref.read(starPromptProvider);
     // 伙伴小屋: her invitation ledger is read now, so it is known before the room opens.
     ref.read(companionInitiativeProvider);
     // 刷新率: some systems cap third-party apps at 60 Hz and then show their per-app

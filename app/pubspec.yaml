@@ -149,8 +149,6 @@ flutter:
     - assets/tiles/glassy/
     - assets/pets/deepy-whale/
     - assets/pets/whale-girl/
-    # The star prompt's whale girl (lib/ui/star/star_prompt_dialog.dart), 576px WebP.
-    - assets/star/
     - assets/islands/
     # 伙伴小屋's page (lib/ui/companion). Its Live2D runtime and models are a
     # separate download, see docs/design/companion.md.

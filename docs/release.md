@@ -1,5 +1,7 @@
 # 发版与应用内更新
 
+> 本文保留上游发版及自更新设计供参考。本分支不使用 App 内更新或上游下载渠道；实际打包、发布和手动安装见[本分支发版说明](android-release.md)。
+
 App 以 APK 分发、不上商店，更新靠 App 自己查 GitHub Releases、下载、校验、调系统安装器。本文是发版约定和步骤，以及更新链路的取舍。代码在 `app/lib/update/`（检查、下载、校验）、`app/lib/state/update_state.dart`（状态与节流）、`app/lib/ui/update/`（设置行、弹窗）、`app/android/.../update/`（PackageInstaller 安装）。
 
 > **正式发版前必须先换成固定的发布密钥**（见「签名」）。存在 `app/android/key.properties` 时 release 使用其中的发布密钥；缺少配置时仅为本地构建回落到 debug key，不可用于正式发布。

@@ -27,7 +27,6 @@ import '../../state/artifacts.dart';
 import '../../state/chat_state.dart';
 import '../../state/regenerate.dart' show sessionImageBytes;
 import '../../state/sessions_state.dart';
-import '../../usage/usage_stats.dart';
 import '../chat/dsh_ui/dsh_ui.dart' show dshUiPlainText;
 import '../common/app_sheet.dart';
 import '../common/sheet_navigator.dart';
@@ -620,16 +619,10 @@ class SharePanelModel extends ChangeNotifier {
     return (await prepare()).of(ConversationFormat.markdown).text;
   }
 
-  /// Something went out (usage statistics). The panel may be gone by then.
-  void _shared() {
-    if (!_disposed) _ref.read(usageStatsProvider.notifier).count(UsageCount.share);
-  }
-
   Future<void> shareText() => _busy(ShareWork.text, () async {
     try {
       final text = await shareTextContent();
       await _ref.read(conversationOutProvider).shareText(text);
-      _shared();
     } catch (_) {
       _error = appL10n.viewShareOpenFailed;
     }
@@ -666,7 +659,6 @@ class SharePanelModel extends ChangeNotifier {
       final built = await prepare();
       if (built.tooLarge) return;
       final link = await maker.upload(conversationFileBytes(built.file.text), _expiry, title: built.share.title);
-      _shared();
       HapticFeedback.lightImpact();
       _link = link;
       _linkFor = key;
@@ -758,7 +750,6 @@ class SharePanelModel extends ChangeNotifier {
         final content = built.of(_format).text;
         await out.save(ConversationOut.fileName(built.share.title, _format), content, _format);
       }
-      _shared();
       HapticFeedback.lightImpact();
       _fileSaved = true;
       _doneTimer?.cancel();
@@ -784,7 +775,6 @@ class SharePanelModel extends ChangeNotifier {
         final file = await out.write(ConversationOut.fileName(built.share.title, _format), content);
         await out.shareFile(file, _format);
       }
-      _shared();
     } catch (e) {
       _error = artifact != null && e is! PlatformException ? artifactErrorText(e) : appL10n.viewShareOpenFailed;
     }

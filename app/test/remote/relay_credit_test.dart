@@ -7,7 +7,7 @@ import 'package:dsh_app/remote/secret_store.dart';
 import 'package:dsh_app/runtime/runtime_state.dart';
 import 'package:dsh_app/state/connection_state.dart';
 import 'package:dsh_app/state/hosts_state.dart';
-import 'package:dsh_app/state/star_prompt.dart' show starLinkOpenerProvider;
+import 'package:dsh_app/links/external_link.dart' show externalLinkOpenerProvider;
 import 'package:dsh_app/ui/common/app_sheet.dart' show SheetGroup;
 import 'package:dsh_app/ui/remote/relay_credit.dart';
 import 'package:dsh_app/ui/remote/remote_screen.dart';
@@ -67,7 +67,7 @@ void main() {
           localRuntimeProvider.overrideWith(
             () => FakeRuntime(const LocalRuntimeState(loaded: true, status: runningStatus)),
           ),
-          starLinkOpenerProvider.overrideWithValue((url) => opener(url)),
+          externalLinkOpenerProvider.overrideWithValue((url) => opener(url)),
           urlOpenerProvider.overrideWithValue((url) async {
             signInPages.add(url);
             return true;

@@ -16,7 +16,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../l10n/l10n.dart';
-import '../../usage/usage_stats.dart';
 import '../common/app_sheet.dart';
 import '../common/pressable.dart';
 import '../common/scroll_edge_fade.dart';
@@ -146,7 +145,6 @@ class _ShareImagePageState extends ConsumerState<ShareImagePage> {
       } else {
         await exporter.save(file);
       }
-      if (mounted) ref.read(usageStatsProvider.notifier).count(UsageCount.share);
     } on PlatformException catch (e) {
       error = busy == _Busy.saving
           ? (e.code == 'permission' ? l10n.viewShareNoPermission : l10n.commonSaveFailedRetry)

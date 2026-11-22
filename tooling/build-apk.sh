@@ -17,14 +17,9 @@
 #   -n, --build-number N             use N instead of the build minute (never lower than what's installed)
 #   --build-name X.Y.Z               version name instead of app/pubspec.yaml's
 #   --keep-daemon                    leave the Gradle daemon running afterwards
-#   --beta                           embed the beta channel token (internal builds only)
 #   --dry-run                        print what would run
 #
 # The version name comes from app/pubspec.yaml; its `+N` is only a placeholder.
-# Public release builds ask GitHub only. `--beta` embeds the beta channel token
-# (lib/update/update_config.dart) for internal builds; the token file is
-# ~/keys/dshgo-beta-channel.token (mode 600), DSH_BETA_TOKEN_FILE points
-# elsewhere. Never printed, never part of a public release.
 # This script takes no machine locks; callers add their own.
 set -euo pipefail
 
@@ -35,7 +30,7 @@ OUT="$APP/build/app/outputs/flutter-apk"
 usage() { sed -n '2,23p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; }
 die() { echo "build-apk: $*" >&2; exit 1; }
 
-flavor=arm64 mode=release target='' code='' name='' dry=0 keep_daemon=0 want_beta=0
+flavor=arm64 mode=release target='' code='' name='' dry=0 keep_daemon=0
 extra=()
 while (($#)); do
   case "$1" in
@@ -49,7 +44,6 @@ while (($#)); do
     --build-name) name=${2:?--build-name needs a version}; shift 2 ;;
     --build-name=*) name=${1#*=}; shift ;;
     --keep-daemon) keep_daemon=1; shift ;;
-    --beta) want_beta=1; shift ;;
     --dry-run) dry=1; shift ;;
     -h | --help) usage; exit 0 ;;
     --) shift; extra=("$@"); break ;;
@@ -87,33 +81,16 @@ when=$(python3 "$ROOT/tooling/build_number.py" --decode "$code" 2>/dev/null || e
 
 platform_of() { case "$1" in arm64) echo android-arm64 ;; x64) echo android-x64 ;; esac; }
 
-# Beta channel token: handed to flutter in a JSON file (600, shredded on exit),
-# so it never shows up in the commands printed here.
-beta_file=${DSH_BETA_TOKEN_FILE-$HOME/keys/dshgo-beta-channel.token}
-beta_json="$APP/build/.beta-channel.json"
-beta=0
-# Public builds never carry the channel token: a stale beta feed would outrank
-# the GitHub release in the update checker (that is how 1.0.4 stayed "latest").
-if ((want_beta)) && [[ ! -s $beta_file ]]; then
-  die "--beta needs a token file ($beta_file)"
-fi
-if ((want_beta)) && [[ $mode == release && -n $beta_file && -s $beta_file ]]; then
-  bits=$(stat -c %a "$beta_file")
-  [[ $bits == 600 || $bits == 400 ]] || die "$beta_file is mode $bits; chmod 600 it"
-  beta=1
-fi
-
 commands=()
 for f in "${flavors[@]}"; do
   cmd=(flutter build apk "--$mode" --flavor "$f" --target-platform "$(platform_of "$f")"
     --build-name "$name" --build-number "$code" "--dart-define=DSH_APP_VERSION=$name+$code")
   [[ -n $target ]] && cmd+=(-t "$target")
-  ((beta)) && cmd+=("--dart-define-from-file=$beta_json")
   cmd+=("${extra[@]}")
   commands+=("$(printf '%q ' "${cmd[@]}")")
 done
 
-echo "dsh-go $name ($code, $when) · $mode · ${flavors[*]}$( ((beta)) && echo ' · beta channel')"
+echo "dsh-go $name ($code, $when) · $mode · ${flavors[*]}"
 if ((dry)); then
   for c in "${commands[@]}"; do echo "(cd app && ${c% })"; done
   ((keep_daemon)) || echo "(cd app/android && ./gradlew --stop)"
@@ -133,13 +110,7 @@ stop_daemon() {
   pids=$(pgrep -f '[G]radleDaemon' || true)
   [[ -n $pids ]] && kill $pids 2>/dev/null || true
 }
-drop_beta() { [[ -f $beta_json ]] && shred -u "$beta_json" 2>/dev/null || rm -f "$beta_json"; }
-trap 'drop_beta; stop_daemon' EXIT
-if ((beta)); then
-  mkdir -p "$APP/build"
-  (umask 077; python3 -c 'import json, sys; print(json.dumps({"DSH_BETA_CHANNEL_TOKEN": open(sys.argv[1]).read().strip()}))' \
-    "$beta_file" >"$beta_json")
-fi
+trap stop_daemon EXIT
 
 # aapt2 to read back what was built (optional).
 aapt2=$(command -v aapt2 || true)

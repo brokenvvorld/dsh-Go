@@ -174,11 +174,6 @@ final appForegroundProvider = NotifierProvider<FlagController, bool>(() => FlagC
 /// The chat is the current route (no settings page or sheet pushed over it).
 final chatOnScreenProvider = NotifierProvider<FlagController, bool>(() => FlagController(true));
 
-/// Something asked for the person's attention unbidden in this launch (the
-/// usage statistics toast, an update offer, the background running line):
-/// the star prompt waits for another launch.
-final launchNoticeShownProvider = NotifierProvider<FlagController, bool>(() => FlagController(false));
-
 /// A conversation on a host.
 typedef ChatTarget = ({HostRef host, String sessionId});
 

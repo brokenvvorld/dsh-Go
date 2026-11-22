@@ -5269,7 +5269,6 @@
   "hubAboutBilibili": "B站主页",
   "hubAboutX": "X 主页",
   "hubAboutGithub": "GitHub 主页",
-  "hubAboutNewVersion": "有新版本",
   "hubValueSet": "已设置",
   "hubValueOff": "未开启",
   "hubValueOneStep": "还差一步",
@@ -9675,11 +9674,8 @@
   "searchKwOpenWeb": "网页版,网页,浏览器,官方网页版",
   "searchKwSafeMode": "安全模式,恢复正常模式,排障,插件崩溃",
   "searchKwVersion": "版本号,关于",
-  "searchKwUpdate": "更新,升级,新版本",
-  "searchKwUpdateAuto": "自动更新,检查更新",
   "searchKwHelp": "帮助,教程,问 AI,怎么用,说明",
   "searchKwCommunity": "交流群,QQ 群,论坛,反馈",
-  "searchKwStar": "GitHub,星标,点赞",
   "searchKwLicenses": "许可证,开源,License",
   "searchKwDarkMode": "深色,浅色,暗色,夜间,深色模式,跟随系统,外观",
   "searchKwAccent": "颜色,主题色,强调色,壁纸,取色",
@@ -9744,7 +9740,6 @@
   "searchKwWebCollapse": "工作步骤,收起,折叠,网页版",
   "searchKwWebBusySend": "发送,排队,插话,AI 工作时",
   "searchKwPluginsMarket": "插件市场,安装插件,市场,获取插件",
-  "searchKwUsageStats": "统计,使用统计,匿名,隐私,数据,改进,遥测,分析",
   "searchKwQuickPanel": "左滑,快捷入口,手势,滑动,目录,自定义目录,快捷,常用入口",
   "shellDeletePermanently": "永久删除",
   "shellDeleteNoUndo": "无法撤销，与归档不同",
@@ -10427,21 +10422,6 @@
       }
     }
   },
-  "starPromptTitle": "{hours, plural, =0{本鱼已经在 DSH Go 里陪你半个小时啦⁠~} =1{本鱼已经在 DSH Go 里陪你一个小时啦⁠~} other{本鱼已经在 DSH Go 里陪你 {hours} 个小时啦⁠~}}",
-  "@starPromptTitle": {
-    "description": "The star prompt's first line. hours is the whole hours of use so far, rounded down; 0 is half an hour (the first ask comes after 30 minutes). The word joiner keeps the ~ on the line of the word before it.",
-    "placeholders": {
-      "hours": {
-        "type": "int"
-      }
-    }
-  },
-  "starPromptBody": "这是一个免费开源的项目，如果它让你的移动端体验更好了一点，拜托点个 Star 支持一下，这对本鱼是很大的鼓励！",
-  "starPromptPlea": "拜托你啦~ 这真的很重要！！",
-  "starPromptStar": "去 GitHub 点 Star",
-  "starPromptDone": "已经点过啦",
-  "starPromptLater": "下次再说",
-  "starSettingsTitle": "给 DSH Go 点个 star",
   "phoneStartupFailureStopping": "启动失败，正在停止",
   "phoneStartupFailureStoppingDetail": "启动失败，正在停止。{reason}",
   "@phoneStartupFailureStoppingDetail": {
@@ -11238,165 +11218,6 @@
   },
   "stateProviderTokenCountInvalid": "填写数字，如 128K",
   "appSlogan": "随时随刻，想go就Go！",
-  "updateCheck": "检查更新",
-  "updateAutoCheck": "自动检查更新",
-  "updateAutoCheckDaily": "每天检查一次",
-  "updateTileDownloading": "下载中",
-  "updateTileDownloadingPercent": "下载中 {percent}%",
-  "@updateTileDownloadingPercent": {
-    "placeholders": {
-      "percent": {
-        "type": "int"
-      }
-    }
-  },
-  "updateTileVerifying": "校验中",
-  "updateTileReady": "可以安装",
-  "updateTileInstalling": "安装中",
-  "updateTileSkipped": "已跳过 {version}",
-  "@updateTileSkipped": {
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    }
-  },
-  "updateTileNewVersion": "新版本 {version}",
-  "@updateTileNewVersion": {
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    }
-  },
-  "updateTileUpToDate": "已是最新",
-  "updateTileUnavailable": "暂时检查不了",
-  "updateUpToDate": "已是最新版本",
-  "updateCheckUnavailable": "暂时检查不了更新，稍后再试",
-  "updateDownloadInterrupted": "下载中断了",
-  "updateDownloadInterruptedMessage": "网络断开或太慢，重试会接着下载。",
-  "updateDownloadUnavailable": "下载地址暂时打不开",
-  "updateDownloadUnavailableMessage": "稍后再试，或去发布页手动下载。",
-  "updateChecksumFailed": "安装包校验没通过",
-  "updateChecksumFailedMessage": "文件和发布时不一致，已删除，请重试。",
-  "updateChecksumMissing": "缺少校验信息",
-  "updateChecksumMissingMessage": "为了安全不在 App 内安装，可以去发布页手动下载。",
-  "updateStorageWriteFailed": "写不进安装包",
-  "updateStorageWriteFailedMessage": "存储可能已满，清理一些空间后重试。",
-  "updateFreeSpaceRetry": "清理一些空间后重试。",
-  "updateSpaceRequired": "需要约 {size} 可用空间，清理后重试。",
-  "@updateSpaceRequired": {
-    "placeholders": {
-      "size": {
-        "type": "String"
-      }
-    }
-  },
-  "updateSettingsOpenFailed": "没能打开系统设置",
-  "updateSettingsOpenFailedMessage": "到「设置 → 应用 → DSH Go」里允许「安装未知应用」，再回来安装。",
-  "updateInstallCancelled": "已取消安装",
-  "updateInstallCancelledMessage": "安装包还在，随时可以再装。",
-  "updateInstallUnconfirmed": "尚未确认安装结果",
-  "updateInstallUnconfirmedMessage": "安装包已保留。可先检查系统提示，再重试或用系统安装器打开。",
-  "updateSignatureMismatch": "签名不一致，不能直接覆盖",
-  "updateSignatureMismatchMessage": "手机上的 DSH Go 签名不同（多半是测试包），需要先卸载旧版再装新版。卸载会清空对话、Linux 环境和设置。",
-  "updateWrongPackage": "不是 DSH 的安装包",
-  "updateWrongPackageMessage": "下载到的文件不对，已删除，请稍后重试。",
-  "updateDowngradeBlocked": "不能降级安装",
-  "updateDowngradeBlockedMessage": "手机上的 DSH 比这个安装包还新。",
-  "updateIncompatible": "和这台手机不兼容",
-  "updateIncompatibleMessage": "安装包要求的系统版本或处理器架构和手机不符。",
-  "updatePackageCorrupt": "安装包已损坏",
-  "updatePackageCorruptMessage": "已删除，请重新下载。",
-  "updateInstallBlocked": "安装被拦截了",
-  "updateInstallBlockedMessage": "在系统的安装确认里允许，或去发布页手动下载。",
-  "updateInstallIncomplete": "安装没有完成",
-  "updateInstallIncompleteMessage": "可以重试，或去发布页手动下载。",
-  "updateBrowserOpenFailed": "没能打开浏览器，请手动访问 {host}{path}",
-  "@updateBrowserOpenFailed": {
-    "placeholders": {
-      "host": {
-        "type": "String"
-      },
-      "path": {
-        "type": "String"
-      }
-    }
-  },
-  "updateUpToDateVersion": "已是最新版本 {version}",
-  "@updateUpToDateVersion": {
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    }
-  },
-  "updateCurrentVersion": "当前 {version}",
-  "@updateCurrentVersion": {
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    }
-  },
-  "updateNewVersionFound": "发现新版本",
-  "updateReleaseNotes": "更新内容",
-  "updateNoReleaseNotes": "这个版本没有写更新说明。",
-  "updateInstallKeepsData": "安装时 DSH Go 会退出，对话和设置都会保留",
-  "updateNoCompatiblePackage": "没有适合本机的安装包",
-  "updateDownloading": "正在下载",
-  "updateDownloadSource": "经由 {source}",
-  "@updateDownloadSource": {
-    "placeholders": {
-      "source": {
-        "type": "String"
-      }
-    }
-  },
-  "updateDownloadInBackgroundNote": "关掉窗口也会继续下载",
-  "updateVerifyingPackage": "正在校验安装包…",
-  "updateVerifyingPackageNote": "确认文件和发布时一致",
-  "updateInstalling": "正在安装…",
-  "updateConfirmInstallNote": "在系统弹窗里确认安装",
-  "updatePackageDownloaded": "安装包已下载",
-  "updateReadyToInstall": "校验通过，可以安装了。",
-  "updateAllowInstall": "允许 DSH Go 安装应用",
-  "updateAllowInstallMessage": "在系统设置里打开「安装未知应用」，回来后自动继续。",
-  "updateOpenReleasePage": "打开发布页",
-  "updateUpdateNow": "立即更新",
-  "updateSkipVersion": "跳过这个版本",
-  "updateInstallWithSystem": "用系统安装器安装",
-  "updateSystemInstallerFailed": "没能打开系统安装器",
-  "updateStarProject": "去 Star",
-  "updateCancelDownload": "取消下载",
-  "updateDownloadInBackground": "后台下载",
-  "updateVerifying": "正在校验…",
-  "updateInstallingBusy": "安装中…",
-  "updateOpenPermissionSettings": "去开启",
-  "updateNoAbiPackage": "这个版本还没有 {abi} 安装包，可以去发布页看看。",
-  "@updateNoAbiPackage": {
-    "placeholders": {
-      "abi": {
-        "type": "String"
-      }
-    }
-  },
-  "updateNoPackage": "这个版本还没有安装包，可以去发布页看看。",
-  "updateDownloadingPercent": "正在下载 {percent}%",
-  "@updateDownloadingPercent": {
-    "placeholders": {
-      "percent": {
-        "type": "int"
-      }
-    }
-  },
-  "usageStatsTitle": "发送匿名使用统计",
-  "usageStatsSection": "改进 DSH Go",
-  "usageStatsFooter": "这个开关只控制 dsh-go 自身的使用次数、版本和手机品牌统计，不含对话、文件和账号；它不控制 Google ML Kit SDK 的统计。",
-  "usageNoticeBody": "不含对话和个人信息，可随时关闭",
-  "usageUpgradeNotice": "新增匿名使用统计，帮助改进 DSH Go。\n不含对话和个人信息",
-  "usageUpgradeLearn": "了解",
-  "usageUpgradeOff": "关闭",
   "viewArtifactSaved": "已存到 {value}",
   "@viewArtifactSaved": {
     "placeholders": {

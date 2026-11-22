@@ -8,7 +8,6 @@
 // (test/landscape/landscape_golden_test.dart and friends); this is the
 // before / after camera.
 
-import 'dart:convert';
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -34,15 +33,11 @@ import 'package:dsh_app/ui/settings/settings_screen.dart';
 import 'package:dsh_app/ui/terminal/terminal_page.dart';
 import 'package:dsh_app/ui/remote/remote_screen.dart';
 import 'package:dsh_app/state/session_search.dart';
-import 'package:dsh_app/state/update_state.dart';
 import 'package:dsh_app/state/sessions_state.dart';
 import 'package:dsh_app/ui/bots/bot_sheets.dart' show confirmDelete;
 import 'package:dsh_app/ui/replay/replay_page.dart';
 import 'package:dsh_app/ui/share/share_panel.dart';
 import 'package:dsh_app/ui/shell/session_search_page.dart';
-import 'package:dsh_app/ui/update/update_sheet.dart';
-import 'package:dsh_app/update/release.dart';
-import 'package:dsh_app/update/version.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
@@ -244,14 +239,6 @@ void main() {
     );
   }, before: _tapOpen);
   capture(
-    'update_sheet',
-    (_) => _golden(
-      _Launcher(showUpdateSheet),
-      overrides: [..._shellOverrides(), appUpdateProvider.overrideWith(_Update.new)],
-    ),
-    before: _tapOpen,
-  );
-  capture(
     'confirm_dialog',
     (_) => testApp(_Launcher((context) => confirmDelete(context, title: '删除这个任务？', body: '删除后不能恢复，历史记录也会一起清掉。'))),
     before: _tapOpen,
@@ -346,25 +333,6 @@ class _Launcher extends StatelessWidget {
 Future<void> _tapOpen(WidgetTester tester, Win _) async {
   await tester.tap(find.text('open'));
   await pumpFrames(tester, 8);
-}
-
-/// An update on offer (the fixture release), nothing downloading.
-class _Update extends AppUpdateController {
-  @override
-  AppUpdateState build() {
-    final release = parseGithubRelease(jsonDecode(File('test/update/fixtures/github_release.json').readAsStringSync()));
-    return AppUpdateState(
-      loaded: true,
-      current: AppVersion.tryParse('1.0.0+1')!,
-      flavor: ApkFlavor.arm64,
-      check: UpdateCheckPhase.available,
-      latest: release,
-      total: release.apkFor(ApkFlavor.arm64)!.size,
-    );
-  }
-
-  @override
-  Future<void> get ready async {}
 }
 
 DateTime _now() => DateTime(2026, 10, 24, 15, 0);

@@ -9,7 +9,7 @@ import 'dart:convert';
 
 import 'package:dsh_client/dsh_client.dart';
 
-import '../update/version.dart';
+import 'app_version.dart';
 
 /// Which official section an entry belongs to.
 enum MarketTier { official, community }

@@ -5,13 +5,11 @@ import 'package:dsh_app/state/chat_state.dart';
 import 'package:dsh_app/state/hosts_state.dart';
 import 'package:dsh_app/state/models_state.dart';
 import 'package:dsh_app/state/sessions_state.dart';
-import 'package:dsh_app/state/update_state.dart';
 import 'package:dsh_app/ui/chat/chat_screen.dart';
 import 'package:dsh_app/ui/chat/widgets/notice_row.dart';
 import 'package:dsh_app/ui/chat/widgets/stream_row.dart';
 import 'package:dsh_app/ui/onboarding/api_key_page.dart';
 import 'package:dsh_app/ui/providers/providers_page.dart';
-import 'package:dsh_app/update/version.dart';
 import 'package:dsh_client/dsh_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -278,15 +276,13 @@ void main() {
       expect(harness.controllers['s2']?.models ?? const [], isEmpty);
     });
 
-    testWidgets('a model that needs a newer engine on this phone offers 检查更新', (tester) async {
-      final update = _UpToDate();
-      await refused(tester, 'CLIENT_UPGRADE_REQUIRED', upgrade, extra: [appUpdateProvider.overrideWith(() => update)]);
+    testWidgets('a model needing a newer local engine falls back to model selection', (tester) async {
+      await refused(tester, 'CLIENT_UPGRADE_REQUIRED', upgrade);
       expect(find.text('这个模型需要新版引擎'), findsOneWidget);
-      expect(find.widgetWithText(TextButton, '换模型'), findsNothing);
-      await tester.tap(find.widgetWithText(TextButton, '检查更新'));
-      await pumpFrames(tester, 3);
-      expect(update.checks, 1);
-      expect(find.text('已是最新版本'), findsOneWidget);
+      expect(find.widgetWithText(TextButton, '检查更新'), findsNothing);
+      await tester.tap(find.widgetWithText(TextButton, '换模型'));
+      await pumpFrames(tester, 4);
+      expect(find.text('选择模型'), findsOneWidget);
     });
 
     testWidgets('on a remote host the engine is not the app’s: 换模型', (tester) async {
@@ -356,20 +352,6 @@ void main() {
     await pumpFrames(tester, 4);
     expect(find.text('TIMEOUT\nraw English error'), findsOneWidget);
   });
-}
-
-/// No newer release: a check answers 已是最新 without the network.
-class _UpToDate extends AppUpdateController {
-  var checks = 0;
-
-  @override
-  AppUpdateState build() => const AppUpdateState(loaded: true, current: AppVersion(0, 9, 7));
-
-  @override
-  Future<UpdateCheckPhase> check() async {
-    checks++;
-    return UpdateCheckPhase.upToDate;
-  }
 }
 
 /// A DSH Remote host is the active one.

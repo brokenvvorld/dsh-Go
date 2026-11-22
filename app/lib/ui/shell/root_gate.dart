@@ -23,7 +23,6 @@ import '../remote/remote_screen.dart';
 import '../theme/theme.dart';
 import '../web/mode_home.dart';
 import 'brand_mark.dart';
-import 'usage_upgrade_notice.dart';
 
 /// Where a launch should start, given what is installed and configured.
 ///
@@ -362,9 +361,7 @@ class _RootGateState extends ConsumerState<RootGate> {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (mounted) _maybeAutoStart();
         });
-        // The native shell or the web page, by 界面 (ui_mode_state.dart); an
-        // install from before usage statistics is told about them there, once.
-        child = UsageUpgradeNotice(child: widget.home ?? const ModeHome());
+        child = widget.home ?? const ModeHome();
       }
     }
     if (child is! _Splash && !_launchReady) {

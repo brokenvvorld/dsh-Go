@@ -1,4 +1,4 @@
-/// App version as the update checker compares it.
+/// App version for plugin compatibility comparisons.
 ///
 /// Semver (`1.2.0`, `1.3.0-beta.2`) plus the Android build number from
 /// `pubspec.yaml` (`1.2.0+7` → versionName `1.2.0`, versionCode 7). A leading

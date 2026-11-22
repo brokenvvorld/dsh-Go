@@ -21,7 +21,6 @@ import '../../state/attachments.dart' show DraftAttachment;
 import '../../state/chat_reveal.dart';
 import '../../state/chat_state.dart';
 import '../../state/connection_state.dart';
-import '../../state/hosts_state.dart' show HostKind, activeHostProvider;
 import '../../state/regenerate.dart';
 import '../../state/sessions_state.dart';
 import '../../state/settings_state.dart';
@@ -31,7 +30,6 @@ import '../common/ui_trace.dart';
 import '../pets/pet_perch.dart';
 import '../theme/app_icons.dart';
 import '../theme/theme.dart';
-import '../update/update_sheet.dart' show checkForUpdates;
 import 'chat_rows.dart';
 import 'chat_rows_cache.dart';
 import 'media/media_paths.dart';
@@ -1067,8 +1065,7 @@ class _ChatListState extends ConsumerState<ChatList> with SingleTickerProviderSt
 
   /// 对话停在出错、被打断或输出到上限的一轮上:提示行尾给一个「重试」
   /// (这一轮什么都还没做、问的是纯文字,原样再发)或「继续」。
-  /// 引擎拒绝这个模型时给去处:本机引擎太旧就「检查更新」(引擎随 App
-  /// 更新),其余「换模型」。
+  /// 引擎拒绝这个模型时给出「换模型」。
   NoticeAction? _noticeAction(NoticeChatItem notice) {
     final s = ref.read(chatProvider(widget.sessionId));
     if (s.running) return null;
@@ -1087,9 +1084,6 @@ class _ChatListState extends ConsumerState<ChatList> with SingleTickerProviderSt
       return null;
     }
     if (refused) {
-      if (code == 'CLIENT_UPGRADE_REQUIRED' && ref.read(activeHostProvider).kind == HostKind.local) {
-        return (label: appL10n.updateCheck, onPressed: () => checkForUpdates(context, ref));
-      }
       final switchModel = widget.onSwitchModel;
       return switchModel == null ? null : (label: appL10n.chatSwitchModel, onPressed: switchModel);
     }

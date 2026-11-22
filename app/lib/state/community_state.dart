@@ -5,8 +5,8 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../update/update_config.dart' show updateRepo;
-import '../update/update_http.dart';
+import 'app_info.dart';
+import 'community_http.dart';
 
 /// The 社区 hub's content: picked plugins, prompt ideas, group links and
 /// news, curated by the maintainers in `community.json` at the root of the
@@ -16,7 +16,7 @@ import '../update/update_http.dart';
 /// Offline-safe: the copy bundled in `assets/community/community.json` is
 /// there from the first launch, the last good download is cached, and a
 /// newer `revision` from the network replaces both. Sources are tried in
-/// order with the one that worked last time first, like the update feed.
+/// order with the one that worked last time first.
 ///
 /// Build-time override: `--dart-define=DSH_COMMUNITY_FEED=https://…/community.json`
 /// tries a self-hosted copy first.
@@ -38,9 +38,9 @@ const _feedDefine = String.fromEnvironment('DSH_COMMUNITY_FEED');
 /// reachable where GitHub is not).
 List<CommunitySource> defaultCommunitySources() => [
   if (_feedDefine.isNotEmpty) ?_selfHosted(_feedDefine),
-  CommunitySource('github', Uri.parse('https://raw.githubusercontent.com/$updateRepo/main/community.json')),
-  CommunitySource('jsdelivr', Uri.parse('https://cdn.jsdelivr.net/gh/$updateRepo@main/community.json')),
-  CommunitySource('fastly', Uri.parse('https://fastly.jsdelivr.net/gh/$updateRepo@main/community.json')),
+  CommunitySource('github', Uri.parse('https://raw.githubusercontent.com/${AppInfo.repository}/main/community.json')),
+  CommunitySource('jsdelivr', Uri.parse('https://cdn.jsdelivr.net/gh/${AppInfo.repository}@main/community.json')),
+  CommunitySource('fastly', Uri.parse('https://fastly.jsdelivr.net/gh/${AppInfo.repository}@main/community.json')),
 ];
 
 CommunitySource? _selfHosted(String url) => switch (Uri.tryParse(url)) {
@@ -250,7 +250,7 @@ class CommunityState {
 }
 
 // Seams (tests override these).
-final communityHttpProvider = Provider<UpdateHttp>((ref) => IoUpdateHttp());
+final communityHttpProvider = Provider<CommunityHttp>((ref) => IoCommunityHttp());
 final communitySourcesProvider = Provider<List<CommunitySource>>((ref) => defaultCommunitySources());
 final communityBundleProvider = Provider<Future<String> Function()>(
   (ref) =>

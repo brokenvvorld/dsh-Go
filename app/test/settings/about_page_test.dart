@@ -1,33 +1,17 @@
 import 'dart:ui' show SemanticsAction;
 
 import 'package:dsh_app/l10n/l10n.dart';
-import 'package:dsh_app/state/star_prompt.dart';
-import 'package:dsh_app/state/update_state.dart';
+import 'package:dsh_app/links/external_link.dart';
+import 'package:dsh_app/state/app_info.dart';
 import 'package:dsh_app/ui/settings/about_page.dart';
 import 'package:dsh_app/ui/settings/settings_widgets.dart';
 import 'package:dsh_app/ui/theme/theme.dart';
-import 'package:dsh_app/update/version.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../support/test_fonts.dart';
-
-class _FixedUpdate extends AppUpdateController {
-  @override
-  AppUpdateState build() => const AppUpdateState(current: AppVersion(1, 0, 2, build: 42));
-}
-
-class _StarStore implements StarPromptStore {
-  final writes = <StarPromptRecord>[];
-
-  @override
-  Future<StarPromptRecord?> read() async => const StarPromptRecord();
-
-  @override
-  Future<void> write(StarPromptRecord record) async => writes.add(record);
-}
 
 const _profiles = [
   ('about-author-bilibili', 'https://b23.tv/9WBns6Y'),
@@ -37,12 +21,10 @@ const _profiles = [
 
 void main() {
   late List<Uri> opened;
-  late _StarStore store;
   late Future<bool> Function(Uri) opener;
 
   setUp(() {
     opened = [];
-    store = _StarStore();
     opener = (uri) async {
       opened.add(uri);
       return true;
@@ -64,10 +46,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          appUpdateProvider.overrideWith(_FixedUpdate.new),
-          starLinkOpenerProvider.overrideWithValue((uri) => opener(uri)),
-          starPromptStoreProvider.overrideWithValue(store),
-          starPromptGateProvider.overrideWithValue(false),
+          externalLinkOpenerProvider.overrideWithValue((uri) => opener(uri)),
         ],
         child: MaterialApp(
           theme: withTestFonts(buildLightTheme()),
@@ -105,8 +84,10 @@ void main() {
         expect(find.text('ccchimneyyy'), findsOneWidget);
         expect(find.text('@cccch1mneyyyy'), findsOneWidget);
         expect(find.text('@ccch1mneyyy'), findsOneWidget);
-        expect(find.text('1.0.2 (42)'), findsOneWidget);
-        expect(find.byKey(const ValueKey('settings-star')), findsOneWidget);
+        expect(find.text(AppInfo.displayVersion), findsOneWidget);
+        expect(find.byKey(const ValueKey('settings-star')), findsNothing);
+        expect(find.text(english ? 'Check for updates' : '检查更新'), findsNothing);
+        expect(find.text(english ? 'Check automatically' : '自动检查更新'), findsNothing);
         expect(find.text(english ? 'Bilibili profile' : 'B站主页'), findsOneWidget);
         expect(find.text(english ? 'X profile' : 'X 主页'), findsOneWidget);
         expect(find.text(english ? 'GitHub profile' : 'GitHub 主页'), findsOneWidget);
@@ -130,20 +111,12 @@ void main() {
     }
   }
 
-  testWidgets('each profile opens its exact personal URL without finishing the star prompt', (tester) async {
+  testWidgets('each author profile opens its exact personal URL', (tester) async {
     await pump(tester);
     for (final (key, _) in _profiles) {
       await tap(tester, key);
     }
     expect(opened.map((uri) => uri.toString()), _profiles.map((profile) => profile.$2));
-    expect(store.writes, isEmpty);
-  });
-
-  testWidgets('the separate project star still opens the repository', (tester) async {
-    await pump(tester);
-    await tap(tester, 'settings-star');
-    expect(opened.map((uri) => uri.toString()), ['https://github.com/ccch1mneyyy/dsh-go']);
-    expect(store.writes.last.finished, isTrue);
   });
 
   testWidgets('no browser copies the original B23 URL and reports it', (tester) async {
@@ -158,7 +131,6 @@ void main() {
     await tap(tester, 'about-author-bilibili');
     expect(clipboard, 'https://b23.tv/9WBns6Y');
     expect(find.text('没能打开浏览器，网址已复制'), findsOneWidget);
-    expect(store.writes, isEmpty);
   });
 
   testWidgets('browser and clipboard exceptions report failure without claiming a copy', (tester) async {

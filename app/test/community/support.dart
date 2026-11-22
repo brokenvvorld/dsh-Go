@@ -5,7 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dsh_app/update/update_http.dart';
+import 'package:dsh_app/state/community_http.dart';
 
 /// Everything filled in (example values, not the shipped ones).
 String sampleFeed({int revision = 7, String tagline = '开源项目，欢迎点星'}) => jsonEncode({
@@ -49,7 +49,7 @@ String sampleFeed({int revision = 7, String tagline = '开源项目，欢迎点�
 });
 
 /// Serves [bodies] by URL; a missing URL is a dead host.
-class ScriptedHttp implements UpdateHttp {
+class ScriptedHttp implements CommunityHttp {
   ScriptedHttp(this.bodies, {this.statuses = const {}});
 
   final Map<String, String> bodies;
@@ -57,7 +57,7 @@ class ScriptedHttp implements UpdateHttp {
   final asked = <Uri>[];
 
   @override
-  Future<UpdateHttpResponse> get(
+  Future<CommunityHttpResponse> get(
     Uri url, {
     Map<String, String> headers = const {},
     Duration timeout = const Duration(seconds: 15),
@@ -65,6 +65,6 @@ class ScriptedHttp implements UpdateHttp {
     asked.add(url);
     final body = bodies[url.toString()];
     if (body == null) throw const SocketException('unreachable');
-    return UpdateHttpResponse(status: statuses[url.toString()] ?? 200, body: Stream.value(utf8.encode(body)));
+    return CommunityHttpResponse(status: statuses[url.toString()] ?? 200, body: Stream.value(utf8.encode(body)));
   }
 }

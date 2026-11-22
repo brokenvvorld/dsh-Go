@@ -103,10 +103,8 @@ jobs:
           printf 'sdk.dir=%s\nflutter.sdk=%s\n' "$ANDROID_HOME" "$FLUTTER_ROOT" > app/android/local.properties
           # gradlew is not tracked. Use the official distribution on hosted runners.
           (cd app/android && gradle wrapper --gradle-version "$GRADLE_VERSION" --distribution-type bin)
-      - name: Check release tooling and fork update URLs
-        run: |
-          python3 -m unittest discover -s tooling -p 'test_*.py'
-          (cd app && dart -DDSH_UPDATE_REPO="$GITHUB_REPOSITORY" -DDSH_UPDATE_MIRROR= run tool/check_fork_updates.dart)
+      - name: Check release tooling
+        run: python3 -m unittest discover -s tooling -p 'test_*.py'
       - name: Restore runtime downloads
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
@@ -127,9 +125,7 @@ jobs:
         env:
           VERSION: ${{ steps.version.outputs.version }}
         run: |
-          tooling/build-apk.sh --release --build-name "$VERSION" -- \
-            --dart-define=DSH_UPDATE_REPO="$GITHUB_REPOSITORY" \
-            --dart-define=DSH_UPDATE_MIRROR=
+          tooling/build-apk.sh --release --build-name "$VERSION"
       - name: Verify signature and runtime inside APK
         env:
           SIGNING_MODE: ${{ steps.signing.outputs.mode }}

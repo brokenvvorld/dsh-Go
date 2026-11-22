@@ -4,7 +4,7 @@ import 'package:dsh_app/ui/plugins/plugin_detail_sheet.dart';
 import 'package:dsh_app/ui/plugins/plugin_actions.dart';
 import 'package:dsh_app/ui/plugins/plugins_screen.dart';
 import 'package:dsh_app/ui/settings/media_settings_page.dart';
-import 'package:dsh_app/update/version.dart';
+import 'package:dsh_app/state/app_version.dart';
 import 'package:dsh_client/dsh_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

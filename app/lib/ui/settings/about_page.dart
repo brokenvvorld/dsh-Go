@@ -8,23 +8,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../l10n/l10n.dart';
+import '../../links/external_link.dart';
 import '../../state/app_info.dart';
-import '../../state/star_prompt.dart' show starLinkOpenerProvider;
-import '../../state/update_state.dart';
 import '../shell/brand_mark.dart';
 import '../shell/page_frame.dart';
-import '../star/star_prompt_dialog.dart' show openStarProject;
 import '../theme/app_icons.dart';
 import '../theme/theme.dart';
-import '../update/update_tiles.dart';
 import 'settings_widgets.dart';
-
-/// The installed version as the app shows it: `0.9.6 (10271234)`.
-String installedVersionLabel(WidgetRef ref) {
-  // What Android reports as installed (the compiled-in constant until it does).
-  final installed = ref.watch(appUpdateProvider.select((s) => s.current));
-  return installed.build == null ? installed.name : '${installed.name} (${installed.build})';
-}
 
 class AboutPage extends ConsumerWidget {
   const AboutPage({super.key});
@@ -34,7 +24,7 @@ class AboutPage extends ConsumerWidget {
     final l10n = context.l10n;
     final theme = Theme.of(context);
     final colors = DshColors.of(context);
-    final version = installedVersionLabel(ref);
+    final version = AppInfo.displayVersion;
     return AppPage.list(
       title: l10n.hubAbout,
       children: [
@@ -43,14 +33,6 @@ class AboutPage extends ConsumerWidget {
             SettingsTile(
               spot: Spots.version,
               value: Text(version, style: AppType.tabular(theme.textTheme.bodyMedium!)),
-            ),
-            const AppUpdateTiles(),
-            SettingsTile(
-              key: const ValueKey('settings-star'),
-              spot: Spots.star,
-              onTap: () => unawaited(
-                openStarProject(ProviderScope.containerOf(context, listen: false), ScaffoldMessenger.maybeOf(context)),
-              ),
             ),
             SettingsTile(
               spot: Spots.licenses,
@@ -127,9 +109,9 @@ class AboutPage extends ConsumerWidget {
     final l10n = context.l10n;
     final messenger = ScaffoldMessenger.maybeOf(context);
     try {
-      if (await ref.read(starLinkOpenerProvider)(url)) return;
+      if (await ref.read(externalLinkOpenerProvider)(url)) return;
     } catch (_) {
-      // As with the project's link, fall back to copying when no browser opens.
+      // Fall back to copying when no browser opens.
     }
     var copied = true;
     try {

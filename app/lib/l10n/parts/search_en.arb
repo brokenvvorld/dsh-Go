@@ -47,11 +47,8 @@
   "searchKwOpenWeb": "web,browser,web ui",
   "searchKwSafeMode": "safe mode,leave safe mode,troubleshoot",
   "searchKwVersion": "version,about,build",
-  "searchKwUpdate": "update,upgrade,new version",
-  "searchKwUpdateAuto": "auto update,updates",
   "searchKwHelp": "help,guide,ask ai,how to",
   "searchKwCommunity": "group,forum,feedback,chat group",
-  "searchKwStar": "github,star",
   "searchKwLicenses": "license,open source",
   "searchKwDarkMode": "dark,light,dark mode,night,theme,system,appearance",
   "searchKwAccent": "color,colour,accent,palette,wallpaper",
@@ -116,6 +113,5 @@
   "searchKwWebCollapse": "work steps,collapse,web",
   "searchKwWebBusySend": "send,queue,while AI works",
   "searchKwPluginsMarket": "plugin market,install plugins,marketplace",
-  "searchKwUsageStats": "statistics,stats,usage data,analytics,telemetry,anonymous,privacy,data",
   "searchKwQuickPanel": "swipe,left swipe,shortcuts,gesture,quick panel,quick access"
 }

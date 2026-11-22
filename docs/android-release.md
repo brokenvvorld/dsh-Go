@@ -57,7 +57,7 @@ tag 的版本号就是 APK 的版本号。版本名带 `-`（如 `1.0.12-beta.1`
 
 打包成功后先创建草稿 Release，上传 APK、`SHA256SUMS`、`update.json`，再从 GitHub 下载回来校验，成功后公开。下载在仓库的 Releases → 对应版本 → Assets。源码压缩包不是 APK。
 
-App 的更新地址在构建时设为当前仓库，关闭上游 `dl.dshtui.com` 更新源；无需 OpenAI API key 或上游运维凭据参与打包。没有正式 Release 时，`releases/latest` 暂不可用。
+App 不检查、下载或安装新版；请从本仓库 Releases 手动下载。发布流程保留校验清单，无需 OpenAI API key 或上游运维凭据。
 
 如果 fork 的 Actions 尚未启用，先在 Actions 页点击启用工作流。若组织策略禁止 Actions 写入 Contents，需要管理员放行发布 job 的 `contents: write` 权限。
 
@@ -67,8 +67,7 @@ App 的更新地址在构建时设为当前仓库，关闭上游 `dl.dshtui.com`
 
 ```sh
 runtime/build-runtime.sh arm64-v8a
-tooling/build-apk.sh --build-name 1.0.12 -- \
-  --dart-define=DSH_UPDATE_REPO=brokenvvorld/dsh-Go --dart-define=DSH_UPDATE_MIRROR=
+tooling/build-apk.sh --build-name 1.0.12
 DSH_RELEASE_REPO=brokenvvorld/dsh-Go python3 tooling/release_assets.py \
   --version 1.0.12 --delta-from 0
 ```

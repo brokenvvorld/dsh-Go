@@ -16,7 +16,6 @@ import '../share_code/profile_share_sheet.dart';
 import '../share_hosted/hosted_links_tile.dart';
 import '../shell/page_frame.dart';
 import 'settings_widgets.dart';
-import 'usage_stats_section.dart';
 
 class PrivacyPage extends ConsumerWidget {
   const PrivacyPage({super.key});
@@ -37,7 +36,6 @@ class PrivacyPage extends ConsumerWidget {
             SettingsTile(spot: Spots.shareConfig, onTap: () => unawaited(showShareProfileSheet(context))),
           ],
         ),
-        const UsageStatsSection(),
         SettingsSection(
           title: l10n.phoneLocalOcrTitle,
           footer: Text('${l10n.phoneLocalOcrDisclosure}\n\n${l10n.phoneLocalOcrDetails}'),

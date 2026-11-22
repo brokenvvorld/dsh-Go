@@ -47,7 +47,6 @@ Shows your DeepSeek account or API key and balance; tap it to open your account.
 - **Privacy and sharing**:
   - **My shared links**: see [Sharing and replay](07-sharing.md).
   - **Share configuration**: select the current host's settings, plugins, skills and personal preferences to share, and share them as a link, QR code or file.
-  - **Send anonymous usage stats**: on by default, off anytime; see [FAQ](11-faq.md).
   - **Upload chat logs to DeepSeek**: shown when the current host has it.
 
 ## Hosts
@@ -61,9 +60,7 @@ Shows your DeepSeek account or API key and balance; tap it to open your account.
 - **Community**: chat groups and the forum.
 - **Diagnostics**: see [FAQ](11-faq.md).
 - **About DSH Go**:
-  - **Version**: the app version, such as 0.9.2 (10251234), with the build number in parentheses. When there's a new version, this row on the Settings page says **Update available**.
-  - **Check for updates**: when there's a new version, the update window opens. Read **What’s new**, tap **Update now**, and once the download is verified, tap **Install** and confirm in the system prompt. DSH Go closes to install; your chats and settings stay. If the version changes the runtime, only `/root` stays in the Linux environment: software installed with `apt`, and files in `/usr/local`, `/opt` and similar places, need installing again. To pass on a version, tap **Skip this version**. The first time, you'll need to allow DSH Go to install apps. If the installed app has a different signature (usually a test build), it can't be updated in place: uninstall it first, which erases your chats, Linux environment and settings.
-  - **Check automatically**: on by default; checks when the app opens, at most once a day. A new version opens the update window, unless you're on another page or typing, in which case **Check for updates** shows it. Skipped versions aren't offered again, and nothing downloads or installs on its own.
+  - **Version**: the build number is in parentheses. Download new APKs manually from [this fork’s Releases](https://github.com/brokenvvorld/dsh-Go/releases). The app does not check for, download, or install new versions. Installing over an existing copy requires the same signature; uninstalling erases app data.
   - **Open-source licenses**.
 
 ## Permissions

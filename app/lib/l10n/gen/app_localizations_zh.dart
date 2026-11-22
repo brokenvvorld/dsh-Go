@@ -8419,9 +8419,6 @@ class L10nZh extends L10n {
   String get hubAboutGithub => 'GitHub 主页';
 
   @override
-  String get hubAboutNewVersion => '有新版本';
-
-  @override
   String get hubValueSet => '已设置';
 
   @override
@@ -15780,19 +15777,10 @@ class L10nZh extends L10n {
   String get searchKwVersion => '版本号,关于';
 
   @override
-  String get searchKwUpdate => '更新,升级,新版本';
-
-  @override
-  String get searchKwUpdateAuto => '自动更新,检查更新';
-
-  @override
   String get searchKwHelp => '帮助,教程,问 AI,怎么用,说明';
 
   @override
   String get searchKwCommunity => '交流群,QQ 群,论坛,反馈';
-
-  @override
-  String get searchKwStar => 'GitHub,星标,点赞';
 
   @override
   String get searchKwLicenses => '许可证,开源,License';
@@ -15966,9 +15954,6 @@ class L10nZh extends L10n {
 
   @override
   String get searchKwPluginsMarket => '插件市场,安装插件,市场,获取插件';
-
-  @override
-  String get searchKwUsageStats => '统计,使用统计,匿名,隐私,数据,改进,遥测,分析';
 
   @override
   String get searchKwQuickPanel => '左滑,快捷入口,手势,滑动,目录,自定义目录,快捷,常用入口';
@@ -16976,36 +16961,6 @@ class L10nZh extends L10n {
   String shellQuickPanelHint(String path) {
     return '在「$path」里调整';
   }
-
-  @override
-  String starPromptTitle(int hours) {
-    String _temp0 = intl.Intl.pluralLogic(
-      hours,
-      locale: localeName,
-      other: '本鱼已经在 DSH Go 里陪你 $hours 个小时啦⁠~',
-      one: '本鱼已经在 DSH Go 里陪你一个小时啦⁠~',
-      zero: '本鱼已经在 DSH Go 里陪你半个小时啦⁠~',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String get starPromptBody => '这是一个免费开源的项目，如果它让你的移动端体验更好了一点，拜托点个 Star 支持一下，这对本鱼是很大的鼓励！';
-
-  @override
-  String get starPromptPlea => '拜托你啦~ 这真的很重要！！';
-
-  @override
-  String get starPromptStar => '去 GitHub 点 Star';
-
-  @override
-  String get starPromptDone => '已经点过啦';
-
-  @override
-  String get starPromptLater => '下次再说';
-
-  @override
-  String get starSettingsTitle => '给 DSH Go 点个 star';
 
   @override
   String get phoneStartupFailureStopping => '启动失败，正在停止';
@@ -18251,284 +18206,6 @@ class L10nZh extends L10n {
 
   @override
   String get appSlogan => '随时随刻，想go就Go！';
-
-  @override
-  String get updateCheck => '检查更新';
-
-  @override
-  String get updateAutoCheck => '自动检查更新';
-
-  @override
-  String get updateAutoCheckDaily => '每天检查一次';
-
-  @override
-  String get updateTileDownloading => '下载中';
-
-  @override
-  String updateTileDownloadingPercent(int percent) {
-    return '下载中 $percent%';
-  }
-
-  @override
-  String get updateTileVerifying => '校验中';
-
-  @override
-  String get updateTileReady => '可以安装';
-
-  @override
-  String get updateTileInstalling => '安装中';
-
-  @override
-  String updateTileSkipped(String version) {
-    return '已跳过 $version';
-  }
-
-  @override
-  String updateTileNewVersion(String version) {
-    return '新版本 $version';
-  }
-
-  @override
-  String get updateTileUpToDate => '已是最新';
-
-  @override
-  String get updateTileUnavailable => '暂时检查不了';
-
-  @override
-  String get updateUpToDate => '已是最新版本';
-
-  @override
-  String get updateCheckUnavailable => '暂时检查不了更新，稍后再试';
-
-  @override
-  String get updateDownloadInterrupted => '下载中断了';
-
-  @override
-  String get updateDownloadInterruptedMessage => '网络断开或太慢，重试会接着下载。';
-
-  @override
-  String get updateDownloadUnavailable => '下载地址暂时打不开';
-
-  @override
-  String get updateDownloadUnavailableMessage => '稍后再试，或去发布页手动下载。';
-
-  @override
-  String get updateChecksumFailed => '安装包校验没通过';
-
-  @override
-  String get updateChecksumFailedMessage => '文件和发布时不一致，已删除，请重试。';
-
-  @override
-  String get updateChecksumMissing => '缺少校验信息';
-
-  @override
-  String get updateChecksumMissingMessage => '为了安全不在 App 内安装，可以去发布页手动下载。';
-
-  @override
-  String get updateStorageWriteFailed => '写不进安装包';
-
-  @override
-  String get updateStorageWriteFailedMessage => '存储可能已满，清理一些空间后重试。';
-
-  @override
-  String get updateFreeSpaceRetry => '清理一些空间后重试。';
-
-  @override
-  String updateSpaceRequired(String size) {
-    return '需要约 $size 可用空间，清理后重试。';
-  }
-
-  @override
-  String get updateSettingsOpenFailed => '没能打开系统设置';
-
-  @override
-  String get updateSettingsOpenFailedMessage => '到「设置 → 应用 → DSH Go」里允许「安装未知应用」，再回来安装。';
-
-  @override
-  String get updateInstallCancelled => '已取消安装';
-
-  @override
-  String get updateInstallCancelledMessage => '安装包还在，随时可以再装。';
-
-  @override
-  String get updateInstallUnconfirmed => '尚未确认安装结果';
-
-  @override
-  String get updateInstallUnconfirmedMessage => '安装包已保留。可先检查系统提示，再重试或用系统安装器打开。';
-
-  @override
-  String get updateSignatureMismatch => '签名不一致，不能直接覆盖';
-
-  @override
-  String get updateSignatureMismatchMessage => '手机上的 DSH Go 签名不同（多半是测试包），需要先卸载旧版再装新版。卸载会清空对话、Linux 环境和设置。';
-
-  @override
-  String get updateWrongPackage => '不是 DSH 的安装包';
-
-  @override
-  String get updateWrongPackageMessage => '下载到的文件不对，已删除，请稍后重试。';
-
-  @override
-  String get updateDowngradeBlocked => '不能降级安装';
-
-  @override
-  String get updateDowngradeBlockedMessage => '手机上的 DSH 比这个安装包还新。';
-
-  @override
-  String get updateIncompatible => '和这台手机不兼容';
-
-  @override
-  String get updateIncompatibleMessage => '安装包要求的系统版本或处理器架构和手机不符。';
-
-  @override
-  String get updatePackageCorrupt => '安装包已损坏';
-
-  @override
-  String get updatePackageCorruptMessage => '已删除，请重新下载。';
-
-  @override
-  String get updateInstallBlocked => '安装被拦截了';
-
-  @override
-  String get updateInstallBlockedMessage => '在系统的安装确认里允许，或去发布页手动下载。';
-
-  @override
-  String get updateInstallIncomplete => '安装没有完成';
-
-  @override
-  String get updateInstallIncompleteMessage => '可以重试，或去发布页手动下载。';
-
-  @override
-  String updateBrowserOpenFailed(String host, String path) {
-    return '没能打开浏览器，请手动访问 $host$path';
-  }
-
-  @override
-  String updateUpToDateVersion(String version) {
-    return '已是最新版本 $version';
-  }
-
-  @override
-  String updateCurrentVersion(String version) {
-    return '当前 $version';
-  }
-
-  @override
-  String get updateNewVersionFound => '发现新版本';
-
-  @override
-  String get updateReleaseNotes => '更新内容';
-
-  @override
-  String get updateNoReleaseNotes => '这个版本没有写更新说明。';
-
-  @override
-  String get updateInstallKeepsData => '安装时 DSH Go 会退出，对话和设置都会保留';
-
-  @override
-  String get updateNoCompatiblePackage => '没有适合本机的安装包';
-
-  @override
-  String get updateDownloading => '正在下载';
-
-  @override
-  String updateDownloadSource(String source) {
-    return '经由 $source';
-  }
-
-  @override
-  String get updateDownloadInBackgroundNote => '关掉窗口也会继续下载';
-
-  @override
-  String get updateVerifyingPackage => '正在校验安装包…';
-
-  @override
-  String get updateVerifyingPackageNote => '确认文件和发布时一致';
-
-  @override
-  String get updateInstalling => '正在安装…';
-
-  @override
-  String get updateConfirmInstallNote => '在系统弹窗里确认安装';
-
-  @override
-  String get updatePackageDownloaded => '安装包已下载';
-
-  @override
-  String get updateReadyToInstall => '校验通过，可以安装了。';
-
-  @override
-  String get updateAllowInstall => '允许 DSH Go 安装应用';
-
-  @override
-  String get updateAllowInstallMessage => '在系统设置里打开「安装未知应用」，回来后自动继续。';
-
-  @override
-  String get updateOpenReleasePage => '打开发布页';
-
-  @override
-  String get updateUpdateNow => '立即更新';
-
-  @override
-  String get updateSkipVersion => '跳过这个版本';
-
-  @override
-  String get updateInstallWithSystem => '用系统安装器安装';
-
-  @override
-  String get updateSystemInstallerFailed => '没能打开系统安装器';
-
-  @override
-  String get updateStarProject => '去 Star';
-
-  @override
-  String get updateCancelDownload => '取消下载';
-
-  @override
-  String get updateDownloadInBackground => '后台下载';
-
-  @override
-  String get updateVerifying => '正在校验…';
-
-  @override
-  String get updateInstallingBusy => '安装中…';
-
-  @override
-  String get updateOpenPermissionSettings => '去开启';
-
-  @override
-  String updateNoAbiPackage(String abi) {
-    return '这个版本还没有 $abi 安装包，可以去发布页看看。';
-  }
-
-  @override
-  String get updateNoPackage => '这个版本还没有安装包，可以去发布页看看。';
-
-  @override
-  String updateDownloadingPercent(int percent) {
-    return '正在下载 $percent%';
-  }
-
-  @override
-  String get usageStatsTitle => '发送匿名使用统计';
-
-  @override
-  String get usageStatsSection => '改进 DSH Go';
-
-  @override
-  String get usageStatsFooter => '这个开关只控制 dsh-go 自身的使用次数、版本和手机品牌统计，不含对话、文件和账号；它不控制 Google ML Kit SDK 的统计。';
-
-  @override
-  String get usageNoticeBody => '不含对话和个人信息，可随时关闭';
-
-  @override
-  String get usageUpgradeNotice => '新增匿名使用统计，帮助改进 DSH Go。\n不含对话和个人信息';
-
-  @override
-  String get usageUpgradeLearn => '了解';
-
-  @override
-  String get usageUpgradeOff => '关闭';
 
   @override
   String viewArtifactSaved(String value) {

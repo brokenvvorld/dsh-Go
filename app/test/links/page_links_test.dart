@@ -34,6 +34,11 @@ void main() {
         'dshgo://open:8080/engine',
         'dshgo://open/Engine',
         'dshgo://open/nope',
+        // Removed actions do not fall into generic page routing.
+        'dshgo://open/usage-stats',
+        'dshgo://open/update',
+        'dshgo://open/update-check',
+        'dshgo://open/update-auto',
         // 全部功能 entries that are actions, web pages or need a conversation.
         'dshgo://open/search',
         'dshgo://open/share-profile',

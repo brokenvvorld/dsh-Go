@@ -927,13 +927,6 @@ abstract final class Spots {
     title: (l) => l.hubSettingsShareConfig,
     keywords: (l) => l.searchKwShareConfig,
   );
-  static final usageStats = SettingSpot(
-    'usage-stats',
-    page: SettingsPageId.privacy,
-    title: (l) => l.usageStatsTitle,
-    keywords: (l) => l.searchKwUsageStats,
-    link: 'usage-stats',
-  );
   static final chatLogUpload = SettingSpot(
     'chat-log-upload',
     page: SettingsPageId.privacy,
@@ -1037,24 +1030,6 @@ abstract final class Spots {
     title: (l) => l.commonVersion,
     keywords: (l) => l.searchKwVersion,
   );
-  static final updateCheck = SettingSpot(
-    'update-check',
-    page: SettingsPageId.about,
-    title: (l) => l.updateCheck,
-    keywords: (l) => l.searchKwUpdate,
-  );
-  static final updateAuto = SettingSpot(
-    'update-auto',
-    page: SettingsPageId.about,
-    title: (l) => l.updateAutoCheck,
-    keywords: (l) => l.searchKwUpdateAuto,
-  );
-  static final star = SettingSpot(
-    'star',
-    page: SettingsPageId.about,
-    title: (l) => l.starSettingsTitle,
-    keywords: (l) => l.searchKwStar,
-  );
   static final licenses = SettingSpot(
     'licenses',
     page: SettingsPageId.about,
@@ -1115,7 +1090,6 @@ final _rows = <SettingSpot>[
   Spots.notifyLive,
   Spots.notifySystem,
   Spots.shareConfig,
-  Spots.usageStats,
   Spots.chatLogUpload,
   Spots.autoStart,
   Spots.autoSafe,
@@ -1130,8 +1104,5 @@ final _rows = <SettingSpot>[
   Spots.parallelCalls,
   Spots.commandTimeout,
   Spots.version,
-  Spots.updateCheck,
-  Spots.updateAuto,
-  Spots.star,
   Spots.licenses,
 ];

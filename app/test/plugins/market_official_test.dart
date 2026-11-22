@@ -15,7 +15,7 @@ import 'package:dsh_app/ui/plugins/plugin_detail_sheet.dart';
 import 'package:dsh_app/ui/plugins/plugin_widgets.dart';
 import 'package:dsh_app/ui/plugins/plugins_screen.dart';
 import 'package:dsh_app/ui/theme/theme.dart';
-import 'package:dsh_app/update/version.dart';
+import 'package:dsh_app/state/app_version.dart';
 import 'package:dsh_client/dsh_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
